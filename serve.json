@@ -1,0 +1,15 @@
+{
+  "public": "_site",
+  "redirects": [
+    {
+      "source": "/",
+      "destination": "/Tutorial-Center-Admin/app"
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/Tutorial-Center-Admin/app/**",
+      "destination": "/Tutorial-Center-Admin/app/index.html"
+    }
+  ]
+}
