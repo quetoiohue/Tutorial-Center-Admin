@@ -9,7 +9,7 @@ import {
   TableBody,
   TableCell,
   TablePagination,
-  TableRow,
+  TableRow
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import React from "react";
@@ -33,7 +33,7 @@ function stableSort(array, cmp) {
     if (order !== 0) return order;
     return a[1] - b[1];
   });
-  return stabilizedThis.map((el) => el[0]);
+  return stabilizedThis.map(el => el[0]);
 }
 
 function getSorting(order, orderBy) {
@@ -42,33 +42,60 @@ function getSorting(order, orderBy) {
     : (a, b) => -desc(a, b, orderBy);
 }
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   root: {
     width: "100%",
-    marginTop: theme.spacing(3),
+    marginTop: theme.spacing(3)
   },
   paper: {
     width: "100%",
-    marginBottom: theme.spacing(2),
+    marginBottom: theme.spacing(2)
   },
   table: {
-    minWidth: 750,
+    minWidth: 750
   },
   tableWrapper: {
-    overflowX: "auto",
-  },
+    overflowX: "auto"
+  }
 }));
 
 export default function EnhancedTable(props) {
-  const { headRows, rows } = props;
+  const { headRows: headRowsProps, rows: rowsProps } = props;
   const classes = useStyles();
+  const [headRows] = React.useState(headRowsProps);
+  const [rows, setRows] = React.useState(rowsProps);
+
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("calories");
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [searchText, setSearchText] = React.useState("");
 
+  function handleChangeSearchText(value) {
+    setSearchText(value.toLowerCase());
+  }
+  function onSearching(_item) {
+    if (!rows.length) return;
+
+    return Object.keys(_item).some(_el =>
+      String(_item[_el])
+        .toLowerCase()
+        .includes(searchText)
+    );
+  }
+  function handleDeleteItems() {
+    if (!selected.length) return;
+    selected.forEach(_el => handleDeleteItem(_el));
+  }
+  function handleDeleteItem(id) {
+    let deleteIndex = rows.findIndex(_el => _el.id === id);
+    const newRows = rows;
+    newRows.splice(deleteIndex, 1);
+    setRows([...newRows]);
+    setSelected([]);
+  }
   function handleRequestSort(event, property) {
     const isDesc = orderBy === property && order === "desc";
     setOrder(isDesc ? "asc" : "desc");
@@ -77,7 +104,7 @@ export default function EnhancedTable(props) {
 
   function handleSelectAllClick(event) {
     if (event.target.checked) {
-      const newSelecteds = rows.map((n) => n.id);
+      const newSelecteds = rows.map(n => n.id);
       setSelected(newSelecteds);
       return;
     }
@@ -116,7 +143,7 @@ export default function EnhancedTable(props) {
     setDense(event.target.checked);
   }
 
-  const isSelected = (name) => selected.indexOf(name) !== -1;
+  const isSelected = name => selected.indexOf(name) !== -1;
 
   const emptyRows =
     rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
@@ -124,7 +151,12 @@ export default function EnhancedTable(props) {
   return (
     <div className={classes.root}>
       <Paper className={classes.paper}>
-        <EnhancedTableToolbar numSelected={selected.length} />
+        <EnhancedTableToolbar
+          numSelected={selected.length}
+          onChangeSearch={handleChangeSearchText}
+          searchText={searchText}
+          handleDelete={handleDeleteItems}
+        />
         <div className={classes.tableWrapper}>
           <Table
             className={classes.table}
@@ -142,6 +174,7 @@ export default function EnhancedTable(props) {
             />
             <TableBody>
               {stableSort(rows, getSorting(order, orderBy))
+                .filter(_item => onSearching(_item))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {
                   const isItemSelected = isSelected(row.id);
@@ -159,7 +192,7 @@ export default function EnhancedTable(props) {
                       <TableCell padding="checkbox">
                         <Checkbox
                           key={`checked-${index}`}
-                          onClick={(event) => handleClick(event, row.id)}
+                          onClick={event => handleClick(event, row.id)}
                           checked={isItemSelected}
                           inputProps={{ "aria-labelledby": labelId }}
                         />
@@ -209,10 +242,10 @@ export default function EnhancedTable(props) {
           rowsPerPage={rowsPerPage}
           page={page}
           backIconButtonProps={{
-            "aria-label": "Previous Page",
+            "aria-label": "Previous Page"
           }}
           nextIconButtonProps={{
-            "aria-label": "Next Page",
+            "aria-label": "Next Page"
           }}
           onChangePage={handleChangePage}
           onChangeRowsPerPage={handleChangeRowsPerPage}
