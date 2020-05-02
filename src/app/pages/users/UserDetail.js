@@ -7,7 +7,8 @@ import {
   PortletHeader,
 } from "../../partials/content/Portlet";
 import { metronic } from "../../../_metronic";
-import { Avatar, Button, TextField } from "@material-ui/core";
+import { Avatar, TextField } from "@material-ui/core";
+import { Grade } from "@material-ui/icons";
 
 const StatisticUser = (props) => {
   const ref = useRef();
@@ -173,33 +174,27 @@ const StatisticUser = (props) => {
           <div className="kt-widget12__content">
             <div className="kt-widget12__item">
               <div className="kt-widget12__info">
-                <span className="kt-widget12__desc">Annual Taxes EMS</span>
-                <span className="kt-widget12__value">$400,000</span>
+                <span className="kt-widget12__desc">Total Channel</span>
+                <span className="kt-widget12__value">2</span>
               </div>
               <div className="kt-widget12__info">
-                <span className="kt-widget12__desc">Finance Review Date</span>
-                <span className="kt-widget12__value">July 24,2019</span>
+                <span className="kt-widget12__desc">Last activity date</span>
+                <span className="kt-widget12__value">20/04/2020</span>
               </div>
             </div>
             <div className="kt-widget12__item">
               <div className="kt-widget12__info">
-                <span className="kt-widget12__desc">Avarage Revenue</span>
-                <span className="kt-widget12__value">$60M</span>
+                <span className="kt-widget12__desc">Total post</span>
+                <span className="kt-widget12__value">20</span>
               </div>
               <div className="kt-widget12__info">
-                <span className="kt-widget12__desc">Revenue Margin</span>
-                <div className="kt-widget12__progress">
-                  <div className="progress kt-progress--sm">
-                    <div
-                      role="progressbar"
-                      aria-valuemin={0}
-                      aria-valuenow={100}
-                      aria-valuemax={100}
-                      style={{ width: "40%" }}
-                      className="progress-bar bg-success"
-                    />
-                  </div>
-                  <span className="kt-widget12__stat">40%</span>
+                <span className="kt-widget12__desc">Votes</span>
+                <div className="kt-widget12__value">
+                  {[...Array(5)].map((item, index) => (
+                    <span key={`${index}-rate`}>
+                      <Grade fontSize="large" style={{ color: "yellow" }} />
+                    </span>
+                  ))}
                 </div>
               </div>
             </div>
@@ -224,38 +219,50 @@ const UserInfo = (props) => {
       <PortletBody>
         <div className="kt-widget12">
           <div className="kt-widget12__content">
-            <div className="kt-widget12__item">
-              <div className="kt-widget12__info">
+            <div className="kt-widget12__item row">
+              <div className="kt-widget12__info col-lg-4">
                 <Avatar
                   src="/media/users/100_1.jpg"
                   style={{ margin: "0 auto", height: 120, width: 120 }}
                 />
               </div>
               <div className="kt-widget12__info">
-                <form noValidate autoComplete="off">
+                <form noValidate autoComplete="off" className="row">
                   <TextField
                     label="Username"
+                    value="GwangChan16T3"
+                    margin="normal"
+                    disabled
+                    style={{ paddingRight: "16px", marginBottom: "4px" }}
+                    className="col-lg-6"
+                  />
+                  <TextField
+                    label="Full Name"
+                    disabled
                     value="Gwang Chan"
                     margin="normal"
+                    style={{ paddingRight: "16px", marginBottom: "4px" }}
+                    className="col-lg-6"
                   />
+
                   <TextField
                     label="Email"
                     disabled
                     value="quangtran16t3@gmail.com"
                     margin="normal"
+                    style={{ paddingRight: "16px", marginBottom: "4px" }}
+                    className="col-lg-6"
+                  />
+                  <TextField
+                    label="Phone"
+                    value="0378823333"
+                    margin="normal"
+                    disabled
+                    style={{ paddingRight: "16px", marginBottom: "4px" }}
+                    className="col-lg-6"
                   />
                 </form>
               </div>
-            </div>
-            <div className="kt-widget12__info" style={{ textAlign: "end" }}>
-              <Button
-                className="kt-widget12__desc"
-                style={{ width: "100%" }}
-                variant="contained"
-                color="secondary"
-              >
-                Change
-              </Button>
             </div>
           </div>
         </div>
@@ -268,7 +275,7 @@ const UserDetail = (props) => {
     <div>
       <h1>User Detail WIP</h1>
       <div className="row row-full-height">
-        <div className="col-sm-12 col-md-12 col-lg-6">
+        <div className="col-sm-12 col-md-12 col-lg-12">
           <UserInfo />
           <div className="kt-space-20" />
         </div>
