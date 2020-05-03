@@ -1,18 +1,22 @@
 import { Button, Toolbar } from "@material-ui/core";
 import React from "react";
-import { FormTextField, MultiSelectField, validateForm } from "../index";
+import {
+  FormTextField,
+  MultiSelectField,
+  validateForm,
+} from "../../../partials/content/Form";
 import CustomizedModal from "../../../partials/content/CustomizedModal";
 
 const roleOptions = [
   { title: "post-tutorial" },
   { title: "comment" },
-  { title: "like" }
+  { title: "like" },
 ];
 const initialFormState = {
   username: "",
   password: "123123",
   email: "",
-  role: []
+  role: [],
 };
 
 const AddUserForm = ({ open, handleClose }) => {
@@ -22,27 +26,26 @@ const AddUserForm = ({ open, handleClose }) => {
   const { username, password, email, role } = formState;
   console.log(formState);
 
-  const onChangeRole = values => {
-    setFormState(prevState => ({
+  const onChangeRole = (values) => {
+    setFormState((prevState) => ({
       ...prevState,
-      role: [...values]
+      role: [...values],
     }));
   };
-  const handleChange = event => {
-    event.preventDefault();
-    const { value, name } = event.target;
-    setFormState(prevState => ({
+  const handleChange = ({ name, value }) => {
+    setFormState((prevState) => ({
       ...prevState,
-      [name]: value
+      [name]: value,
     }));
   };
 
-  const onSubmit = event => {
+  const onSubmit = (event) => {
     event.preventDefault();
     const isValidateForm = validateForm(formState);
     setIsValidate(isValidateForm);
 
     if (!validateForm(formState)) return;
+    setFormState(initialFormState);
   };
 
   const SubmitForm = (
@@ -81,7 +84,7 @@ const AddUserForm = ({ open, handleClose }) => {
         style={{
           display: "flex",
           alignItems: "center",
-          justifyContent: "center"
+          justifyContent: "center",
         }}
       >
         <Button type="submit" variant="contained" color="primary">
