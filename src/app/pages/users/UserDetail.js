@@ -8,7 +8,7 @@ import {
 } from "../../partials/content/Portlet";
 import { metronic } from "../../../_metronic";
 import { Avatar, TextField } from "@material-ui/core";
-import { Grade } from "@material-ui/icons";
+import Rating from "../../partials/content/Socials/Rating";
 
 const StatisticUser = (props) => {
   const ref = useRef();
@@ -190,11 +190,7 @@ const StatisticUser = (props) => {
               <div className="kt-widget12__info">
                 <span className="kt-widget12__desc">Votes</span>
                 <div className="kt-widget12__value">
-                  {[...Array(5)].map((item, index) => (
-                    <span key={`${index}-rate`}>
-                      <Grade fontSize="large" style={{ color: "yellow" }} />
-                    </span>
-                  ))}
+                  <Rating number={5} />
                 </div>
               </div>
             </div>
