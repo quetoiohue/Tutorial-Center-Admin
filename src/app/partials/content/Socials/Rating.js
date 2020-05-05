@@ -5,9 +5,12 @@ import { Grade } from "@material-ui/icons";
 const Rating = ({ number, fontSize = "large" }) => {
   return (
     <>
-      {[...Array(number)].map((item, index) => (
+      {[...Array(5)].map((item, index) => (
         <span key={`${index}-rate`}>
-          <Grade fontSize="large" style={{ color: "yellow" }} />
+          <Grade
+            fontSize={fontSize}
+            style={{ color: index <= number - 1 ? "yellow" : "black" }}
+          />
         </span>
       ))}
     </>

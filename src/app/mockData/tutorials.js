@@ -2,7 +2,7 @@ const getRandomInt = (max) => {
   return Math.floor(Math.random() * Math.floor(max));
 };
 
-export const generateKey = () => {
+const generateKey = () => {
   const character = "qwertyuiopasdfghjklzxcvbnm";
   const number = "0123456789";
   const others = "!@#$%^&*()_+[]/;,.";
@@ -87,3 +87,19 @@ export const headRows = [
     label: "Actions",
   },
 ];
+
+export const rowsData = [...Array(13).keys()].map((_item, index) => {
+  let rates = Math.floor(Math.random() * 6);
+  let hashKey = generateKey();
+
+  return createData(
+    hashKey,
+    hashKey,
+    `author${_item}`,
+    "Covid-China",
+    rates,
+    `2020-03-2${index % 10}`,
+    "2020-03-20",
+    null
+  );
+});

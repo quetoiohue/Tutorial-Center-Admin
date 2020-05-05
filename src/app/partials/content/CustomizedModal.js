@@ -5,11 +5,12 @@ import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   modal: {
     display: "flex",
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
+    top: "-10% !important",
   },
   paper: {
     position: "absolute",
@@ -17,8 +18,8 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: theme.palette.background.paper,
     boxShadow: theme.shadows[5],
     padding: theme.spacing(4),
-    outline: "none"
-  }
+    outline: "none",
+  },
 }));
 export default function CustomizedModal({ open, handleClose, children }) {
   const classes = useStyles();
@@ -34,7 +35,7 @@ export default function CustomizedModal({ open, handleClose, children }) {
         closeAfterTransition
         BackdropComponent={Backdrop}
         BackdropProps={{
-          timeout: 500
+          timeout: 500,
         }}
       >
         <Fade in={open}>
