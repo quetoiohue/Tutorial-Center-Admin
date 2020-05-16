@@ -8,7 +8,7 @@ import {
   RemoveCircle,
 } from "@material-ui/icons";
 import React from "react";
-import { useDispatch } from "react-redux";
+// import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { createData, headRows, rowsData } from "../../mockData/users";
 import CustomizedIconButton from "../../partials/content/CustomizedIconButton";
@@ -17,7 +17,7 @@ import AddUserForm from "./components/AddUserForm";
 import EditUserForm from "./components/EditUserForm";
 
 const Users = () => {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const [open, setOpen] = React.useState(false);
   const [Modal, setModal] = React.useState({
     modal: "add",

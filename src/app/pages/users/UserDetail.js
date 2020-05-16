@@ -1,14 +1,78 @@
+import {
+  Avatar,
+  Button,
+  Divider,
+  ExpansionPanel,
+  ExpansionPanelDetails,
+  ExpansionPanelSummary,
+  TextField,
+  Typography,
+} from "@material-ui/core";
+import { ArrowRightAlt } from "@material-ui/icons";
 import { Chart } from "chart.js";
 import { default as React, useEffect, useMemo, useRef } from "react";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import { metronic } from "../../../_metronic";
+import { createData, headRows, rowsData } from "../../mockData/tutorials";
 import {
   Portlet,
   PortletBody,
   PortletHeader,
 } from "../../partials/content/Portlet";
-import { metronic } from "../../../_metronic";
-import { Avatar, TextField } from "@material-ui/core";
 import Rating from "../../partials/content/Socials/Rating";
+import MatTable from "../../partials/content/Table";
+import CustomizedIconButton from "../../partials/content/CustomizedIconButton";
+
+const PostsComponent = ({ title, content, expanded, handleChange }) => {
+  return (
+    <>
+      <ExpansionPanel
+        className="tutorial-step"
+        expanded={expanded}
+        onChange={handleChange}
+      >
+        <ExpansionPanelSummary
+          aria-controls="panel1bh-content"
+          id="panel1bh-header"
+          className="kt-expand__head-label"
+        >
+          <Typography className="kt-expand__head-title">{title}</Typography>
+        </ExpansionPanelSummary>
+        <Divider />
+        <ExpansionPanelDetails className="tutorial-step-container--content">
+          {content}
+        </ExpansionPanelDetails>
+      </ExpansionPanel>
+    </>
+  );
+};
+const UserPosts = () => {
+  const dataRows = React.useMemo(() => {
+    return rowsData.map((_item, index) => {
+      return createData(
+        _item.id,
+        _item.post_id,
+        _item.author_id,
+        _item.title,
+        <Rating number={_item.rates} fontSize="small" />,
+        _item.last_modified,
+        _item.last_created,
+        <>
+          <Link to={`/tutorials/1`}>
+            <CustomizedIconButton Icon={<ArrowRightAlt />} title="Detail" />
+          </Link>
+        </>
+      );
+    });
+  }, []);
+
+  return (
+    <>
+      <MatTable headRows={headRows} rows={dataRows} />
+    </>
+  );
+};
 
 const StatisticUser = (props) => {
   const ref = useRef();
@@ -208,13 +272,14 @@ const StatisticUser = (props) => {
     </Portlet>
   );
 };
+
 const UserInfo = (props) => {
   return (
     <Portlet className="kt-portlet--height-fluid kt-portlet--border-bottom-brand">
       <PortletHeader title="User Info" />
       <PortletBody>
         <div className="kt-widget12">
-          <div className="kt-widget12__content">
+          <div className="kt-widget12__content pb-0">
             <div className="kt-widget12__item row">
               <div className="kt-widget12__info col-lg-4">
                 <Avatar
@@ -260,6 +325,14 @@ const UserInfo = (props) => {
                 </form>
               </div>
             </div>
+            <Button
+              onClick={props.handleChange("viewpost")}
+              fullWidth
+              variant="contained"
+              color="primary"
+            >
+              {!props.expanded ? "View Posts" : "Hide Posts"}
+            </Button>
           </div>
         </div>
       </PortletBody>
@@ -267,12 +340,28 @@ const UserInfo = (props) => {
   );
 };
 const UserDetail = (props) => {
+  const [expanded, setExpanded] = React.useState(false);
+
+  const handleChange = (panel) => (event, isExpanded) => {
+    console.log(panel, isExpanded);
+    setExpanded(!expanded);
+  };
+
   return (
     <div>
       <h1>User Detail WIP</h1>
       <div className="row row-full-height">
         <div className="col-sm-12 col-md-12 col-lg-12">
-          <UserInfo />
+          <UserInfo expanded={expanded} handleChange={handleChange} />
+          <div className="kt-space-20" />
+        </div>
+        <div className="col-sm-12 col-md-12 col-lg-12">
+          <PostsComponent
+            expanded={expanded}
+            handleChange={handleChange}
+            content={<UserPosts />}
+            title={"User's Posts"}
+          />
           <div className="kt-space-20" />
         </div>
         <div className="col-sm-12 col-md-12 col-lg-12">
