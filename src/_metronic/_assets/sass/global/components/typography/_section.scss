@@ -67,7 +67,29 @@
         display: block;
         padding: 0;
         margin: 0;
-
+    .tutorial-step {
+        margin-left: 1rem;
+        .tutorial-step-container--content{
+            flex-direction: column;
+            .tutorial-step-image {
+                margin: 1rem 0px;
+                text-align: center;
+                img {
+                    width: 50%;
+                    height: auto;
+                }
+            }
+            p {
+                display: block;
+                font-size: 1rem;
+                font-weight: 400;
+                padding: 0;
+                margin: 0 0 1rem 0;
+                color: kt-base-color(label, 3);
+            }
+        }
+        
+    }
         &.kt-section__content--border {
             padding: 1.5rem;
             border: 3px solid kt-base-color(grey, 2);
