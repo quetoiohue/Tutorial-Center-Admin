@@ -1,10 +1,10 @@
 import React from "react";
 import EnhancedTable from "./EnhancedTable";
 
-const MatTable = ({ headRows, rows }) => {
+const MatTable = ({ headRows, rows, onClickRow }) => {
   return (
     <>
-      <EnhancedTable headRows={headRows} rows={rows} />
+      <EnhancedTable headRows={headRows} rows={rows} onClickRow={onClickRow}/>
     </>
   );
 };

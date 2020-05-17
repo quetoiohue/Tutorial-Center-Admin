@@ -143,6 +143,15 @@ export default function EnhancedTable(props) {
     setDense(event.target.checked);
   }
 
+  const handleClickRow = (item) => () => {
+    console.log("Click row", item);
+    
+    if(!props.onClickRow) {
+      return;
+    }
+
+    props.onClickRow(item);
+  }
   const isSelected = name => selected.indexOf(name) !== -1;
 
   const emptyRows =
@@ -188,6 +197,8 @@ export default function EnhancedTable(props) {
                       tabIndex={-1}
                       key={row.id}
                       selected={isItemSelected}
+                      onClick={handleClickRow(row)}
+                      style={{ cursor: props.onClickRow ? "pointer": "default"}}
                     >
                       <TableCell padding="checkbox">
                         <Checkbox
