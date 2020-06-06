@@ -7,7 +7,7 @@ const initialFormState = {
   role: "",
 };
 
-const AddUserForm = ({ open, handleClose }) => {
+const EditRoleModal = ({ open, handleClose }) => {
   const [formState, setFormState] = React.useState(initialFormState);
   const [isValidate, setIsValidate] = React.useState(true);
 
@@ -69,6 +69,6 @@ const AddUserForm = ({ open, handleClose }) => {
   );
 };
 
-AddUserForm.propTypes = {};
+EditRoleModal.propTypes = {};
 
-export default AddUserForm;
+export default EditRoleModal;

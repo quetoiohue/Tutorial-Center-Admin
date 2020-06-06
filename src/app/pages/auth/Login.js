@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Formik } from "formik";
 import { connect } from "react-redux";
 import { FormattedMessage, injectIntl } from "react-intl";
@@ -11,6 +11,7 @@ import { login } from "../../crud/auth.crud";
 function Login(props) {
   const { intl } = props;
   const [loading, setLoading] = useState(false);
+  const history = useLocation();
   const [loadingButtonStyle, setLoadingButtonStyle] = useState({
     paddingRight: "2.5rem",
   });
@@ -48,8 +49,8 @@ function Login(props) {
 
           <Formik
             initialValues={{
-              email: "admin@demo.com",
-              password: "demo",
+              email: "admin@team.com",
+              password: "",
             }}
             validate={(values) => {
               const errors = {};
@@ -78,10 +79,17 @@ function Login(props) {
             onSubmit={(values, { setStatus, setSubmitting }) => {
               enableLoading();
               setTimeout(() => {
+                console.log("values " , values);
+                
                 login(values.email, values.password)
                   .then(({ data: { accessToken } }) => {
                     disableLoading();
+                    console.log(accessToken);
                     props.login(accessToken);
+                    
+                    // if (accessToken) {
+                    //   history.push("/")
+                    // }
                   })
                   .catch(() => {
                     disableLoading();
@@ -155,13 +163,6 @@ function Login(props) {
                 </div>
 
                 <div className="kt-login__actions">
-                  <Link
-                    to="/auth/forgot-password"
-                    className="kt-link kt-login__link-forgot"
-                  >
-                    <FormattedMessage id="AUTH.GENERAL.FORGOT_BUTTON" />
-                  </Link>
-
                   <button
                     id="kt_login_signin_submit"
                     type="submit"
@@ -180,28 +181,7 @@ function Login(props) {
             )}
           </Formik>
 
-          <div className="kt-login__divider">
-            <div className="kt-divider">
-              <span />
-              <span>OR</span>
-              <span />
-            </div>
-          </div>
 
-          <div className="kt-login__options">
-            <Link to="http://facebook.com" className="btn btn-primary kt-btn">
-              <i className="fab fa-facebook-f" />
-              Facebook
-            </Link>
-            <Link to="http://twitter.com" className="btn btn-info kt-btn">
-              <i className="fab fa-twitter" />
-              Twitter
-            </Link>
-            <Link to="google.com" className="btn btn-danger kt-btn">
-              <i className="fab fa-google" />
-              Google
-            </Link>
-          </div>
         </div>
       </div>
     </>

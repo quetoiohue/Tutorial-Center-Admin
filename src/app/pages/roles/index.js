@@ -9,6 +9,7 @@ import CustomizedIconButton from "../../partials/content/CustomizedIconButton";
 import MatTable from "../../partials/content/Table";
 import DeleteRoleModal from "./components/DeleteRoleModal";
 import AddRoleModal from "./components/AddRoleModal";
+import EditRoleModal from './components/EditRoleModal';
 
 const Roles = () => {
   const [modal, setModal] = React.useState({
@@ -72,6 +73,8 @@ const Roles = () => {
       <MatTable headRows={headRows} rows={dataRows} />
       {<>
         <AddRoleModal open={type === "add"} handleClose={handleCloseModal} />
+        <EditRoleModal open={type === "edit"} handleClose={handleCloseModal} />
+
         <DeleteRoleModal
           open={type === "delete"}
           handleClose={handleCloseModal}

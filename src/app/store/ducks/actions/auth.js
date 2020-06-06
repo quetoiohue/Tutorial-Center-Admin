@@ -20,15 +20,5 @@ export function* authSaga() {
   yield takeLatest(actionTypes.Login, function* loginSaga() {
     yield put(actions.requestUser());
   });
-
-  yield takeLatest(actionTypes.Register, function* registerSaga() {
-    yield put(actions.requestUser());
-  });
-
-  yield takeLatest(actionTypes.UserRequested, function* userRequested() {
-    const { data: user } = yield getUserByToken();
-
-    yield put(actions.fulfillUser(user));
-  });
 }
 export default actions;

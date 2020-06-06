@@ -23,7 +23,7 @@ export const Routes = withRouter(({ history }) => {
   const { isAuthorized, menuConfig, userLastLocation } = useSelector(
     ({ auth, urls, builder: { menuConfig } }) => ({
       menuConfig,
-      isAuthorized: auth.user != null,
+      isAuthorized: Boolean(auth.authToken),
       userLastLocation: routerHelpers.getLastLocation(),
     }),
     shallowEqual
