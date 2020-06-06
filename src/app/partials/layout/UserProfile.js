@@ -1,16 +1,13 @@
 /* eslint-disable no-script-url,jsx-a11y/anchor-is-valid */
+import { Avatar } from "@material-ui/core";
 import React from "react";
-import { Link } from "react-router-dom";
 import Dropdown from "react-bootstrap/Dropdown";
 import { connect } from "react-redux";
-import { toAbsoluteUrl } from "../../../_metronic";
+import { Link } from "react-router-dom";
 import HeaderDropdownToggle from "../content/CustomDropdowns/HeaderDropdownToggle";
-import { Avatar } from "@material-ui/core";
 
 class UserProfile extends React.Component {
   render() {
-    const { user } = this.props;
-
     return (
       <Dropdown
         className="kt-header__topbar-item kt-header__topbar-item--user"

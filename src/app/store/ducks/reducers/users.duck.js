@@ -2,6 +2,7 @@ import actionTypes from "../actionTypes/users";
 
 const initialState = {
   users: [],
+  getUserById: {},
   isFetching: false,
   error: "",
 };
@@ -25,6 +26,23 @@ export default function reducer(state = initialState, action) {
         isFetching: false,
         error: action.payload,
       };
+      case actionTypes.GET_USER_BY_ID_REQUEST:
+        return {
+          ...state,
+          isFetching: true,
+        };
+      case actionTypes.GET_USER_BY_ID_SUCCESS:
+        return {
+          ...state,
+          isFetching: false,
+          getUserById: action.payload,
+        };
+      case actionTypes.GET_USER_BY_ID_ERROR:
+        return {
+          ...state,
+          isFetching: false,
+          error: action.payload,
+        };
     case actionTypes.ADD_USER_REQUEST:
       return {
         ...state,

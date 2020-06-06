@@ -1,4 +1,3 @@
-import { put, takeLatest } from "redux-saga/effects";
 import actionTypes from "../actionTypes/auth";
 
 const actions = {

@@ -1,25 +1,17 @@
 /* eslint-disable no-restricted-imports */
 import { Checkbox, Chip, CircularProgress } from "@material-ui/core";
-import {
-  AddBox,
-  AddCircleOutline,
-  ArrowRightAlt,
-  Edit,
-  RemoveCircle,
-} from "@material-ui/icons";
+import { AddBox, AddCircleOutline, ArrowRightAlt, Edit, RemoveCircle } from "@material-ui/icons";
+import moment from 'moment';
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { connect } from "react-redux";
-import moment from 'moment';
-
-import { createData, headRows, rowsData } from "../../mockData/users";
+import { createData, headRows } from "../../mockData/users";
 import CustomizedIconButton from "../../partials/content/CustomizedIconButton";
 import MatTable from "../../partials/content/Table";
+import * as Actions from "../../store/ducks/actions";
 import AddUserForm from "./components/AddUserForm";
 import EditUserForm from "./components/EditUserForm";
-import * as Actions from "../../store/ducks/actions";
-import userApi from "../../store/ducks/api/users";
+
 
 const initialModalState = {
   modal: "",
@@ -28,7 +20,6 @@ const initialModalState = {
 const Users = (props) => {
   const dispatch = useDispatch();
   const { users, isFetching } = useSelector((store) => store.userList);
-  const [open, setOpen] = React.useState(false);
   const [Modal, setModal] = React.useState(initialModalState);
   const { modal, selected } = Modal;
 
@@ -46,7 +37,7 @@ const Users = (props) => {
             name: _item.name,
             id: _item.pivot.permission_id,
           }));
-        const { id, email, name, ...item } = _item;
+        const { id, email, name } = _item;
         const selectedItem = { id, email, name, permissions };
         return createData(
           _item.id,

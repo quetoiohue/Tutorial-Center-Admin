@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Formik } from "formik";
 import { connect } from "react-redux";
 import { FormattedMessage, injectIntl } from "react-intl";
@@ -11,7 +11,6 @@ import { login } from "../../store/ducks/api/auth";
 function Login(props) {
   const { intl } = props;
   const [loading, setLoading] = useState(false);
-  const history = useLocation();
   const [loadingButtonStyle, setLoadingButtonStyle] = useState({
     paddingRight: "2.5rem",
   });

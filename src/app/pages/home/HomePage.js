@@ -9,11 +9,6 @@ const TutorialDetail = lazy(async () =>await  import("../tutorials/TutorialDetai
 const Roles = lazy(async () => await import("../roles"));
 
 export default function HomePage() {
-  // useEffect(() => {
-  //   console.log('Home page');
-  // }, []) // [] - is required if you need only one call
-  // https://reactjs.org/docs/hooks-reference.html#useeffect
-
   return (
     <Suspense fallback={<LayoutSplashScreen />}>
       <Switch>
@@ -23,9 +18,9 @@ export default function HomePage() {
         }
         <Route path="/dashboard" component={Dashboard} />
         <Route exact path="/users" component={Users} />
-        <Route path="/users/:id" component={UserDetail} />
+        <Route path="/users/:userId" component={UserDetail} />
         <Route exact path="/tutorials" component={Tutorials} />
-        <Route path="/tutorials/:id" component={TutorialDetail} />
+        <Route path="/tutorials/:tutorialId" component={TutorialDetail} />
         <Route path="/roles" component={Roles} />
         <Redirect to="/error/error-v1" />
       </Switch>
