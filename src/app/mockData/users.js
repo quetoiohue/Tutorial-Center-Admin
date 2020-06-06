@@ -4,6 +4,8 @@ export const roleOptions = [
   { title: "post-tutorial" },
   { title: "comment" },
   { title: "like" },
+  { title: "admin"},
+  { title: "create-tutorial"},
 ];
 
 export function createData(

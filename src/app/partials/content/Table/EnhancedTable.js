@@ -73,6 +73,9 @@ export default function EnhancedTable(props) {
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [searchText, setSearchText] = React.useState("");
 
+  React.useEffect(() => {
+    setRows(rowsProps);
+  }, [rowsProps])
   function handleChangeSearchText(value) {
     setSearchText(value.toLowerCase());
   }
@@ -187,8 +190,7 @@ export default function EnhancedTable(props) {
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {
                   const isItemSelected = isSelected(row.id);
-                  const labelId = `enhanced-table-checkbox-${index}`;
-
+                  const labelId = `enhanced-table-checkbox-${index}`;                  
                   return (
                     <TableRow
                       hover
