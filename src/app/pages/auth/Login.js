@@ -6,7 +6,7 @@ import { FormattedMessage, injectIntl } from "react-intl";
 import { TextField } from "@material-ui/core";
 import clsx from "clsx";
 import actions from "../../store/ducks/actions/auth";
-import { login } from "../../crud/auth.crud";
+import { login } from "../../store/ducks/api/auth";
 
 function Login(props) {
   const { intl } = props;
@@ -78,18 +78,11 @@ function Login(props) {
             }}
             onSubmit={(values, { setStatus, setSubmitting }) => {
               enableLoading();
-              setTimeout(() => {
-                console.log("values " , values);
-                
+              setTimeout(() => { 
                 login(values.email, values.password)
                   .then(({ data: { accessToken } }) => {
                     disableLoading();
-                    console.log(accessToken);
                     props.login(accessToken);
-                    
-                    // if (accessToken) {
-                    //   history.push("/")
-                    // }
                   })
                   .catch(() => {
                     disableLoading();
