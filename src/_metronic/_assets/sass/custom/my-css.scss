@@ -1,0 +1,19 @@
+.my-progress-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+.my-layout {
+    .layout-header-toolbar {
+        display: flex;
+        .header-toolbar-btn {
+            margin-left: 4px;
+        }
+    }
+}
+@media (max-width: 1024px) {
+    #kt_content {
+        padding-top: 1rem ;
+    }
+}

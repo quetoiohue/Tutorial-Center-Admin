@@ -61,7 +61,7 @@ function Layout({
             {/* <!-- begin:: Content --> */}
             <div
               id="kt_content"
-              className={`kt-content ${contentCssClasses} kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor`}
+              className={`kt-content ${contentCssClasses} kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor my-layout`}
             >
               {/* <!-- begin:: Content Head --> */}
               {/* {subheaderDisplay && (
