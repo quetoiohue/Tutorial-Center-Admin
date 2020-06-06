@@ -4,6 +4,7 @@ import userApi from '../api/users';
 
 const actions = {
   getUserList: () => ({ type: actionTypes.GET_USER_LIST_REQUEST }),
+  getUserById: (userId) => ({ type: actionTypes.GET_USER_BY_ID_REQUEST, payload: userId }),
   addUser: (params) => ({
     type: actionTypes.ADD_USER_REQUEST,
     payload: params,
@@ -20,6 +21,7 @@ const actions = {
 
 export function* usersSaga() {
   yield takeLatest(actionTypes.GET_USER_LIST_REQUEST, fetchUserList);
+  yield takeLatest(actionTypes.GET_USER_BY_ID_REQUEST, fetchUserById);
   yield takeLatest(actionTypes.ADD_USER_REQUEST, addUser);
   yield takeLatest(actionTypes.DELETE_USER_REQUEST, deleteUser);
   yield takeLatest(actionTypes.UPDATE_USER_REQUEST, updateUser);
@@ -33,6 +35,19 @@ function* fetchUserList() {
   } catch (error) {
     console.log("error" , error);
     yield put({ type: actionTypes.GET_USER_LIST_ERROR, payload: error });
+  }
+}
+
+function* fetchUserById(action) {
+  try {
+    const response = yield call(userApi().getUserById, action.payload);
+    const { data } = response;
+    console.log("response", response);
+    
+    yield put({ type: actionTypes.GET_USER_BY_ID_SUCCESS, payload: data });
+  } catch (error) {
+    console.log("error" , error);
+    yield put({ type: actionTypes.GET_USER_BY_ID_ERROR, payload: error });
   }
 }
 

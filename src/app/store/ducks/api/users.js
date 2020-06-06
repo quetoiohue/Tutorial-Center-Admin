@@ -7,6 +7,9 @@ const userApi = () => {
     getUsers: () => {
       return axiosApi.get("/api/admin/users");
     },
+    getUserById: (userId) => {
+      return axiosApi.get(`/api/admin/users/${userId}`);
+    }
   };
 };
 
