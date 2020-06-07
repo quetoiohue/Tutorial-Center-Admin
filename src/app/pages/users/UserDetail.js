@@ -7,11 +7,12 @@ import UserPosts from './components/user-detail/UserPosts';
 import UserStatistical from './components/user-detail/UserStatistical';
 import * as actions from '../../store/ducks/actions';
 import { useDispatch, useSelector } from "react-redux";
+import LoadingProgress from "../../components/LoadingProgress";
 
 const UserDetail = (props) => {
   const dispatch = useDispatch();
   const { userId } = useParams();
-  const { getUserById } = useSelector(store => store.userList);
+  const { getUserById, isFetching } = useSelector(store => store.userList);
   const [expanded, setExpanded] = React.useState(false);
 
   React.useEffect(() => {
@@ -25,7 +26,7 @@ const UserDetail = (props) => {
   };
 
   return (
-    <div>
+    isFetching ? <LoadingProgress/> : <div>
       <h1>User Detail WIP</h1>
       <div className="row row-full-height">
         <div className="col-sm-12 col-md-12 col-lg-12">
@@ -36,7 +37,7 @@ const UserDetail = (props) => {
           <PostsComponent
             expanded={expanded}
             handleChange={handleChange}
-            content={<UserPosts />}
+            content={<UserPosts getUserById={getUserById}/>}
             title={"User's Posts"}
             getUserById={getUserById}
           />

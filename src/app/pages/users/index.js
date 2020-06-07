@@ -1,7 +1,13 @@
 /* eslint-disable no-restricted-imports */
 import { Checkbox, Chip, CircularProgress } from "@material-ui/core";
-import { AddBox, AddCircleOutline, ArrowRightAlt, Edit, RemoveCircle } from "@material-ui/icons";
-import moment from 'moment';
+import {
+  AddBox,
+  AddCircleOutline,
+  ArrowRightAlt,
+  Edit,
+  RemoveCircle,
+} from "@material-ui/icons";
+import moment from "moment";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
@@ -11,12 +17,12 @@ import MatTable from "../../partials/content/Table";
 import * as Actions from "../../store/ducks/actions";
 import AddUserForm from "./components/AddUserForm";
 import EditUserForm from "./components/EditUserForm";
-
+import LoadingProgress from "../../components/LoadingProgress";
 
 const initialModalState = {
   modal: "",
   selected: {},
-}
+};
 const Users = (props) => {
   const dispatch = useDispatch();
   const { users, isFetching } = useSelector((store) => store.userList);
@@ -29,7 +35,7 @@ const Users = (props) => {
 
   const rows = React.useMemo(
     () =>
-      users &&
+      users.length &&
       users.map((_item, index) => {
         const permissions =
           _item.permissions &&
@@ -71,7 +77,7 @@ const Users = (props) => {
               <CustomizedIconButton Icon={<ArrowRightAlt />} title="Detail" />
             </Link>
           </>
-        );
+        ) ;
       }),
     [users]
   );
@@ -99,15 +105,13 @@ const Users = (props) => {
         />
       </div>
       {isFetching ? (
-        <div className="my-progress-container">
-          <CircularProgress />
-        </div>
+        <LoadingProgress />
       ) : (
         <MatTable headRows={headRows} rows={rows} />
       )}
       {modal === "add" && (
         <AddUserForm open={modal === "add"} handleClose={handleClose} />
-      )} 
+      )}
       {modal === "edit" && (
         <EditUserForm
           open={modal === "edit"}

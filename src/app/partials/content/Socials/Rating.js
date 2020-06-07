@@ -4,7 +4,7 @@ import { Grade } from "@material-ui/icons";
 
 const Rating = ({ number, fontSize = "large" }) => {
   return (
-    <>
+    <div className="my-rating--container">
       {[...Array(5)].map((item, index) => (
         <span key={`${index}-rate`}>
           <Grade
@@ -13,7 +13,7 @@ const Rating = ({ number, fontSize = "large" }) => {
           />
         </span>
       ))}
-    </>
+    </div>
   );
 };
 

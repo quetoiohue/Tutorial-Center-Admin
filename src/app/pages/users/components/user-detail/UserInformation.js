@@ -6,6 +6,7 @@ import {
   PortletHeader,
 } from "../../../../partials/content/Portlet";
 import moment from 'moment';
+import LoadingProgress from "../../../../components/LoadingProgress";
 
 const UserInfoFormItem = ({ label, value }) => {
   return (
@@ -20,10 +21,10 @@ const UserInfoFormItem = ({ label, value }) => {
 };
 
 const UserInformation = (props) => {
-  const { getUserById } = props;
+  const { getUserById, isFetching } = props;
   const { age, created_at, email, gender, name, updated_at } = getUserById || {};
   return (
-    <Portlet className="kt-portlet--height-fluid kt-portlet--border-bottom-brand user--form">
+    isFetching ? <LoadingProgress/> : <Portlet className="kt-portlet--height-fluid kt-portlet--border-bottom-brand user--form">
       <PortletHeader title="User Info" />
       <PortletBody>
         <div className="kt-widget12">
@@ -41,13 +42,13 @@ const UserInformation = (props) => {
                   autoComplete="off"
                   className="user-info--form row"
                 >
-
-                  <UserInfoFormItem label={"Age"} value={`${age}`}/>
-                  <UserInfoFormItem label={"Created At"} value={moment(created_at).format("DD/MM/YYYY")}/>
-                  <UserInfoFormItem label={"Updated At"} value={moment(updated_at).format("DD/MM/YYYY")}/>
                   <UserInfoFormItem label={"Full Name"} value={`${name}`}/>
                   <UserInfoFormItem label={"Gender"} value={gender ? "Male" : "Female"}/>
                   <UserInfoFormItem label={"Email"} value={`${email}`}/>
+                  <UserInfoFormItem label={"Age"} value={`${age}`}/>
+                  <UserInfoFormItem label={"Created At"} value={moment(created_at).format("DD/MM/YYYY")}/>
+                  <UserInfoFormItem label={"Updated At"} value={moment(updated_at).format("DD/MM/YYYY")}/>
+                  
                 </form>
               </div>
             </div>
