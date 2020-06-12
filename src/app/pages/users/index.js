@@ -25,24 +25,26 @@ const initialModalState = {
 };
 const Users = (props) => {
   const dispatch = useDispatch();
-  const { users, isFetching } = useSelector((store) => store.userList);
+  const { users, isFetching, count } = useSelector((store) => store.userList);
   const [Modal, setModal] = React.useState(initialModalState);
+  const [pagination, setPagination] = React.useState({ offset: 0, limit: 10 });
   const { modal, selected } = Modal;
+  const { offset, limit } = pagination;
 
   React.useEffect(() => {
-    dispatch(Actions.User.getUserList());
-  }, []);
+    dispatch(Actions.User.getUserList({ offset, limit }));
+  }, [offset, limit]);
 
   const rows = React.useMemo(
     () =>
-      users.length &&
+      Array.isArray(users) &&
       users.map((_item, index) => {
         const permissions =
           _item.permissions &&
           _item.permissions.map((_item) => ({
             name: _item.name,
             id: _item.pivot.permission_id,
-          }));
+          })) || [];
         const { id, email, name } = _item;
         const selectedItem = { id, email, name, permissions };
         return createData(
@@ -77,10 +79,11 @@ const Users = (props) => {
               <CustomizedIconButton Icon={<ArrowRightAlt />} title="Detail" />
             </Link>
           </>
-        ) ;
+        );
       }),
     [users]
   );
+  console.log(rows);
 
   const handleSelectModal = (modal, selected = {}) => {
     setModal({
@@ -104,11 +107,14 @@ const Users = (props) => {
           title="Add User"
         />
       </div>
-      {isFetching ? (
-        <LoadingProgress />
-      ) : (
-        <MatTable headRows={headRows} rows={rows} />
-      )}
+        <MatTable
+          headRows={headRows}
+          rows={rows}
+          pagination={pagination}
+          setPagination={setPagination}
+          count={count}
+          isFetching={isFetching}
+        />
       {modal === "add" && (
         <AddUserForm open={modal === "add"} handleClose={handleClose} />
       )}
