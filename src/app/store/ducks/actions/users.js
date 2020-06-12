@@ -3,7 +3,7 @@ import actionTypes from "../actionTypes/users";
 import userApi from '../api/users';
 
 const actions = {
-  getUserList: () => ({ type: actionTypes.GET_USER_LIST_REQUEST }),
+  getUserList: ({ offset, limit}) => ({ type: actionTypes.GET_USER_LIST_REQUEST, payload: { offset, limit} }),
   getUserById: (userId) => ({ type: actionTypes.GET_USER_BY_ID_REQUEST, payload: userId }),
   addUser: (params) => ({
     type: actionTypes.ADD_USER_REQUEST,
@@ -24,12 +24,13 @@ export function* usersSaga() {
   yield takeLatest(actionTypes.GET_USER_BY_ID_REQUEST, fetchUserById);
   yield takeLatest(actionTypes.ADD_USER_REQUEST, addUser);
   yield takeLatest(actionTypes.DELETE_USER_REQUEST, deleteUser);
-  yield takeLatest(actionTypes.UPDATE_USER_REQUEST, updateUser);
+  yield takeLatest(actionTypes.UPDATE_USER_ROLES_REQUEST, setUserRoles);
+  yield takeLatest(actionTypes.UPDATE_USER_STATUS_REQUEST, setUserStatus);
 }
 
-function* fetchUserList() {
+function* fetchUserList(action) {
   try {
-    const response = yield call(userApi().getUsers);
+    const response = yield call(userApi().getUsers, { ...action.payload});
     const { data } = response;
     yield put({ type: actionTypes.GET_USER_LIST_SUCCESS, payload: data });
   } catch (error) {
@@ -53,9 +54,11 @@ function* fetchUserById(action) {
 
 function* deleteUser(action) {
   try {
-    // const data = yield call(Api.fetchUser, action.payload.url);
-    // const { payload } = action;
-    yield put({ type: actionTypes.DELETE_USER_SUCCESS, payload: "data" });
+    const response = yield call(userApi().deleteUserById, action.payload);
+    const { data } = response;
+    console.log("deleteUser", data);
+    
+    yield put({ type: actionTypes.DELETE_USER_SUCCESS, payload: data });
   } catch (error) {
     yield put({ type: actionTypes.DELETE_USER_ERROR, payload: error });
   }
@@ -63,22 +66,37 @@ function* deleteUser(action) {
 
 function* addUser(action) {
   try {
-    // const data = yield call(Api.fetchUser, action.payload.url)
-    const { payload } = action;
-    yield put({ type: actionTypes.ADD_USER_SUCCESS, payload });
+    const response = yield call(userApi().addUser, action.payload);
+    console.log("addUser", response);
+
+    const { data } = response;
+    yield put({ type: actionTypes.ADD_USER_SUCCESS, payload: data });
   } catch (error) {
     yield put({ type: actionTypes.ADD_USER_ERROR, payload: error });
   }
 }
 
-function* updateUser(action) {
+function* setUserStatus(action) {
   try {
-    // const data = yield call(Api.fetchUser, action.payload.url)
-    const { payload } = action;
-    yield put({ type: actionTypes.UPDATE_USER_SUCCESS, payload });
+    const response = yield call(userApi().setUserStatus, action.payload)
+    const { data } = response;
+    console.log("setUserActive", response);
+
+    yield put({ type: actionTypes.UPDATE_USER_SUCCESS, payload: data });
   } catch (error) {
     yield put({ type: actionTypes.UPDATE_USER_ERROR, payload: error });
   }
 }
 
+function* setUserRoles(action) {
+  try {
+    const response = yield call(userApi().setUserRoles, action.payload)
+    const { data } = response;
+    console.log("setUserRoles", response);
+
+    yield put({ type: actionTypes.UPDATE_USER_SUCCESS, payload: data });
+  } catch (error) {
+    yield put({ type: actionTypes.UPDATE_USER_ERROR, payload: error });
+  }
+}
 export default actions;
