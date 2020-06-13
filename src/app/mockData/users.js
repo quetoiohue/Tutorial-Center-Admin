@@ -33,7 +33,7 @@ export const headRows = [
   {
     id: "name",
     numeric: false,
-    disablePadding: true,
+    disablePadding: false,
     sortable: true,
     label: "Username",
   },

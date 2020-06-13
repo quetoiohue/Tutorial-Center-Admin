@@ -40,7 +40,7 @@ export const headRows = [
   {
     id: "id",
     numeric: false,
-    disablePadding: true,
+    disablePadding: false,
     sortable: true,
     label: "Id",
   },
