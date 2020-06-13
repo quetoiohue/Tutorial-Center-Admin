@@ -46,6 +46,8 @@ export const FormTextField = ({
   );
 };
 export const MultiSelectField = ({ value, onChange, options, error }) => {
+  console.log("MultiSelectField props",  value, onChange, options);
+  
   const handleChange = (event, values) => {
     onChange(values);
   };
@@ -57,7 +59,7 @@ export const MultiSelectField = ({ value, onChange, options, error }) => {
         multiple
         filterSelectedOptions
         options={options}
-        getOptionLabel={(option) => option.title}
+        getOptionLabel={(option) => option.name}
         onChange={handleChange}
         value={[...value]}
         renderInput={(params) => (

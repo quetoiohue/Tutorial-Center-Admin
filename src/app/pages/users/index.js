@@ -15,6 +15,7 @@ import { createData, headRows } from "../../mockData/users";
 import CustomizedIconButton from "../../partials/content/CustomizedIconButton";
 import MatTable from "../../partials/content/Table";
 import * as Actions from "../../store/ducks/actions";
+
 import AddUserForm from "./components/AddUserForm";
 import EditUserForm from "./components/EditUserForm";
 import LoadingProgress from "../../components/LoadingProgress";
@@ -35,6 +36,10 @@ const Users = (props) => {
     dispatch(Actions.User.getUserList({ offset, limit }));
   }, [offset, limit]);
 
+  React.useEffect(() => {
+    dispatch(Actions.Role.getRoles());
+  }, []);
+  
   const rows = React.useMemo(
     () =>
       Array.isArray(users) &&

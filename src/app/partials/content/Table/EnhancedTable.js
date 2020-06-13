@@ -9,12 +9,13 @@ import {
   TableBody,
   TableCell,
   TablePagination,
-  TableRow
+  TableRow,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import React from "react";
 import EnhancedTableHead from "./EnhancedTableHead";
 import EnhancedTableToolbar from "./EnhancedTableToolbar";
+import LoadingProgress from "../../../components/LoadingProgress";
 
 function desc(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -33,7 +34,7 @@ function stableSort(array, cmp) {
     if (order !== 0) return order;
     return a[1] - b[1];
   });
-  return stabilizedThis.map(el => el[0]);
+  return stabilizedThis.map((el) => el[0]);
 }
 
 function getSorting(order, orderBy) {
@@ -42,25 +43,35 @@ function getSorting(order, orderBy) {
     : (a, b) => -desc(a, b, orderBy);
 }
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
-    marginTop: theme.spacing(3)
+    marginTop: theme.spacing(3),
   },
   paper: {
     width: "100%",
-    marginBottom: theme.spacing(2)
+    marginBottom: theme.spacing(2),
   },
   table: {
-    minWidth: 750
+    minWidth: 750,
   },
   tableWrapper: {
-    overflowX: "auto"
-  }
+    overflowX: "auto",
+  },
 }));
 
 export default function EnhancedTable(props) {
-  const { headRows: headRowsProps, rows: rowsProps } = props;
+  const {
+    headRows: headRowsProps,
+    rows: rowsProps,
+    pagination,
+    setPagination,
+    count,
+    isFetching,
+  } = props;
+  console.log("Props", props);
+
+  const { offset, limit } = pagination;
   const classes = useStyles();
   const [headRows] = React.useState(headRowsProps);
   const [rows, setRows] = React.useState(rowsProps);
@@ -68,21 +79,27 @@ export default function EnhancedTable(props) {
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("calories");
   const [selected, setSelected] = React.useState([]);
-  const [page, setPage] = React.useState(0);
+  const [page, setPage] = React.useState(Number.parseInt(offset / limit) || 0);
   const [dense, setDense] = React.useState(false);
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [rowsPerPage, setRowPerPage] = React.useState(limit || 5);
   const [searchText, setSearchText] = React.useState("");
 
   React.useEffect(() => {
     setRows(rowsProps);
-  }, [rowsProps])
+  }, [rowsProps]);
+
+  React.useEffect(() => {
+    setPage(offset / limit);
+    setRowPerPage(limit);
+  }, [offset, limit]);
+
   function handleChangeSearchText(value) {
     setSearchText(value.toLowerCase());
   }
   function onSearching(_item) {
     if (!rows.length) return;
 
-    return Object.keys(_item).some(_el =>
+    return Object.keys(_item).some((_el) =>
       String(_item[_el])
         .toLowerCase()
         .includes(searchText)
@@ -90,10 +107,10 @@ export default function EnhancedTable(props) {
   }
   function handleDeleteItems() {
     if (!selected.length) return;
-    selected.forEach(_el => handleDeleteItem(_el));
+    selected.forEach((_el) => handleDeleteItem(_el));
   }
   function handleDeleteItem(id) {
-    let deleteIndex = rows.findIndex(_el => _el.id === id);
+    let deleteIndex = rows.findIndex((_el) => _el.id === id);
     const newRows = rows;
     newRows.splice(deleteIndex, 1);
     setRows([...newRows]);
@@ -107,7 +124,7 @@ export default function EnhancedTable(props) {
 
   function handleSelectAllClick(event) {
     if (event.target.checked) {
-      const newSelecteds = rows.map(n => n.id);
+      const newSelecteds = rows.map((n) => n.id);
       setSelected(newSelecteds);
       return;
     }
@@ -135,11 +152,21 @@ export default function EnhancedTable(props) {
   }
 
   function handleChangePage(event, newPage) {
-    setPage(newPage);
+    console.log("newPage", newPage);
+
+    setPagination((prevState) => ({
+      ...prevState,
+      offset: newPage * limit,
+    }));
   }
 
   function handleChangeRowsPerPage(event) {
-    setRowsPerPage(+event.target.value);
+    console.log("RowsPerPage", event.target.value);
+
+    setPagination((prevState) => ({
+      ...prevState,
+      limit: +event.target.value,
+    }));
   }
 
   function handleChangeDense(event) {
@@ -148,17 +175,17 @@ export default function EnhancedTable(props) {
 
   const handleClickRow = (item) => () => {
     console.log("Click row", item);
-    
-    if(!props.onClickRow) {
+
+    if (!props.onClickRow) {
       return;
     }
 
     props.onClickRow(item);
-  }
-  const isSelected = name => selected.indexOf(name) !== -1;
+  };
+  const isSelected = (name) => selected.indexOf(name) !== -1;
 
   const emptyRows =
-    rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
+    rowsPerPage - Math.min(rowsPerPage, count - page * rowsPerPage);
 
   return (
     <div className={classes.root}>
@@ -170,95 +197,103 @@ export default function EnhancedTable(props) {
           handleDelete={handleDeleteItems}
         />
         <div className={classes.tableWrapper}>
-          <Table
-            className={classes.table}
-            aria-labelledby="tableTitle"
-            size={dense ? "small" : "medium"}
-          >
-            <EnhancedTableHead
-              headRows={headRows}
-              numSelected={selected.length}
-              order={order}
-              orderBy={orderBy}
-              onSelectAllClick={handleSelectAllClick}
-              onRequestSort={handleRequestSort}
-              rowCount={rows.length}
-            />
-            <TableBody>
-              {stableSort(rows, getSorting(order, orderBy))
-                .filter(_item => onSearching(_item))
-                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map((row, index) => {
-                  const isItemSelected = isSelected(row.id);
-                  const labelId = `enhanced-table-checkbox-${index}`;                  
-                  return (
-                    <TableRow
-                      hover
-                      role="checkbox"
-                      aria-checked={isItemSelected}
-                      tabIndex={-1}
-                      key={row.id}
-                      selected={isItemSelected}
-                      onClick={handleClickRow(row)}
-                      style={{ cursor: props.onClickRow ? "pointer": "default"}}
-                    >
-                      <TableCell padding="checkbox">
-                        <Checkbox
-                          key={`checked-${index}`}
-                          onClick={event => handleClick(event, row.id)}
-                          checked={isItemSelected}
-                          inputProps={{ "aria-labelledby": labelId }}
-                        />
-                      </TableCell>
-                      {Object.keys(row).map((_el, _index) =>
-                        _el !== "id" ? (
-                          _index === 1 ? (
-                            <TableCell
-                              key={`${_el}-${_index}`}
-                              component="th"
-                              id={labelId}
-                              scope="row"
-                              padding="none"
-                            >
-                              {row[_el]}
-                            </TableCell>
-                          ) : (
-                            <TableCell
-                              key={`${_el}-${_index}`}
-                              align={
-                                typeof row[_el] === "string" ||
-                                typeof row[_el] === "object"
-                                  ? "left"
-                                  : "right"
-                              }
-                            >
-                              {row[_el]}
-                            </TableCell>
-                          )
-                        ) : null
-                      )}
+          {isFetching ? (
+            <LoadingProgress />
+          ) : (
+            <Table
+              className={classes.table}
+              aria-labelledby="tableTitle"
+              size={dense ? "small" : "medium"}
+            >
+              <EnhancedTableHead
+                headRows={headRows}
+                numSelected={selected.length}
+                order={order}
+                orderBy={orderBy}
+                onSelectAllClick={handleSelectAllClick}
+                onRequestSort={handleRequestSort}
+                rowCount={rows.length}
+              />
+              <TableBody>
+                <>
+                  {stableSort(rows, getSorting(order, orderBy))
+                    .filter((_item) => onSearching(_item))
+                    // .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                    .map((row, index) => {
+                      const isItemSelected = isSelected(row.id);
+                      const labelId = `enhanced-table-checkbox-${index}`;
+                      return (
+                        <TableRow
+                          hover
+                          role="checkbox"
+                          aria-checked={isItemSelected}
+                          tabIndex={-1}
+                          key={row.id}
+                          selected={isItemSelected}
+                          onClick={handleClickRow(row)}
+                          style={{
+                            cursor: props.onClickRow ? "pointer" : "default",
+                          }}
+                        >
+                          <TableCell padding="checkbox">
+                            <Checkbox
+                              key={`checked-${index}`}
+                              onClick={(event) => handleClick(event, row.id)}
+                              checked={isItemSelected}
+                              inputProps={{ "aria-labelledby": labelId }}
+                            />
+                          </TableCell>
+                          {Object.keys(row).map((_el, _index) =>
+                            _el !== "id" ? (
+                              _index === 1 ? (
+                                <TableCell
+                                  key={`${_el}-${_index}`}
+                                  component="th"
+                                  id={labelId}
+                                  scope="row"
+                                  padding="none"
+                                >
+                                  {row[_el]}
+                                </TableCell>
+                              ) : (
+                                <TableCell
+                                  key={`${_el}-${_index}`}
+                                  align={
+                                    typeof row[_el] === "string" ||
+                                    typeof row[_el] === "object"
+                                      ? "left"
+                                      : "right"
+                                  }
+                                >
+                                  {row[_el]}
+                                </TableCell>
+                              )
+                            ) : null
+                          )}
+                        </TableRow>
+                      );
+                    })}
+                  {emptyRows > 0 && (
+                    <TableRow style={{ height: 49 * emptyRows }}>
+                      <TableCell colSpan={6} />
                     </TableRow>
-                  );
-                })}
-              {emptyRows > 0 && (
-                <TableRow style={{ height: 49 * emptyRows }}>
-                  <TableCell colSpan={6} />
-                </TableRow>
-              )}
-            </TableBody>
-          </Table>
+                  )}
+                </>
+              </TableBody>
+            </Table>
+          )}
         </div>
         <TablePagination
           rowsPerPageOptions={[5, 10, 25]}
           component="div"
-          count={rows.length}
+          count={count}
           rowsPerPage={rowsPerPage}
           page={page}
           backIconButtonProps={{
-            "aria-label": "Previous Page"
+            "aria-label": "Previous Page",
           }}
           nextIconButtonProps={{
-            "aria-label": "Next Page"
+            "aria-label": "Next Page",
           }}
           onChangePage={handleChangePage}
           onChangeRowsPerPage={handleChangeRowsPerPage}

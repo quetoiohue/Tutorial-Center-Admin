@@ -1,5 +1,6 @@
 import { put, takeLatest, call } from "redux-saga/effects";
 import actionTypes from "../actionTypes/users";
+import messageTypes from "../actionTypes/message";
 import userApi from '../api/users';
 
 const actions = {
@@ -13,8 +14,12 @@ const actions = {
     type: actionTypes.DELETE_USER_REQUEST,
     payload: params,
   }),
-  updateUser: (params) => ({
-    type: actionTypes.UPDATE_USER_REQUEST,
+  setUserRoles: (params) => ({
+    type: actionTypes.UPDATE_USER_ROLES_REQUEST,
+    payload: params,
+  }),
+  setUserStatus: (params) => ({
+    type: actionTypes.UPDATE_USER_STATUS_REQUEST,
     payload: params,
   }),
 };
@@ -57,10 +62,13 @@ function* deleteUser(action) {
     const response = yield call(userApi().deleteUserById, action.payload);
     const { data } = response;
     console.log("deleteUser", data);
-    
+
     yield put({ type: actionTypes.DELETE_USER_SUCCESS, payload: data });
+    yield put({ type: messageTypes.SHOW_SUCCESS_MESSAGE, payload: { message: "User has been deleted successfully!"} });
   } catch (error) {
     yield put({ type: actionTypes.DELETE_USER_ERROR, payload: error });
+    yield put({ type: messageTypes.SHOW_ERROR_MESSAGE, payload: { message: "There's something wrong!"} });
+
   }
 }
 
@@ -71,8 +79,11 @@ function* addUser(action) {
 
     const { data } = response;
     yield put({ type: actionTypes.ADD_USER_SUCCESS, payload: data });
+    yield put({ type: messageTypes.SHOW_SUCCESS_MESSAGE, payload: { message: "User has been added successfully!"} });
   } catch (error) {
     yield put({ type: actionTypes.ADD_USER_ERROR, payload: error });
+    yield put({ type: messageTypes.SHOW_ERROR_MESSAGE, payload: { message: "There's something wrong!"} });
+
   }
 }
 
@@ -80,11 +91,14 @@ function* setUserStatus(action) {
   try {
     const response = yield call(userApi().setUserStatus, action.payload)
     const { data } = response;
+    const { is_active, id } = action.payload;
     console.log("setUserActive", response);
 
     yield put({ type: actionTypes.UPDATE_USER_SUCCESS, payload: data });
+    yield put({ type: messageTypes.SHOW_SUCCESS_MESSAGE, payload: { message: `User ${id} has been ${is_active ? "blocked" : "unblocked"} successfully!`} });
   } catch (error) {
     yield put({ type: actionTypes.UPDATE_USER_ERROR, payload: error });
+    yield put({ type: messageTypes.SHOW_ERROR_MESSAGE, payload: { message: "There's something wrong!"} });
   }
 }
 
@@ -92,11 +106,15 @@ function* setUserRoles(action) {
   try {
     const response = yield call(userApi().setUserRoles, action.payload)
     const { data } = response;
+    const { id } = action.payload;
+
     console.log("setUserRoles", response);
 
     yield put({ type: actionTypes.UPDATE_USER_SUCCESS, payload: data });
+    yield put({ type: messageTypes.SHOW_SUCCESS_MESSAGE, payload: { message: `User ${id} has been updated successfully!`} });
   } catch (error) {
     yield put({ type: actionTypes.UPDATE_USER_ERROR, payload: error });
+    yield put({ type: messageTypes.SHOW_ERROR_MESSAGE, payload: { message: "There's something wrong!"} });
   }
 }
 export default actions;

@@ -7,21 +7,32 @@ import {
 } from "../../../partials/content/Form";
 import CustomizedModal from "../../../partials/content/CustomizedModal";
 import { roleOptions } from "../../../mockData/users";
+import { useDispatch, useSelector } from "react-redux";
+import userActions from '../../../store/ducks/actions/users';
+import CustomizedAlert from '../../../partials/content/CustomizedAlert';
 
 const EditUserForm = ({ open, handleClose, selected }) => {
+  const dispatch = useDispatch();
+  const { userList, roleList } =  useSelector(store => store) || {};
+  const { error, isFetching } = userList;
+  const { roles: defaultRoles } = roleList;
+
   const [formState, setFormState] = React.useState(() => {
-    const { name: username, email, role } = selected;
-    return { username, email, password: "123123", role };
+    const { name: username, email, permissions } = selected;
+    const roles = defaultRoles.filter((role) => (permissions.findIndex(_permission => _permission.id === role.id) !== -1));
+    console.log("selected", selected, roles);
+
+    return { username, email, roles };
   });
   const [isValidate, setIsValidate] = React.useState(true);
 
-  const { username, password, email, role } = formState;
+  const { username, email, roles } = formState;
   console.log(formState);
 
   const onChangeRole = (values) => {
     setFormState((prevState) => ({
       ...prevState,
-      role: [...values],
+      roles: [...values],
     }));
   };
   const handleChange = ({ value, name }) => {
@@ -37,11 +48,18 @@ const EditUserForm = ({ open, handleClose, selected }) => {
     setIsValidate(isValidateForm);
 
     if (!validateForm(formState)) return;
+    dispatch(userActions.setUserRoles({id: selected.id, roles: roles.map(_role => _role.id)}));
+    if (error.message) {
+      console.log("errror", error.message);
+      return;
+    }
+    handleClose();
   };
 
   const SubmitForm = (
     <form onSubmit={onSubmit}>
       <FormTextField
+        disabled
         label={"Username"}
         name="username"
         value={username}
@@ -56,20 +74,12 @@ const EditUserForm = ({ open, handleClose, selected }) => {
         onChange={handleChange}
         error={!isValidate && "Email is required"}
       />
-      <FormTextField
-        label={"Password"}
-        name="password"
-        value={password}
-        onChange={handleChange}
-        error={!isValidate && "Password is required"}
-        type="password"
-      />
       <MultiSelectField
         label={"Role"}
-        name="role"
-        value={role}
+        name="roles"
+        value={roles}
         onChange={onChangeRole}
-        options={roleOptions}
+        options={defaultRoles}
         error={!isValidate && "Role is required"}
       />
       <Toolbar

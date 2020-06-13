@@ -6,24 +6,29 @@ import {
   validateForm,
 } from "../../../partials/content/Form";
 import CustomizedModal from "../../../partials/content/CustomizedModal";
+import userAction from '../../../store/ducks/actions/users';
+import { useDispatch } from "react-redux";
 
 const roleOptions = [
   { title: "post-tutorial" },
   { title: "comment" },
   { title: "like" },
 ];
+
 const initialFormState = {
-  username: "",
+  name: "",
   password: "123123",
+  password_confirmation: "123123",
   email: "",
-  role: [],
+  // role: [],
 };
 
 const AddUserForm = ({ open, handleClose }) => {
+  const dispatch = useDispatch();
   const [formState, setFormState] = React.useState(initialFormState);
   const [isValidate, setIsValidate] = React.useState(true);
 
-  const { username, password, email, role } = formState;
+  const { name, password, password_confirmation, email } = formState;
   console.log(formState);
 
   const onChangeRole = (values) => {
@@ -45,17 +50,20 @@ const AddUserForm = ({ open, handleClose }) => {
     setIsValidate(isValidateForm);
 
     if (!validateForm(formState)) return;
+    console.log("Submitted");
+    dispatch(userAction.addUser(formState));
+    handleClose();
     setFormState(initialFormState);
   };
 
   const SubmitForm = (
     <form onSubmit={onSubmit}>
       <FormTextField
-        label={"Username"}
-        name="username"
-        value={username}
+        label={"Name"}
+        name="name"
+        value={name}
         onChange={handleChange}
-        error={!isValidate && "Username is required"}
+        error={!isValidate && "Name is required"}
       />
       <FormTextField
         label={"Email"}
@@ -72,14 +80,22 @@ const AddUserForm = ({ open, handleClose }) => {
         error={!isValidate && "Password is required"}
         type="password"
       />
-      <MultiSelectField
+      <FormTextField
+        label={"Password Confirm"}
+        name="password_confirmation"
+        value={password_confirmation}
+        onChange={handleChange}
+        error={!isValidate && "Password Confirm is required"}
+        type="password"
+      />
+      {/* <MultiSelectField
         label={"Role"}
         name="role"
         value={role}
         onChange={onChangeRole}
         options={roleOptions}
         error={!isValidate && "Role is required"}
-      />
+      /> */}
       <Toolbar
         style={{
           display: "flex",
