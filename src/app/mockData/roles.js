@@ -1,28 +1,28 @@
 export function createData(
     id,
+    roleId,
     name,
-    actions
   ) {
     return {
         id,
+        roleId,
         name,
-        actions
     };
   }
   export const headRows = [
+    {
+      id: "id",
+      numeric: false,
+      sortable: true,
+      disablePadding: false,
+      label: "Id",
+    },
     {
       id: "name",
       numeric: false,
       sortable: true,
       disablePadding: false,
       label: "Name",
-    },
-    {
-      id: "action",
-      numeric: false,
-      sortable: false,
-      disablePadding: false,
-      label: "Action",
     }
   ];
   

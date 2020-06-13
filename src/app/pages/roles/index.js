@@ -1,87 +1,41 @@
-import {
-  Delete,
-  Edit,
-  AddCircleOutline
-} from "@material-ui/icons";
 import { default as React } from "react";
-import { createData, headRows, rowsData } from "../../mockData/roles";
-import CustomizedIconButton from "../../partials/content/CustomizedIconButton";
+import { useDispatch, useSelector } from "react-redux";
+import { createData, headRows } from "../../mockData/roles";
 import MatTable from "../../partials/content/Table";
-import DeleteRoleModal from "./components/DeleteRoleModal";
-import AddRoleModal from "./components/AddRoleModal";
-import EditRoleModal from './components/EditRoleModal';
+import roleActions from "../../store/ducks/actions/roles";
+
 
 const Roles = () => {
-  const [modal, setModal] = React.useState({
-    type: "",
-    selected: {},
-  });
+  const dispatch = useDispatch();
+  const [pagination, setPagination] = React.useState({ offset: 0, limit: 5 });
 
-  const { type } = modal;
+  const { roles, isFetching } = useSelector((store) => store.roleList);
 
-  const dataRows = rowsData.map((_item, index) => {
-    return createData(
-      _item.id,
-      _item.name,
-      <>
-        <CustomizedIconButton
-          onClick={() => hasRoleModalAction("delete", _item)}
-          Icon={<Delete />}
-          title="Delete role"
-        />
-        <CustomizedIconButton
-          onClick={() => hasRoleModalAction("edit", _item)}
-          Icon={<Edit />}
-          title="Edit role"
-        />
-      </>
-    );
-  });
+  React.useEffect(() => {
+    dispatch(roleActions.getRoles());
+  }, []);
 
-  const hasRoleModalAction = (type, selected) => {
-    setModal((prevState) => ({
-      ...prevState,
-      type,
-      selected,
-    }));
-  };
+  const dataRows = React.useMemo(() => {
+    if (!roles || !roles.length) return [];
+    return roles.map((_item, index) => {
+      return createData(_item.id, _item.id, _item.name);
+    });
+  }, [roles]);
 
-  const handleCloseModal = () => {
-    setModal((prevState) => ({
-      ...prevState,
-      type: "",
-      selected: {},
-    }));
-  };
-
-  const handleDeleteTutorial = () => {
-    console.log("deleting submit");
-  };
-  console.log(">>>>>>", modal);
-  
   return (
     <>
       <div style={{ display: "flex" }}>
         <h1>Role management</h1>
-        <CustomizedIconButton
-          onClick={() => hasRoleModalAction("add", {})}
-          style={{ marginLeft: "4px" }}
-          Icon={<AddCircleOutline />}
-          title="Add User"
-        />
       </div>
-      <MatTable headRows={headRows} rows={dataRows} />
-      {<>
-        <AddRoleModal open={type === "add"} handleClose={handleCloseModal} />
-        <EditRoleModal open={type === "edit"} handleClose={handleCloseModal} />
-
-        <DeleteRoleModal
-          open={type === "delete"}
-          handleClose={handleCloseModal}
-          handleSubmit={handleDeleteTutorial}
-        />
-        </>
-      }
+      <MatTable
+        headRows={headRows}
+        rows={dataRows}
+        pagination={pagination}
+        setPagination={setPagination}
+        count={roles && roles.length}
+        isFetching={isFetching}
+        nonMultiSelect={true}
+      />
     </>
   );
 };
