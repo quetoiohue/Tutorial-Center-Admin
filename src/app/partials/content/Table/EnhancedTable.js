@@ -1,7 +1,6 @@
 /* eslint-disable no-restricted-imports */
 
 import {
-  Checkbox,
   FormControlLabel,
   Paper,
   Switch,
@@ -9,13 +8,13 @@ import {
   TableBody,
   TableCell,
   TablePagination,
-  TableRow,
+  TableRow
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import React from "react";
+import LoadingProgress from "../../../components/LoadingProgress";
 import EnhancedTableHead from "./EnhancedTableHead";
 import EnhancedTableToolbar from "./EnhancedTableToolbar";
-import LoadingProgress from "../../../components/LoadingProgress";
 
 function desc(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -122,35 +121,6 @@ export default function EnhancedTable(props) {
     setOrderBy(property);
   }
 
-  function handleSelectAllClick(event) {
-    if (event.target.checked) {
-      const newSelecteds = rows.map((n) => n.id);
-      setSelected(newSelecteds);
-      return;
-    }
-    setSelected([]);
-  }
-
-  function handleClick(event, name) {
-    const selectedIndex = selected.indexOf(name);
-    let newSelected = [];
-
-    if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, name);
-    } else if (selectedIndex === 0) {
-      newSelected = newSelected.concat(selected.slice(1));
-    } else if (selectedIndex === selected.length - 1) {
-      newSelected = newSelected.concat(selected.slice(0, -1));
-    } else if (selectedIndex > 0) {
-      newSelected = newSelected.concat(
-        selected.slice(0, selectedIndex),
-        selected.slice(selectedIndex + 1)
-      );
-    }
-
-    setSelected(newSelected);
-  }
-
   function handleChangePage(event, newPage) {
     console.log("newPage", newPage);
 
@@ -182,7 +152,6 @@ export default function EnhancedTable(props) {
 
     props.onClickRow(item);
   };
-  const isSelected = (name) => selected.indexOf(name) !== -1;
 
   const emptyRows =
     rowsPerPage - Math.min(rowsPerPage, count - page * rowsPerPage);
@@ -207,10 +176,8 @@ export default function EnhancedTable(props) {
             >
               <EnhancedTableHead
                 headRows={headRows}
-                numSelected={selected.length}
                 order={order}
                 orderBy={orderBy}
-                onSelectAllClick={handleSelectAllClick}
                 onRequestSort={handleRequestSort}
                 rowCount={rows.length}
                 nonMultiSelect={props.nonMultiSelect}
@@ -221,29 +188,18 @@ export default function EnhancedTable(props) {
                     .filter((_item) => onSearching(_item))
                     // .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                     .map((row, index) => {
-                      const isItemSelected = isSelected(row.id);
                       const labelId = `enhanced-table-checkbox-${index}`;
                       return (
                         <TableRow
                           hover
                           role="checkbox"
-                          aria-checked={isItemSelected}
                           tabIndex={-1}
                           key={row.id}
-                          selected={isItemSelected}
                           onClick={handleClickRow(row)}
                           style={{
                             cursor: props.onClickRow ? "pointer" : "default",
                           }}
                         >
-                          {!props.nonMultiSelect && <TableCell padding="checkbox">
-                            <Checkbox
-                              key={`checked-${index}`}
-                              onClick={(event) => handleClick(event, row.id)}
-                              checked={isItemSelected}
-                              inputProps={{ "aria-labelledby": labelId }}
-                            />
-                          </TableCell>}
                           {Object.keys(row).map((_el, _index) =>
                             _el !== "id" ? (
                               _index === 1 ? (

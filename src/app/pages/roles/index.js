@@ -34,7 +34,6 @@ const Roles = () => {
         setPagination={setPagination}
         count={roles && roles.length}
         isFetching={isFetching}
-        nonMultiSelect={true}
       />
     </>
   );
