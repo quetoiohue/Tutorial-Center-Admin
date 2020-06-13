@@ -97,7 +97,8 @@ export default function reducer(state = initialState, action) {
         isFetching: false,
         error: action.payload,
       };
-    case actionTypes.UPDATE_USER_REQUEST:
+    case actionTypes.UPDATE_USER_ROLES_REQUEST:
+    case actionTypes.UPDATE_USER_STATUS_REQUEST:
       return {
         ...state,
         isFetching: true,
@@ -105,7 +106,7 @@ export default function reducer(state = initialState, action) {
     case actionTypes.UPDATE_USER_SUCCESS:
       const newUpdatedUsers = state.users.map((_item) => {
         if (_item.id === action.payload.id) {
-          return action.payload;
+          return {..._item, ...action.payload};
         }
         return _item;
       });

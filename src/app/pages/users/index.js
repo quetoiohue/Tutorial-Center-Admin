@@ -19,6 +19,7 @@ import * as Actions from "../../store/ducks/actions";
 import AddUserForm from "./components/AddUserForm";
 import EditUserForm from "./components/EditUserForm";
 import LoadingProgress from "../../components/LoadingProgress";
+import BlockUserForm from "./components/BlockUserForm";
 
 const initialModalState = {
   modal: "",
@@ -39,19 +40,20 @@ const Users = (props) => {
   React.useEffect(() => {
     dispatch(Actions.Role.getRoles());
   }, []);
-  
+
   const rows = React.useMemo(
     () =>
       Array.isArray(users) &&
       users.map((_item, index) => {
         const permissions =
-          _item.permissions &&
-          _item.permissions.map((_item) => ({
-            name: _item.name,
-            id: _item.pivot.permission_id,
-          })) || [];
-        const { id, email, name } = _item;
-        const selectedItem = { id, email, name, permissions };
+          (_item.permissions &&
+            _item.permissions.map((_item) => ({
+              name: _item.name,
+              id: _item.pivot.permission_id,
+            }))) ||
+          [];
+        const { id, email, name, is_active } = _item;
+        const selectedItem = { id, email, name, permissions, is_active };
         return createData(
           _item.id,
           _item.name,
@@ -76,9 +78,17 @@ const Users = (props) => {
               title="Edit"
             />
             {_item.is_active ? (
-              <CustomizedIconButton Icon={<AddBox />} title="Unblock" />
+              <CustomizedIconButton
+                onClick={() => handleSelectModal("block", selectedItem)}
+                Icon={<AddBox />}
+                title="Unblock"
+              />
             ) : (
-              <CustomizedIconButton Icon={<RemoveCircle />} title="Block" />
+              <CustomizedIconButton
+                onClick={() => handleSelectModal("block", selectedItem)}
+                Icon={<RemoveCircle />}
+                title="Block"
+              />
             )}
             <Link to={`/users/${_item.id}`}>
               <CustomizedIconButton Icon={<ArrowRightAlt />} title="Detail" />
@@ -88,7 +98,7 @@ const Users = (props) => {
       }),
     [users]
   );
-  console.log(rows);
+  console.log(Modal);
 
   const handleSelectModal = (modal, selected = {}) => {
     setModal({
@@ -112,20 +122,27 @@ const Users = (props) => {
           title="Add User"
         />
       </div>
-        <MatTable
-          headRows={headRows}
-          rows={rows}
-          pagination={pagination}
-          setPagination={setPagination}
-          count={count}
-          isFetching={isFetching}
-        />
+      <MatTable
+        headRows={headRows}
+        rows={rows}
+        pagination={pagination}
+        setPagination={setPagination}
+        count={count}
+        isFetching={isFetching}
+      />
       {modal === "add" && (
         <AddUserForm open={modal === "add"} handleClose={handleClose} />
       )}
       {modal === "edit" && (
         <EditUserForm
           open={modal === "edit"}
+          handleClose={handleClose}
+          selected={selected}
+        />
+      )}
+      {modal === "block" && (
+        <BlockUserForm
+          open={modal === "block"}
           handleClose={handleClose}
           selected={selected}
         />
