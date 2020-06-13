@@ -9,6 +9,7 @@ import { PersistGate } from "redux-persist/integration/react";
 import { LastLocationProvider } from "react-router-last-location";
 import { Routes } from "./app/router/Routes";
 import { I18nProvider, LayoutSplashScreen, ThemeProvider } from "./_metronic";
+import CustomizedAlert from "./app/partials/content/CustomizedAlert";
 
 export default function App({ store, persistor, basename }) {
   return (
@@ -28,6 +29,7 @@ export default function App({ store, persistor, basename }) {
                 <I18nProvider>
                   {/* Render routes with provided `Layout`. */}
                   <Routes />
+                  <CustomizedAlert title="Success" message="Updated successfully" color="success"/>
                 </I18nProvider>
               </ThemeProvider>
             </LastLocationProvider>
