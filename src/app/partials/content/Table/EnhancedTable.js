@@ -213,6 +213,7 @@ export default function EnhancedTable(props) {
                 onSelectAllClick={handleSelectAllClick}
                 onRequestSort={handleRequestSort}
                 rowCount={rows.length}
+                nonMultiSelect={props.nonMultiSelect}
               />
               <TableBody>
                 <>
@@ -235,14 +236,14 @@ export default function EnhancedTable(props) {
                             cursor: props.onClickRow ? "pointer" : "default",
                           }}
                         >
-                          <TableCell padding="checkbox">
+                          {!props.nonMultiSelect && <TableCell padding="checkbox">
                             <Checkbox
                               key={`checked-${index}`}
                               onClick={(event) => handleClick(event, row.id)}
                               checked={isItemSelected}
                               inputProps={{ "aria-labelledby": labelId }}
                             />
-                          </TableCell>
+                          </TableCell>}
                           {Object.keys(row).map((_el, _index) =>
                             _el !== "id" ? (
                               _index === 1 ? (
@@ -251,7 +252,7 @@ export default function EnhancedTable(props) {
                                   component="th"
                                   id={labelId}
                                   scope="row"
-                                  padding="none"
+                                  // padding="none"
                                 >
                                   {row[_el]}
                                 </TableCell>

@@ -25,14 +25,14 @@ export default function EnhancedTableHead(props) {
   return (
     <TableHead>
       <TableRow>
-        <TableCell padding="checkbox">
+        {!props.nonMultiSelect && <TableCell padding="checkbox">
           <Checkbox
             indeterminate={numSelected > 0 && numSelected < rowCount}
             checked={numSelected === rowCount}
             onChange={onSelectAllClick}
             inputProps={{ "aria-label": "Select all desserts" }}
           />
-        </TableCell>
+        </TableCell>}
         {headRows.map((row) => (
           <TableCell
             key={row.id}
