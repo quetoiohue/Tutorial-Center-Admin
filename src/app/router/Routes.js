@@ -13,7 +13,7 @@ import { LayoutContextProvider } from "../../_metronic";
 import Layout from "../../_metronic/layout/Layout";
 import AuthPage from "../pages/auth/AuthPage";
 import LogoutPage from "../pages/auth/Logout";
-import ErrorsPage from "../pages/errors/ErrorsPage";
+import ErrorPage1 from "../pages/errors/ErrorPage1";
 import HomePage from "../pages/home/HomePage";
 import * as routerHelpers from "../router/RouterHelpers";
 
@@ -41,7 +41,7 @@ export const Routes = withRouter(({ history }) => {
           <Redirect from="/auth" to={userLastLocation} />
         )}
 
-        <Route path="/error" component={ErrorsPage} />
+        <Route path="/error" component={ErrorPage1} />
         <Route path="/logout" component={LogoutPage} />
 
         {!isAuthorized ? (

@@ -128,7 +128,7 @@ const UserStatistical = (props) => {
           display: false,
         },
         hover: {
-          mode: "ErrorsPage.js",
+          mode: "ErrorPage1.js",
         },
         tooltips: {
           enabled: true,
