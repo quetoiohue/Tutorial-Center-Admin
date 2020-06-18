@@ -1,11 +1,12 @@
 /* eslint-disable no-restricted-imports */
-import { Checkbox, Chip, CircularProgress } from "@material-ui/core";
+import { Checkbox, Chip } from "@material-ui/core";
 import {
   AddBox,
   AddCircleOutline,
   ArrowRightAlt,
   Edit,
   RemoveCircle,
+  Delete,
 } from "@material-ui/icons";
 import moment from "moment";
 import React from "react";
@@ -15,11 +16,10 @@ import { createData, headRows } from "../../mockData/users";
 import CustomizedIconButton from "../../partials/content/CustomizedIconButton";
 import MatTable from "../../partials/content/Table";
 import * as Actions from "../../store/ducks/actions";
-
 import AddUserForm from "./components/AddUserForm";
-import EditUserForm from "./components/EditUserForm";
-import LoadingProgress from "../../components/LoadingProgress";
 import BlockUserForm from "./components/BlockUserForm";
+import EditUserForm from "./components/EditUserForm";
+import DeleteUserForm from "./components/DeleteUserForm";
 
 const initialModalState = {
   modal: "",
@@ -90,6 +90,11 @@ const Users = (props) => {
                 title="Block"
               />
             )}
+            <CustomizedIconButton
+              onClick={() => handleSelectModal("delete", selectedItem)}
+              Icon={<Delete />}
+              title="Delete"
+            />
             <Link to={`/users/${_item.id}`}>
               <CustomizedIconButton Icon={<ArrowRightAlt />} title="Detail" />
             </Link>
@@ -143,6 +148,13 @@ const Users = (props) => {
       {modal === "block" && (
         <BlockUserForm
           open={modal === "block"}
+          handleClose={handleClose}
+          selected={selected}
+        />
+      )}
+      {modal === "delete" && (
+        <DeleteUserForm
+          open={modal === "delete"}
           handleClose={handleClose}
           selected={selected}
         />

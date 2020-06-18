@@ -63,7 +63,7 @@ function* deleteUser(action) {
     const { data } = response;
     console.log("deleteUser", data);
 
-    yield put({ type: actionTypes.DELETE_USER_SUCCESS, payload: data });
+    yield put({ type: actionTypes.DELETE_USER_SUCCESS, payload: data.id });
     yield put({ type: messageTypes.SHOW_SUCCESS_MESSAGE, payload: { message: "User has been deleted successfully!"} });
   } catch (error) {
     yield put({ type: actionTypes.DELETE_USER_ERROR, payload: error });
