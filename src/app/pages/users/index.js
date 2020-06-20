@@ -29,13 +29,11 @@ const Users = (props) => {
   const dispatch = useDispatch();
   const { users, isFetching, count } = useSelector((store) => store.userList);
   const [Modal, setModal] = React.useState(initialModalState);
-  const [pagination, setPagination] = React.useState({ offset: 0, limit: 10 });
   const { modal, selected } = Modal;
-  const { offset, limit } = pagination;
 
   React.useEffect(() => {
-    dispatch(Actions.User.getUserList({ offset, limit }));
-  }, [offset, limit]);
+    dispatch(Actions.User.getUserList());
+  }, []);
 
   React.useEffect(() => {
     dispatch(Actions.Role.getRoles());
@@ -130,8 +128,6 @@ const Users = (props) => {
       <MatTable
         headRows={headRows}
         rows={rows}
-        pagination={pagination}
-        setPagination={setPagination}
         count={count}
         isFetching={isFetching}
       />

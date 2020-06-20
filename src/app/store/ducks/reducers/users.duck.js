@@ -84,7 +84,7 @@ export default function reducer(state = initialState, action) {
       };
     case actionTypes.DELETE_USER_SUCCESS:
       const newUsers = state.users.filter(
-        (_item) => _item.id !== action.payload.id
+        (_item) => _item.id !== action.payload
       );
       return {
         ...state,

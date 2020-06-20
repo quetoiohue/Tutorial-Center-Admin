@@ -1,8 +1,7 @@
 import React from "react";
 import EnhancedTable from "./EnhancedTable";
 
-const MatTable = ({ headRows, rows = [], onClickRow, pagination, setPagination, count, isFetching, ...props }) => {
-  console.log("setPagination", pagination, count );
+const MatTable = ({ headRows, rows = [], onClickRow, count, isFetching, ...props }) => {
   
   return (
     <>
@@ -10,8 +9,6 @@ const MatTable = ({ headRows, rows = [], onClickRow, pagination, setPagination, 
         headRows={headRows}
         rows={rows}
         onClickRow={onClickRow}
-        pagination={pagination}
-        setPagination={setPagination}
         count={count}
         isFetching={isFetching}
         {...props}

@@ -4,8 +4,8 @@ import store from "../../store";
 const userApi = () => {
   setupAxios(store);
   return {
-    getUsers: ({ offset, limit }) => {
-      return axiosApi.get(`/api/admin/users/${offset}/${limit}`);
+    getUsers: () => {
+      return axiosApi.get(`/api/admin/users`);
     },
     getUserById: (userId) => {
       return axiosApi.get(`/api/admin/users/view/${userId}`);

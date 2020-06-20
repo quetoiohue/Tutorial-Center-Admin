@@ -4,7 +4,7 @@ import messageTypes from "../actionTypes/message";
 import userApi from '../api/users';
 
 const actions = {
-  getUserList: ({ offset, limit}) => ({ type: actionTypes.GET_USER_LIST_REQUEST, payload: { offset, limit} }),
+  getUserList: () => ({ type: actionTypes.GET_USER_LIST_REQUEST }),
   getUserById: (userId) => ({ type: actionTypes.GET_USER_BY_ID_REQUEST, payload: userId }),
   addUser: (params) => ({
     type: actionTypes.ADD_USER_REQUEST,
@@ -33,9 +33,11 @@ export function* usersSaga() {
   yield takeLatest(actionTypes.UPDATE_USER_STATUS_REQUEST, setUserStatus);
 }
 
-function* fetchUserList(action) {
+function* fetchUserList() {
   try {
-    const response = yield call(userApi().getUsers, { ...action.payload});
+    const response = yield call(userApi().getUsers);
+    console.log("response", response.data);
+    
     const { data } = response;
     yield put({ type: actionTypes.GET_USER_LIST_SUCCESS, payload: data });
   } catch (error) {

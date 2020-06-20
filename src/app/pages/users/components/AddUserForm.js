@@ -52,8 +52,8 @@ const AddUserForm = ({ open, handleClose }) => {
     if (!validateForm(formState)) return;
     console.log("Submitted");
     dispatch(userAction.addUser(formState));
-    handleClose();
     setFormState(initialFormState);
+    handleClose();
   };
 
   const SubmitForm = (
