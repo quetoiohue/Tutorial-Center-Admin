@@ -103,7 +103,7 @@ const UserStatistical = (props) => {
               <div className="kt-widget12__info">
                 <span className="kt-widget12__desc">Votes</span>
                 <div className="kt-widget12__value">
-                  <Rating number={Number.parseInt(getUserById.average_rate)} />
+                  <Rating number={(getUserById.average_rate)} />
                 </div>
               </div>
             </div>

@@ -40,7 +40,7 @@ const Tutorials = () => {
         _item.author.name,
         _item.title,
         <Checkbox checked={Boolean(_item.is_active)} />,
-        <Rating number={Number.parseInt(_item.average_rate)} fontSize="small" />,
+        <Rating number={(_item.average_rate)} fontSize="small" />,
         moment(_item.updated_at).format("DD/MM/YYYY"),
         moment(_item.created_at).format("DD/MM/YYYY"),
         <>
