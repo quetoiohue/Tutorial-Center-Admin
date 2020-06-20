@@ -14,7 +14,7 @@ import { SelectField } from "../../../../partials/content/Form";
 import { periodOptions } from "../../../../mockData/users";
 import usePeriod from "../../../../hooks/usePeriod";
 import { Toolbar } from "@material-ui/core";
-import DrawingChart from '../../../../partials/content/DrawingChart';
+import DrawingChart from "../../../../partials/content/DrawingChart";
 
 const UserStatistical = (props) => {
   const { getUserById } = props;
@@ -35,24 +35,22 @@ const UserStatistical = (props) => {
       formattingDate = "YYYY";
     }
 
-    const postedHistory = tutorials.reduce((assumeObj, _item) => {
+    const postHistory = tutorials.reduce((datesObj, _item) => {
       const createdDate = moment(_item.created_at).format(formattingDate);
-      if (
-        Object.keys(assumeObj).some((_history) =>
-          moment(_history.date).isSame(createdDate, period)
-        )
-      ) {
-        assumeObj[createdDate] += 1;
+      if (Object.keys(datesObj).includes(`${createdDate}`)) {
+        console.log("existing", createdDate, datesObj);
+        datesObj[`${createdDate}`] = datesObj[`${createdDate}`] + 1;
       } else {
-        assumeObj[`${createdDate}`] = 1;
+        console.log("not existing", createdDate, datesObj);
+        datesObj[`${createdDate}`] = 1;
       }
-      console.log("dates", assumeObj[`${createdDate}`]);
+      console.log("dates", datesObj[`${createdDate}`]);
 
-      return assumeObj;
+      return datesObj;
     }, {});
 
-    const labels = Object.keys(postedHistory);
-    const values = Object.values(postedHistory);
+    const labels = Object.keys(postHistory);
+    const values = Object.values(postHistory);
     const defaultDate = moment(labels[0], formattingDate)
       .subtract(1, `${period}s`)
       .format(formattingDate);
@@ -103,7 +101,7 @@ const UserStatistical = (props) => {
               <div className="kt-widget12__info">
                 <span className="kt-widget12__desc">Votes</span>
                 <div className="kt-widget12__value">
-                  <Rating number={(getUserById.average_rate)} />
+                  <Rating number={getUserById.average_rate} />
                 </div>
               </div>
             </div>
