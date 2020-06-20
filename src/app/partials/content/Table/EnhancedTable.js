@@ -87,7 +87,7 @@ export default function EnhancedTable(props) {
   function handleChangeSearchText(value) {
     setSearchText(value.toLowerCase());
     setPage(0);
-    if (!rows.length) return [];
+    // if (!rows.length) return [];
     const newRows = rowsProps.filter(_item => {
       return Object.keys(_item).some((_el) =>
         String(_item[_el])
@@ -96,7 +96,7 @@ export default function EnhancedTable(props) {
       );
     });    
     
-    return setRows([...newRows]);
+    return setRows(newRows);
   }
 
   function handleDeleteItems() {
