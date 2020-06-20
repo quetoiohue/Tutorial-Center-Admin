@@ -63,7 +63,6 @@ export default function EnhancedTable(props) {
   const {
     headRows: headRowsProps,
     rows: rowsProps,
-    count,
     isFetching,
   } = props;
   console.log("Props", props);
@@ -87,16 +86,19 @@ export default function EnhancedTable(props) {
 
   function handleChangeSearchText(value) {
     setSearchText(value.toLowerCase());
+    setPage(0);
+    if (!rows.length) return [];
+    const newRows = rowsProps.filter(_item => {
+      return Object.keys(_item).some((_el) =>
+        String(_item[_el])
+          .toLowerCase()
+          .includes(value)
+      );
+    });    
+    
+    return setRows([...newRows]);
   }
-  function onSearching(_item) {
-    if (!rows.length) return;
 
-    return Object.keys(_item).some((_el) =>
-      String(_item[_el])
-        .toLowerCase()
-        .includes(searchText)
-    );
-  }
   function handleDeleteItems() {
     if (!selected.length) return;
     selected.forEach((_el) => handleDeleteItem(_el));
@@ -131,8 +133,6 @@ export default function EnhancedTable(props) {
   }
 
   const handleClickRow = (item) => () => {
-    console.log("Click row", item);
-
     if (!props.onClickRow) {
       return;
     }
@@ -141,7 +141,7 @@ export default function EnhancedTable(props) {
   };
 
   const emptyRows =
-    rowsPerPage - Math.min(rowsPerPage, count - page * rowsPerPage);
+    rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
 
   return (
     <div className={classes.root}>
@@ -172,7 +172,7 @@ export default function EnhancedTable(props) {
               <TableBody>
                 <>
                   {stableSort(rows, getSorting(order, orderBy))
-                    .filter((_item) => onSearching(_item))
+                    // .filter((_item) => onSearching(_item))
                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                     .map((row, index) => {
                       const labelId = `enhanced-table-checkbox-${index}`;
@@ -230,7 +230,7 @@ export default function EnhancedTable(props) {
         <TablePagination
           rowsPerPageOptions={[5, 10, 25]}
           component="div"
-          count={count}
+          count={rows.length}
           rowsPerPage={rowsPerPage}
           page={page}
           backIconButtonProps={{
