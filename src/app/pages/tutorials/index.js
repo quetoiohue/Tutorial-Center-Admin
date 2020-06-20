@@ -22,17 +22,12 @@ const Tutorials = () => {
     type: "",
     selected: {},
   });
-  const [pagination, setPagination] = React.useState({
-    offset: 0,
-    limit: 10,
-  });
   const { tutorials, count, isFetching } = useSelector((store) => store.tutorialList);
-  const { offset, limit } = pagination;
   const { type } = modal;
 
   React.useEffect(() => {
-    dispatch(tutorialActions.getTutorials({ offset, limit }));
-  }, [offset, limit]);
+    dispatch(tutorialActions.getTutorials());
+  }, []);
 
   const dataRows = React.useMemo(() => {
     if (!tutorials) return [];
@@ -44,7 +39,7 @@ const Tutorials = () => {
       return createData(
         _item.id,
         _item.id,
-        _item.name,
+        _item.author.name,
         _item.title,
         <Rating number={Number.parseInt(averagingRate)} fontSize="small" />,
         moment(_item.updated_at).format("DD/MM/YYYY"),
@@ -66,7 +61,7 @@ const Tutorials = () => {
         </>
       );
     });
-  }, [tutorials, offset, limit]);
+  }, [tutorials]);
 
   console.log(dataRows);
 
@@ -86,8 +81,14 @@ const Tutorials = () => {
     }));
   };
 
-  const handleDeleteTutorial = () => {
+  const handleDeleteTutorial = (id) => {
     console.log("deleting submit");
+    tutorialActions.deleteTutorialById(id);
+  };
+
+  const handleSetActiveTutorial = ({id , is_active}) => {
+    console.log("set active submit");
+    tutorialActions.setActiveTutorialById({id , is_active});
   };
 
   return (
@@ -98,8 +99,6 @@ const Tutorials = () => {
       <MatTable
         headRows={headRows}
         rows={dataRows}
-        pagination={pagination}
-        setPagination={setPagination}
         count={count}
         isFetching={isFetching}
       />

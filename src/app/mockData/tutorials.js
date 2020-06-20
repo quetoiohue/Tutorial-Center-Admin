@@ -49,7 +49,7 @@ export const headRows = [
     numeric: false,
     sortable: true,
     disablePadding: false,
-    label: "Author Id",
+    label: "Author",
   },
   {
     id: "title",

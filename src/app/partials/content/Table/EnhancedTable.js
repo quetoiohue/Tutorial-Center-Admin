@@ -63,34 +63,27 @@ export default function EnhancedTable(props) {
   const {
     headRows: headRowsProps,
     rows: rowsProps,
-    pagination,
-    setPagination,
     count,
     isFetching,
   } = props;
   console.log("Props", props);
 
-  const { offset, limit } = pagination;
   const classes = useStyles();
-  const [headRows] = React.useState(headRowsProps);
-  const [rows, setRows] = React.useState(rowsProps);
+  const [headRows, setHeadRows] = React.useState([]);
+  const [rows, setRows] = React.useState([]);
 
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("calories");
   const [selected, setSelected] = React.useState([]);
-  const [page, setPage] = React.useState(Number.parseInt(offset / limit) || 0);
+  const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
-  const [rowsPerPage, setRowPerPage] = React.useState(limit || 5);
+  const [rowsPerPage, setRowPerPage] = React.useState(5);
   const [searchText, setSearchText] = React.useState("");
 
   React.useEffect(() => {
     setRows(rowsProps);
+    setHeadRows(headRowsProps);
   }, [rowsProps]);
-
-  React.useEffect(() => {
-    setPage(offset / limit);
-    setRowPerPage(limit);
-  }, [offset, limit]);
 
   function handleChangeSearchText(value) {
     setSearchText(value.toLowerCase());
@@ -121,22 +114,16 @@ export default function EnhancedTable(props) {
     setOrderBy(property);
   }
 
-  function handleChangePage(event, newPage) {
-    console.log("newPage", newPage);
+  function handleChangePage(event, page) {
+    console.log("newPage", page);
 
-    setPagination((prevState) => ({
-      ...prevState,
-      offset: newPage * limit,
-    }));
+    setPage(page);
   }
 
   function handleChangeRowsPerPage(event) {
     console.log("RowsPerPage", event.target.value);
-
-    setPagination((prevState) => ({
-      ...prevState,
-      limit: +event.target.value,
-    }));
+    const { value } = event.target;
+    setRowPerPage(value);
   }
 
   function handleChangeDense(event) {
@@ -186,7 +173,7 @@ export default function EnhancedTable(props) {
                 <>
                   {stableSort(rows, getSorting(order, orderBy))
                     .filter((_item) => onSearching(_item))
-                    // .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                     .map((row, index) => {
                       const labelId = `enhanced-table-checkbox-${index}`;
                       return (
