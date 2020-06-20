@@ -19,6 +19,7 @@
         margin: 0 auto; 
         height: 120px;
         width: 120px;
+        margin-bottom: 1rem;
     }
     .user-info--form {
         .user-info--item {
@@ -34,6 +35,12 @@
             }
            
         }
+    }
+    .user-info--bottom-btn {
+        font-size: 1rem;
+        font-weight: 600;
+        display: block;
+        text-transform: capitalize;
     }
 }
 .my-rating--container {
