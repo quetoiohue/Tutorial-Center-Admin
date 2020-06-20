@@ -75,7 +75,7 @@ export default function reducer(state = initialState, action) {
         error: "",
       };
     case tutorialActions.DELETE_TUTORIAL_SUCCESS:
-      const deletedItemIndex = state.tutorials.findIndex(_item => _item.id === action.payload);
+      const deletedItemIndex = state.tutorials.findIndex(_item => _item.id === action.payload);      
       state.tutorials.splice(deletedItemIndex, 1);
 
       return {

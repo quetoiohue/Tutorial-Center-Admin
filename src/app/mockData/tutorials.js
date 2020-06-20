@@ -18,7 +18,7 @@ const generateKey = () => {
 export function createData(
   id,
   post_id,
-  author_id,
+  author_name,
   title,
   is_active,
   rates,
@@ -29,7 +29,7 @@ export function createData(
   return {
     id,
     post_id,
-    author_id,
+    author_name,
     title,
     is_active,
     rates,
@@ -47,7 +47,7 @@ export const headRows = [
     label: "Id",
   },
   {
-    id: "author_id",
+    id: "author_name",
     numeric: false,
     sortable: true,
     disablePadding: false,

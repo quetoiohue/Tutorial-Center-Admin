@@ -45,7 +45,7 @@ function* handleDeleteTutorialById (action) {
     try {
         const response = yield call(tutorialApi().deleteTutorialById, action.payload );
         const { data } = response;
-        yield put({ type: tutorialActions.DELETE_TUTORIAL_SUCCESS, payload: data });
+        yield put({ type: tutorialActions.DELETE_TUTORIAL_SUCCESS, payload: data.id });
     } catch (error) {
         console.log(error); 
         yield put({ type: tutorialActions.DELETE_TUTORIAL_ERROR, payload: error})
