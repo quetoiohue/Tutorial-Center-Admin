@@ -21,7 +21,7 @@
     }
     .kt-widget12__item {
       display: flex;
-      margin-bottom: 2.5rem;
+      margin-bottom: 1.5rem;
       align-items: center;
       &.wrap-social--item {
         flex-direction: column;
@@ -42,6 +42,12 @@
         .kt-widget12__value {
           .kt-widget12__value--icon {
             margin-left: 4px;
+          }
+          .kt-widget12__value--wrapIcon {
+            span svg {  
+              margin-left: 2px;
+              margin-bottom: 2px;
+            }
           }
         }
         .kt-widget12__value,
@@ -74,7 +80,15 @@
       }
     }
   }
-
+  .kt-widget12__chart-title {
+    font-size: 1rem;
+    color: #74788d;
+    padding-bottom: 0.5rem;
+    font-weight: 500;
+    display: flex;
+    margin-bottom: 1.5rem;
+    align-items: center;
+  }
   .kt-widget12__chart {
     position: relative;
 

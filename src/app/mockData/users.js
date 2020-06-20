@@ -1,5 +1,9 @@
 // ================== Hard code ================
-
+export const periodOptions = [
+  {value: 'day', label: 'Daily'},
+  {value: 'month', label: 'Monthly'},
+  {value: 'year', label: 'Yearly'}
+]
 export const roleOptions = [
   { title: "post-tutorial" },
   { title: "comment" },

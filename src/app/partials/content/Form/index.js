@@ -4,6 +4,7 @@ import {
   Input,
   InputLabel,
   TextField,
+  Select,
 } from "@material-ui/core";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import React from "react";
@@ -76,6 +77,29 @@ export const MultiSelectField = ({ value, onChange, options, error }) => {
     </FormControl>
   );
 };
+export const SelectField  = ({ value, onChange, options, label }) => {
+  return (
+    <FormControl variant="outlined">
+      <InputLabel htmlFor="outlined-age-native-simple">{label}</InputLabel>
+      <Select
+        native
+        value={value}
+        onChange={onChange}
+        label={label}
+        inputProps={{
+          name: label,
+          id: 'outlined-age-native-simple',
+        }}
+      >
+        {options.map((_item, index) => {
+          return (
+          <option key={`${_item.value}-${index}`} value={_item.value}>{_item.label}</option>
+          )
+        })}
+      </Select>
+    </FormControl>
+  )
+}
 export const validateForm = (state) => {
   if (!Object.keys(state).length) return false;
   return !Object.keys(state).some(
