@@ -49,10 +49,6 @@ const EditUserForm = ({ open, handleClose, selected }) => {
 
     if (!validateForm(formState)) return;
     dispatch(userActions.setUserRoles({id: selected.id, roles: roles.map(_role => _role.id)}));
-    if (error.message) {
-      console.log("errror", error.message);
-      return;
-    }
     handleClose();
   };
 
