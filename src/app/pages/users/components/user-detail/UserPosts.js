@@ -6,6 +6,7 @@ import CustomizedIconButton from "../../../../partials/content/CustomizedIconBut
 import Rating from "../../../../partials/content/Socials/Rating";
 import MatTable from "../../../../partials/content/Table";
 import moment from "moment";
+import { Checkbox } from "@material-ui/core";
 
 const UserPosts = (props) => {
   console.log("--------", props);
@@ -25,6 +26,7 @@ const UserPosts = (props) => {
           _item.id,
           _item.author_id,
           _item.title,
+          <Checkbox checked={Boolean(_item.is_active)} />,
           <Rating
             number={Number.parseInt(_item.average_rate)}
             fontSize="small"
