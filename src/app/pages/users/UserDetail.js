@@ -27,7 +27,6 @@ const UserDetail = (props) => {
 
   return (
     isFetching ? <LoadingProgress/> : <div>
-      <h1>User Detail WIP</h1>
       <div className="row row-full-height">
         <div className="col-sm-12 col-md-12 col-lg-12">
           <UserInformation expanded={expanded} handleChange={handleChange} getUserById={getUserById}/>

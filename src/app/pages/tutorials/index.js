@@ -15,7 +15,7 @@ import tutorialActions from "../../store/ducks/actions/tutorials";
 import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
 import LoadingProgress from "../../components/LoadingProgress";
-import { Checkbox } from "@material-ui/core";
+import { Checkbox, Avatar } from "@material-ui/core";
 import BlockTutorialForm from "./components/BlockTutorialForm";
 
 const Tutorials = () => {
@@ -24,7 +24,9 @@ const Tutorials = () => {
     type: "",
     selected: {},
   });
-  const { tutorials, count, isFetching } = useSelector((store) => store.tutorialList);
+  const { tutorials, count, isFetching } = useSelector(
+    (store) => store.tutorialList
+  );
   const { type, selected } = modal;
 
   React.useEffect(() => {
@@ -37,10 +39,20 @@ const Tutorials = () => {
       return createData(
         _item.id,
         _item.id,
-        _item.author.name,
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+          }}
+        >
+          <span style={{ marginRight: "8px" }}>
+            <Avatar src={_item.author.avatar_url} />
+          </span>
+          <span>{_item.author.name} </span>
+        </div>,
         _item.title,
         <Checkbox checked={Boolean(_item.is_active)} />,
-        <Rating number={(_item.average_rate)} fontSize="small" />,
+        <Rating number={_item.average_rate} fontSize="small" />,
         moment(_item.updated_at).format("DD/MM/YYYY"),
         moment(_item.created_at).format("DD/MM/YYYY"),
         <>
@@ -50,9 +62,17 @@ const Tutorials = () => {
             title="Delete"
           />
           {_item.is_active ? (
-            <CustomizedIconButton onClick={() => hasTutorialModalType("block", _item)} Icon={<RemoveCircle />} title="Block" />
+            <CustomizedIconButton
+              onClick={() => hasTutorialModalType("block", _item)}
+              Icon={<RemoveCircle />}
+              title="Block"
+            />
           ) : (
-            <CustomizedIconButton onClick={() => hasTutorialModalType("block", _item)} Icon={<AddBox />} title="Unblock" />
+            <CustomizedIconButton
+              onClick={() => hasTutorialModalType("block", _item)}
+              Icon={<AddBox />}
+              title="Unblock"
+            />
           )}
           <Link to={`/tutorials/${_item.id}`}>
             <CustomizedIconButton Icon={<ArrowRightAlt />} title="Detail" />
@@ -91,20 +111,20 @@ const Tutorials = () => {
         count={count}
         isFetching={isFetching}
       />
-      {
-       type === "delete" && <DeleteModal
+      {type === "delete" && (
+        <DeleteModal
           open={type === "delete"}
           handleClose={resetTutorialModalType}
           selected={selected}
         />
-      }
-      {
-        type === "block" && <BlockTutorialForm
+      )}
+      {type === "block" && (
+        <BlockTutorialForm
           open={type === "block"}
           handleClose={resetTutorialModalType}
           selected={selected}
         />
-      }
+      )}
     </>
   );
 };
