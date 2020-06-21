@@ -2,6 +2,7 @@ import { persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import * as routerHelpers from "../../../router/RouterHelpers";
 import actionTypes from "../actionTypes/auth";
+import { usersReducer } from ".";
 
 const initialAuthState = {
   user: undefined,
@@ -13,26 +14,14 @@ const reducer = persistReducer(
   (state = initialAuthState, action) => {
     switch (action.type) {
       case actionTypes.Login: {
-        const { authToken } = action.payload;
+        const { authToken, user } = action.payload;
 
-        return { authToken, user: undefined };
-      }
-
-      case actionTypes.Register: {
-        const { authToken } = action.payload;
-
-        return { authToken, user: undefined };
+        return { authToken, user: { ...user } };
       }
 
       case actionTypes.Logout: {
         routerHelpers.forgotLastLocation();
         return initialAuthState;
-      }
-
-      case actionTypes.UserLoaded: {
-        const { user } = action.payload;
-
-        return { ...state, user };
       }
 
       default:
