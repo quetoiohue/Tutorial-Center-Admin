@@ -24,7 +24,7 @@ const Roles = () => {
 
   return (
     <>
-      <div style={{ display: "flex" }}>
+      <div className="layout-header-toolbar">
         <h1>Role management</h1>
       </div>
       <MatTable

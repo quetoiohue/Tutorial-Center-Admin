@@ -102,7 +102,7 @@ const Tutorials = () => {
 
   return (
     <>
-      <div style={{ display: "flex" }}>
+      <div className="layout-header-toolbar">
         <h1>Tutorial management</h1>
       </div>
       <MatTable

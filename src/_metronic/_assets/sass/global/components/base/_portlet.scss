@@ -32,6 +32,10 @@
 		border-bottom: 1px solid kt-get($kt-portlet, border-color);
 		min-height: kt-get($kt-portlet, min-height, default, desktop);
 
+		&.kt-portlet__head--select {
+			padding-top: 1rem;
+			padding-bottom: 1rem;
+		}
 		&.kt-portlet__head--right {
 			justify-content: flex-end;
 		}

@@ -20,6 +20,7 @@ import tutorialActions from "../../store/ducks/actions/tutorials";
 import { useDispatch, useSelector } from "react-redux";
 import LoadingProgress from "../../components/LoadingProgress";
 import RecentActivities from "./components/tutorial-detail/RecentActivities";
+import SocialTicket from "../../partials/content/Socials/SocialTicket";
 
 const Author = ({ author }) => {
   const { id, name, avatar_url, description } = author || {};
@@ -75,24 +76,6 @@ const StepComponent = ({ title, data }) => {
         </ExpansionPanelDetails>
       </ExpansionPanel>
     </>
-  );
-};
-
-const SocialTicket = ({ label, value, icon, color }) => {
-  return (
-    <Card className={`bg-light-${color} card col col-lg-12 nopadding`}>
-      <CardContent className="card-content">
-        <div className={`col bg-light-${color} px-6 py-8 rounded-xl`}>
-          <span className={`d-block my-2 color-dark-${color}`}>{icon}</span>
-          <span className={`color-dark-${color} font-weight-bold font-size-h6`}>
-            {label}
-          </span>
-        </div>
-        <span className={`color-dark-${color} font-weight-bold text-value`}>
-          {value}
-        </span>
-      </CardContent>
-    </Card>
   );
 };
 

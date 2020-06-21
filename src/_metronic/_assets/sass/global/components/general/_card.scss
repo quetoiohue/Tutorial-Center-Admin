@@ -45,8 +45,21 @@
 
 .card {
     margin: 0px 8px 8px 0px;
-    width: 135px;
+    min-width: 135px;
+    max-width: 100%;
+    
     .card-content {
+        &.ticket-box {
+            .text-value, .text-label {
+                font-size: 2rem !important;
+            }
+            .text-value {
+                margin: 0.5rem 0px;
+            }
+            svg {
+                font-size: 3rem !important;
+            }
+        }
         display: flex; 
         .text-value {
             font-size: 2rem;
