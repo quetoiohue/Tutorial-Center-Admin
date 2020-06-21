@@ -1,4 +1,4 @@
-import { put, takeLatest, call, yeild } from "redux-saga/effects";
+import { put, takeLatest, call } from "redux-saga/effects";
 
 import roleActions from '../actionTypes/roles';
 import roleApi from '../api/roles';

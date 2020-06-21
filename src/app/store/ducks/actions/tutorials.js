@@ -1,4 +1,4 @@
-import { put, takeLatest, call, yeild } from "redux-saga/effects";
+import { put, takeLatest, call } from "redux-saga/effects";
 
 import tutorialActions from "../actionTypes/tutorials";
 import tutorialApi from "../api/tutorials";
