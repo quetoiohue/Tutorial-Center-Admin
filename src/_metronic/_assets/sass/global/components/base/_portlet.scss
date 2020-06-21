@@ -808,7 +808,7 @@
 		// Fluid Height
 		&.kt-portlet--height-fluid {
 		   	height: calc(100% - #{kt-get($kt-portlet, bottom-space, desktop)});
-
+			max-width: 100%;
 			.kt-portlet__body {
 				flex-grow: 1;
 			}

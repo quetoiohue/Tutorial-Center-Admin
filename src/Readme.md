@@ -12,3 +12,5 @@
 - php artisan db:seed
 - php artisan passport:install
 - php artisan key:generate
+# run migrate again
+- php artisan migrate:fresh --seed

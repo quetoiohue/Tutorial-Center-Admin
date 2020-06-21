@@ -6,43 +6,49 @@ import {
   Divider,
   Button,
   colors,
+  Avatar,
+  Card,
+  CardContent,
 } from "@material-ui/core";
-import { ExpandMore, Visibility, Chat } from "@material-ui/icons";
+import { ExpandMore, Visibility, Chat, Grade } from "@material-ui/icons";
 import CoverImg from "../../assets/img/cover-7.jpg";
 
-// import {
-//   Portlet,
-//   PortletBody,
-//   PortletHeader,
-// } from "../../partials/content/Portlet";
 import Rating from "../../partials/content/Socials/Rating";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import React from "react";
+import tutorialActions from "../../store/ducks/actions/tutorials";
+import { useDispatch, useSelector } from "react-redux";
+import LoadingProgress from "../../components/LoadingProgress";
+import RecentActivities from "./components/tutorial-detail/RecentActivities";
 
-const Author = ({ userId }) => (
-  <Link to={`/users/${userId}`} className="author">
-    <div className="author-container--info">
-      <div className="author-image">
-        <img alt="author." src="/media/users/100_1.jpg" />
+const Author = ({ author }) => {
+  const { id, name, avatar_url, description } = author || {};
+  return (
+    <Link to={`/users/${id}`} className="author">
+      <div className="author-container--info">
+        <div className="author-image">
+          <Avatar src={avatar_url} />
+        </div>
+        <div className="author-info">
+          <Typography gutterBottom={false} className="author-info--name">
+            {name}
+          </Typography>
+          <Typography gutterBottom={false} className="author-info--desc">
+            {description}
+          </Typography>
+        </div>
       </div>
-      <div className="author-info">
-        <Typography gutterBottom={false} className="author-info--name">
-          Quang Tran
-        </Typography>
-        <Typography gutterBottom={false} className="author-info--desc">
-          Aug 8 2019
-        </Typography>
+      <div className="author-container--social">
+        <Button to={`/users/${id}`} color="primary" variant="outlined">
+          Detail
+        </Button>
       </div>
-    </div>
-    <div className="author-container--social">
-      <Button color="primary" variant="outlined">
-        {" "}
-        Follow{" "}
-      </Button>
-    </div>
-  </Link>
-);
-const StepComponent = ({ title, expanded, handleChange }) => {
+    </Link>
+  );
+};
+
+const StepComponent = ({ title, data }) => {
+  const { banner_image_url, content } = data;
   return (
     <>
       <ExpansionPanel
@@ -62,128 +68,118 @@ const StepComponent = ({ title, expanded, handleChange }) => {
         </ExpansionPanelSummary>
         <ExpansionPanelDetails className="tutorial-step-container--content">
           <div className="tutorial-step-image">
-            <img src={CoverImg} alt="illustration." />
+            <img src={banner_image_url} alt="illustration." />
             <p></p>
           </div>
-          <Typography>
-            Nulla facilisi. Phasellus sollicitudin nulla et quam mattis feugiat.
-            Aliquam eget maximus est, id dignissim quam.Nulla facilisi.
-            Phasellus sollicitudin nulla et quam mattis feugiat. Aliquam eget
-            maximus est, id dignissim quam.Nulla facilisi. Phasellus
-            sollicitudin nulla et quam mattis feugiat. Aliquam eget maximus est,
-            id dignissim quam.Nulla facilisi. Phasellus sollicitudin nulla et
-            quam mattis feugiat. Aliquam eget maximus est, id dignissim quam.
-          </Typography>
+          <Typography>{content}</Typography>
         </ExpansionPanelDetails>
       </ExpansionPanel>
     </>
   );
 };
 
-const TutorialDetail = (props) => {
-  const [expanded, setExpanded] = React.useState(false);
+const SocialTicket = ({ label, value, icon, color }) => {
+  return (
+    <Card className={`bg-light-${color} card col col-lg-12 nopadding`}>
+      <CardContent className="card-content">
+        <div className={`col bg-light-${color} px-6 py-8 rounded-xl`}>
+          <span className={`d-block my-2 color-dark-${color}`}>{icon}</span>
+          <span className={`color-dark-${color} font-weight-bold font-size-h6`}>
+            {label}
+          </span>
+        </div>
+        <span className={`color-dark-${color} font-weight-bold text-value`}>
+          {value}
+        </span>
+      </CardContent>
+    </Card>
+  );
+};
 
+const TutorialDetail = (props) => {
+  const dispatch = useDispatch();
+  const params = useParams();
+  const [expanded, setExpanded] = React.useState(false);
+  const { getTutorialById, isFetching } = useSelector(
+    (store) => store.tutorialList
+  );
+  const {
+    title,
+    description,
+    author,
+    steps,
+    comment_count,
+    average_rate,
+    last_views,
+  } = getTutorialById || {};
+
+  React.useEffect(() => {
+    dispatch(tutorialActions.getTutorialById(params.tutorialId));
+  }, [params]);
   const handleChange = (panel) => (event, isExpanded) => {
     console.log(panel, isExpanded);
-
     setExpanded(isExpanded ? panel : false);
   };
 
-  return (
+  return isFetching ? (
+    <LoadingProgress />
+  ) : (
     <div>
       <div className="contents">
         <div className="contents__box contents__box--right tutorial row">
           <div className="section col-md-12 col-lg-8">
             <div className="section-content kt-section">
-              <h1 className="section-title "> How to install Windows 7 </h1>
-              <p className="kt-section__desc tutorial--desc ">
-                Our Metronic React application is based on
-                <b>Create React App</b>. For more detailed information of the
-                CRA, visit the official Create React App
-              </p>
+              <h1 className="kt-section__title"> {title}</h1>
+              <Typography
+                className="kt-section__desc"
+                variant="body2"
+                align="center"
+                gutterBottom
+              >
+                {description}
+              </Typography>
               <Divider />
-              <Author userId={1} />
+              <Author author={author} />
               <Divider />
-
               <div className="kt-section__content mt-3">
-                {[1, 2, 3].map((_item, index) => (
-                  <StepComponent
-                    key={`panel-${index}`}
-                    title={`Step ${_item}`}
-                    expanded={`panel${_item}` === expanded}
-                    handleChange={handleChange(`panel${_item}`)}
-                  />
-                ))}
+                {steps &&
+                  steps.map((_item, index) => (
+                    <StepComponent
+                      key={`panel-${index + 1}`}
+                      title={`Step ${index + 1}: ${_item.title}`}
+                      data={_item}
+                    />
+                  ))}
               </div>
-            </div>
-
-            <div className="space">
-              <p>
-                Our Metronic React application is based on{" "}
-                <b>Create React App</b>. For more detailed information of the
-                CRA, visit the official Create React App
-                <a
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  href="https://create-react-app.dev/docs/getting-started"
-                >
-                  documentation website
-                </a>
-                .
-              </p>
             </div>
           </div>
           <div className="col-md-12 col-lg-4">
-            <div>
-              <div className="kt-portlet--height-fluid kt-portlet--border-bottom-brand">
-                <div>
-                  <div className="kt-widget12">
-                    <div className="kt-widget12__content wrap-social--info">
-                      <div className="kt-widget12__item mb-3 wrap-social--item">
-                        <div className="kt-widget12__info">
-                          {/* <span className="kt-widget12__desc">
-                            Total comments
-                          </span> */}
-                          <span className="kt-widget12__value">
-                            13
-                            <Chat
-                              className="kt-widget12__value--icon"
-                              color="primary"
-                            />
-                          </span>
-                        </div>
-                        {/* <div className="kt-widget12__info">
-                          <span className="kt-widget12__desc">
-                            Last modified date
-                          </span>
-                          <span className="kt-widget12__value">20/04/2020</span>
-                        </div> */}
-                      </div>
-                      <div className="kt-widget12__item mb-3 wrap-social--item">
-                        <div className="kt-widget12__info">
-                          {/* <span className="kt-widget12__desc">Total Views</span> */}
-                          <span className="kt-widget12__value mb-3">
-                            20
-                            <span>
-                              <Visibility
-                                className="kt-widget12__value--icon"
-                                style={{ color: colors.green[500] }}
-                              />
-                            </span>
-                          </span>
-                        </div>
-                        <div className="kt-widget12__info">
-                          {/* <span className="kt-widget12__desc">Votes</span> */}
-                          <div className="kt-widget12__value">
-                            <Rating number={1} fontSize="default" />
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+            <div className="card-spacer mt-n25">
+              <div className="row m-0 kt-hidden-mobile">
+                <SocialTicket
+                  label="Comments"
+                  value={comment_count}
+                  icon={<Chat fontSize="large" />}
+                  color="primary"
+                />
+                <SocialTicket
+                  label="Rating"
+                  value={average_rate}
+                  icon={<Grade fontSize="large" />}
+                  color="warning"
+                />
+                <SocialTicket
+                  label="Views"
+                  value={last_views && last_views.length}
+                  icon={<Visibility fontSize="large" />}
+                  color="success"
+                />
+              </div>
+              <div className="row m-0">
+                <RecentActivities getTutorialById={getTutorialById} />
               </div>
             </div>
+            {/* --------------------------------- */}
           </div>
         </div>
       </div>

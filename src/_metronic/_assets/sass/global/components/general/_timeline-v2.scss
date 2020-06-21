@@ -11,7 +11,7 @@
 	&:before {
 		content: '';
 		position: absolute;
-		left: 4.85rem;
+		left: 6.85rem;
 		width: 0.214rem;
 		top: 5px;
 		bottom: 5px;
@@ -40,7 +40,7 @@
 				border: 0.89rem solid white;
 				z-index: 1;
 				top: 0.2rem;
-				left: 4.12rem;
+				left: 6.12rem;
 				position: relative;
 			
 				>i {
@@ -55,7 +55,7 @@
 				display: table-cell;
 				vertical-align: top;
 				font-size: 1rem;
-				padding: 0.35rem 0 0 5rem;
+				padding: 0.35rem 0 0 7rem;
 				color: kt-base-color(label, 2);
 			
 				&.kt-timeline-v2__item-text--bold {

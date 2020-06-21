@@ -234,3 +234,19 @@ $kt-page-container-width: 1380px !default;
 
 // Custom Scroll(Perfect Scrollbar) size
 $kt-custom-scroll-size: 4px !default;
+
+// bg-color
+$bg-color: (
+    light: (
+        warning: #fff4de,
+        primary: #e1f0ff,
+        success: #c9f7f5,
+        second: #ffe2e5,
+    ),
+    dark: (
+        warning: #b37600,
+        primary: #3699ff,
+        success: #1bc5bd,
+        second: #ec0c24,
+    )
+)

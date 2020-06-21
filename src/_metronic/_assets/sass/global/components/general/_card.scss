@@ -1,0 +1,56 @@
+//
+// Card
+//
+
+// Base
+.rounded-xl {
+    border-radius: 1.25rem!important;
+}
+.bg-light-warning {
+    background-color: kt-get($bg-color, light, warning) !important;
+}
+.bg-light-primary {
+    background-color: kt-get($bg-color, light, primary) !important;
+}
+.bg-light-success {
+    background-color: kt-get($bg-color, light, success) !important;
+}
+.bg-light-second {
+    background-color: kt-get($bg-color, light, second) !important;
+}
+.bg-dark-warning {
+    background-color: kt-get($bg-color, dark, warning) !important;
+}
+.bg-dark-primary {
+    background-color: kt-get($bg-color, dark, primary) !important;
+}
+.bg-dark-success {
+    background-color: kt-get($bg-color, dark, success) !important;
+}
+.bg-dark-second {
+    background-color: kt-get($bg-color, dark, second) !important;
+}
+.color-dark-warning {
+    color: kt-get($bg-color, dark, warning) !important;
+}
+.color-dark-primary {
+    color: kt-get($bg-color, dark, primary) !important;
+}
+.color-dark-success {
+    color: kt-get($bg-color, dark, success) !important;
+}
+.color-dark-second {
+    color: kt-get($bg-color, dark, second) !important;
+}
+
+.card {
+    margin: 0px 8px 8px 0px;
+    width: 135px;
+    .card-content {
+        display: flex; 
+        .text-value {
+            font-size: 2rem;
+            margin: .25rem 0;
+        }
+    }
+}

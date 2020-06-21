@@ -41,7 +41,10 @@
         }
         .kt-widget12__value {
           .kt-widget12__value--icon {
-            margin-left: 4px;
+            svg {
+              margin-left: 4px;
+            }
+            // margin-left: 4px;
           }
           .kt-widget12__value--wrapIcon {
             span svg {  
