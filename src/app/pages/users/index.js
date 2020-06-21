@@ -78,14 +78,14 @@ const Users = (props) => {
             {_item.is_active ? (
               <CustomizedIconButton
                 onClick={() => handleSelectModal("block", selectedItem)}
-                Icon={<AddBox />}
-                title="Unblock"
+                Icon={<RemoveCircle />}
+                title="block"
               />
             ) : (
               <CustomizedIconButton
                 onClick={() => handleSelectModal("block", selectedItem)}
-                Icon={<RemoveCircle />}
-                title="Block"
+                Icon={<AddBox />}
+                title="unblock"
               />
             )}
             <CustomizedIconButton
