@@ -15,7 +15,8 @@ import { Link } from "react-router-dom";
 import { createData, headRows } from "../../mockData/users";
 import CustomizedIconButton from "../../partials/content/CustomizedIconButton";
 import MatTable from "../../partials/content/Table";
-import * as Actions from "../../store/ducks/actions";
+import userActions from "../../store/ducks/actions/users";
+import roleActions from "../../store/ducks/actions/roles";
 import AddUserForm from "./components/AddUserForm";
 import BlockUserForm from "./components/BlockUserForm";
 import EditUserForm from "./components/EditUserForm";
@@ -32,11 +33,11 @@ const Users = (props) => {
   const { modal, selected } = Modal;
 
   React.useEffect(() => {
-    dispatch(Actions.User.getUserList());
+    dispatch(userActions.getUserList());
   }, []);
 
   React.useEffect(() => {
-    dispatch(Actions.Role.getRoles());
+    dispatch(roleActions.getRoles());
   }, []);
 
   const rows = React.useMemo(

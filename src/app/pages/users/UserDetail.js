@@ -5,7 +5,7 @@ import PostsComponent from './components/user-detail/PostsComponent';
 import UserInformation from './components/user-detail/UserInformation';
 import UserPosts from './components/user-detail/UserPosts';
 import UserStatistical from './components/user-detail/UserStatistical';
-import * as actions from '../../store/ducks/actions';
+import userActions from '../../store/ducks/actions/users';
 import { useDispatch, useSelector } from "react-redux";
 import LoadingProgress from "../../components/LoadingProgress";
 
@@ -16,7 +16,7 @@ const UserDetail = (props) => {
   const [expanded, setExpanded] = React.useState(false);
 
   React.useEffect(() => {
-    dispatch(actions.User.getUserById(userId));
+    dispatch(userActions.getUserById(userId));
   }, [userId]);
   console.log("userId", getUserById);
 
