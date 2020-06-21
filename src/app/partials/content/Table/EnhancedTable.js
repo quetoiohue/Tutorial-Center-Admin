@@ -85,14 +85,15 @@ export default function EnhancedTable(props) {
   }, [rowsProps]);
 
   function handleChangeSearchText(value) {
-    setSearchText(value.toLowerCase());
+    const lowerValue = value.toLowerCase();
+    setSearchText(lowerValue);
     setPage(0);
     // if (!rows.length) return [];
     const newRows = rowsProps.filter(_item => {
       return Object.keys(_item).some((_el) =>
         String(_item[_el])
           .toLowerCase()
-          .includes(value)
+          .includes(lowerValue)
       );
     });    
     
