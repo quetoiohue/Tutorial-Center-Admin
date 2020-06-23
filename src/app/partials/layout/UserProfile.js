@@ -7,7 +7,13 @@ import { Link } from "react-router-dom";
 import HeaderDropdownToggle from "../content/CustomDropdowns/HeaderDropdownToggle";
 
 class UserProfile extends React.Component {
+  // constructor(props){
+  //   super(props);
+  // }
   render() {
+    console.log("User", this.props.user);
+    const { name } = this.props.user || "";
+
     return (
       <Dropdown
         className="kt-header__topbar-item kt-header__topbar-item--user"
@@ -23,10 +29,10 @@ class UserProfile extends React.Component {
               Hi,
             </span>
             <span className="kt-header__topbar-username kt-hidden-mobile">
-              Admin
+              { name }
             </span>
             <div className="kt-header__topbar-user">
-              <Avatar style={{ fontWeight: 500, fontSize: "1rem" }}>A</Avatar>
+              <Avatar className="kt-header__topbar-user--avatar">{ name.toString().charAt(0) }</Avatar>
             </div>
           </div>
         </Dropdown.Toggle>

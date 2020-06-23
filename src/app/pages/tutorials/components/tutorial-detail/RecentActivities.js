@@ -1,10 +1,9 @@
 /* eslint-disable no-script-url,jsx-a11y/anchor-is-valid */
+import { Avatar } from "@material-ui/core";
+import moment from "moment";
 import React from "react";
 import PerfectScrollbar from "react-perfect-scrollbar";
-import { toAbsoluteUrl } from "../../../../../_metronic/utils/utils";
-import moment from "moment";
 import { Link } from "react-router-dom";
-import { Avatar } from "@material-ui/core";
 
 const perfectScrollbarOptions = {
   wheelSpeed: 2,
@@ -47,7 +46,12 @@ export default function RecentActivities({ getTutorialById }) {
                         </div>
                         <div className="kt-list-pics kt-list-pics--sm kt-padding-l-20">
                           <Link to={`/users/${_view.user.id}`}>
-                            <Avatar style={{ width: "30px", height: "30px"}} src={_view.user.avatar_url} title="" alt="" />
+                            <Avatar
+                              style={{ width: "30px", height: "30px" }}
+                              src={_view.user.avatar_url}
+                              title=""
+                              alt=""
+                            />
                           </Link>
                         </div>
                       </div>

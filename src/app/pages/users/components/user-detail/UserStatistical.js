@@ -1,20 +1,17 @@
-import { Chart } from "chart.js";
-import React, { useEffect, useMemo, useRef } from "react";
-import { useSelector } from "react-redux";
-import { metronic } from "../../../../../_metronic";
+import { Toolbar } from "@material-ui/core";
+import { Person } from "@material-ui/icons";
+import moment from "moment";
+import React from "react";
+import usePeriod from "../../../../hooks/usePeriod";
+import { periodOptions } from "../../../../mockData/users";
+import DrawingChart from "../../../../partials/content/DrawingChart";
+import { SelectField } from "../../../../partials/content/Form";
 import {
   Portlet,
   PortletBody,
-  PortletHeader,
+  PortletHeader
 } from "../../../../partials/content/Portlet";
 import Rating from "../../../../partials/content/Socials/Rating";
-import { Person } from "@material-ui/icons";
-import moment from "moment";
-import { SelectField } from "../../../../partials/content/Form";
-import { periodOptions } from "../../../../mockData/users";
-import usePeriod from "../../../../hooks/usePeriod";
-import { Toolbar } from "@material-ui/core";
-import DrawingChart from "../../../../partials/content/DrawingChart";
 
 const UserStatistical = (props) => {
   const { getUserById } = props;

@@ -1,26 +1,17 @@
 import {
-  ExpansionPanel,
+  Avatar, Button, Divider, ExpansionPanel,
   ExpansionPanelDetails,
   ExpansionPanelSummary,
-  Typography,
-  Divider,
-  Button,
-  colors,
-  Avatar,
-  Card,
-  CardContent,
+  Typography
 } from "@material-ui/core";
-import { ExpandMore, Visibility, Chat, Grade } from "@material-ui/icons";
-import CoverImg from "../../assets/img/cover-7.jpg";
-
-import Rating from "../../partials/content/Socials/Rating";
-import { Link, useParams } from "react-router-dom";
+import { Chat, ExpandMore, Grade, Visibility } from "@material-ui/icons";
 import React from "react";
-import tutorialActions from "../../store/ducks/actions/tutorials";
 import { useDispatch, useSelector } from "react-redux";
+import { Link, useParams } from "react-router-dom";
 import LoadingProgress from "../../components/LoadingProgress";
-import RecentActivities from "./components/tutorial-detail/RecentActivities";
 import SocialTicket from "../../partials/content/Socials/SocialTicket";
+import tutorialActions from "../../store/ducks/actions/tutorials";
+import RecentActivities from "./components/tutorial-detail/RecentActivities";
 
 const Author = ({ author }) => {
   const { id, name, avatar_url, description } = author || {};

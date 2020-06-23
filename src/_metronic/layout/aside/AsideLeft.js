@@ -29,6 +29,7 @@ class AsideLeft extends React.Component {
           className={`kt-aside ${this.props.asideClassesFromConfig} kt-grid__item kt-grid kt-grid--desktop kt-grid--hor-desktop`}
         >
           <Brand />
+          {/* <span className="my-aside-logo">Tcenter<strong>Admin</strong></span> */}
           <div
             id="kt_aside_menu_wrapper"
             className="kt-aside-menu-wrapper kt-grid__item kt-grid__item--fluid"

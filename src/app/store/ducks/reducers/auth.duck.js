@@ -2,7 +2,6 @@ import { persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import * as routerHelpers from "../../../router/RouterHelpers";
 import actionTypes from "../actionTypes/auth";
-import { usersReducer } from ".";
 
 const initialAuthState = {
   user: undefined,

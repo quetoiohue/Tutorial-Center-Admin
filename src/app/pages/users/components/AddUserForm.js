@@ -1,13 +1,9 @@
 import { Button, Toolbar } from "@material-ui/core";
 import React from "react";
-import {
-  FormTextField,
-  MultiSelectField,
-  validateForm,
-} from "../../../partials/content/Form";
-import CustomizedModal from "../../../partials/content/CustomizedModal";
-import userAction from '../../../store/ducks/actions/users';
 import { useDispatch } from "react-redux";
+import CustomizedModal from "../../../partials/content/CustomizedModal";
+import { FormTextField, validateForm } from "../../../partials/content/Form";
+import userAction from "../../../store/ducks/actions/users";
 
 const roleOptions = [
   { title: "post-tutorial" },

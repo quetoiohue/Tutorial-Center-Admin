@@ -43,35 +43,35 @@ function* fetchUserOverview (action) {
 
 function* fetchTutorialOverview (action) {
     try {
-        const response = yield call(dashboardApi().getOverview);        
+        const response = yield call(dashboardApi().getTutorialOverview, action.payload);        
         const { data } = response;
         console.log("fetchTutorialOverview", data);
 
-        yield put({ type: actionTypes.GET_OVERVIEW_SUCCESS , payload: data});
+        yield put({ type: actionTypes.GET_TUTORIAL_OVERVIEW_SUCCESS , payload: data});
     } catch (error) {
-        yield put({ type: actionTypes.GET_OVERVIEW_ERROR , payload: error});
+        yield put({ type: actionTypes.GET_TUTORIAL_OVERVIEW_ERROR , payload: error});
     }
 }
 function* fetchCommentOverview (action) {
     try {
-        const response = yield call(dashboardApi().getOverview);        
+        const response = yield call(dashboardApi().getCommentOverview, action.payload);        
         const { data } = response;
         console.log("fetchCommentOverview", data);
 
-        yield put({ type: actionTypes.GET_OVERVIEW_SUCCESS , payload: data});
+        yield put({ type: actionTypes.GET_COMMENT_OVERVIEW_SUCCESS , payload: data});
     } catch (error) {
-        yield put({ type: actionTypes.GET_OVERVIEW_ERROR , payload: error});
+        yield put({ type: actionTypes.GET_COMMENT_OVERVIEW_ERROR , payload: error});
     }
 }
 function* fetchViewOverview (action) {
     try {
-        const response = yield call(dashboardApi().getOverview);        
+        const response = yield call(dashboardApi().getViewOverview, action.payload);        
         const { data } = response;
         console.log("fetchViewOverview", data);
 
-        yield put({ type: actionTypes.GET_OVERVIEW_SUCCESS , payload: data});
+        yield put({ type: actionTypes.GET_VIEW_OVERVIEW_SUCCESS , payload: data});
     } catch (error) {
-        yield put({ type: actionTypes.GET_OVERVIEW_ERROR , payload: error});
+        yield put({ type: actionTypes.GET_VIEW_OVERVIEW_ERROR , payload: error});
     }
 }
 export default actions;

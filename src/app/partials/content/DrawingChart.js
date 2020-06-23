@@ -156,11 +156,11 @@ const DrawingChart = ({ labels, values, ...props }) => {
     return () => {
       chart.destroy();
     };
-  }, [data, brandColor, shape2Color, shape3Color]);
+  }, []);
 
   return (
     <canvas ref={ref} width={683} height={312} id="kt_chart_order_statistics" />
   );
 };
 
-export default DrawingChart;
+export default React.memo(DrawingChart);

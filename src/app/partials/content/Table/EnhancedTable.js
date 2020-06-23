@@ -82,7 +82,7 @@ export default function EnhancedTable(props) {
   React.useEffect(() => {
     setRows(rowsProps);
     setHeadRows(headRowsProps);
-  }, [rowsProps]);
+  }, [rowsProps, headRowsProps]);
 
   function handleChangeSearchText(value) {
     const lowerValue = value.toLowerCase();

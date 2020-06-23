@@ -1,22 +1,21 @@
+import { Avatar, Checkbox } from "@material-ui/core";
 import {
   AddBox,
   ArrowRightAlt,
   Delete,
   RemoveCircle,
 } from "@material-ui/icons";
+import moment from "moment";
 import { default as React } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { createData, headRows, rowsData } from "../../mockData/tutorials";
+import { createData, headRows } from "../../mockData/tutorials";
 import CustomizedIconButton from "../../partials/content/CustomizedIconButton";
 import Rating from "../../partials/content/Socials/Rating";
 import MatTable from "../../partials/content/Table";
-import DeleteModal from "./components/DeleteModal";
 import tutorialActions from "../../store/ducks/actions/tutorials";
-import { useDispatch, useSelector } from "react-redux";
-import moment from "moment";
-import LoadingProgress from "../../components/LoadingProgress";
-import { Checkbox, Avatar } from "@material-ui/core";
 import BlockTutorialForm from "./components/BlockTutorialForm";
+import DeleteModal from "./components/DeleteModal";
 
 const Tutorials = () => {
   const dispatch = useDispatch();

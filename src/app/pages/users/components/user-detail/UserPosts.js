@@ -1,12 +1,12 @@
+import { Avatar, Checkbox } from "@material-ui/core";
 import { ArrowRightAlt } from "@material-ui/icons";
+import moment from "moment";
 import React from "react";
 import { Link } from "react-router-dom";
-import { createData, headRows, rowsData } from "../../../../mockData/tutorials";
+import { createData, headRows } from "../../../../mockData/tutorials";
 import CustomizedIconButton from "../../../../partials/content/CustomizedIconButton";
 import Rating from "../../../../partials/content/Socials/Rating";
 import MatTable from "../../../../partials/content/Table";
-import moment from "moment";
-import { Checkbox, Avatar } from "@material-ui/core";
 
 const UserPosts = (props) => {
   console.log("--------", props);
@@ -55,8 +55,6 @@ const UserPosts = (props) => {
       <MatTable
         headRows={headRows}
         rows={dataRows}
-        pagination={pagination}
-        setPagination={setPagination}
         count={(tutorials && tutorials.length) || 0}
         isFetching={isFetching}
       />

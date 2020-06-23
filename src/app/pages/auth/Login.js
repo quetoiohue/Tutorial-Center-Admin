@@ -1,10 +1,9 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import { Formik } from "formik";
-import { connect } from "react-redux";
-import { FormattedMessage, injectIntl } from "react-intl";
 import { TextField } from "@material-ui/core";
 import clsx from "clsx";
+import { Formik } from "formik";
+import React, { useState } from "react";
+import { FormattedMessage, injectIntl } from "react-intl";
+import { connect } from "react-redux";
 import actions from "../../store/ducks/actions/auth";
 import { login } from "../../store/ducks/api/auth";
 

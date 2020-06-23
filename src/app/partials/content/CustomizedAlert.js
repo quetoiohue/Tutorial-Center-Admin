@@ -1,8 +1,7 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { Alert, AlertTitle } from "@material-ui/lab";
 import { Snackbar } from "@material-ui/core";
-import { useSelector, useDispatch } from "react-redux";
+import { Alert, AlertTitle } from "@material-ui/lab";
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import messageActions from '../../store/ducks/actions/message';
 
 const CustomizedAlert = () => {

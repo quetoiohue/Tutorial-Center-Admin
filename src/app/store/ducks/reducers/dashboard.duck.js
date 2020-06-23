@@ -1,13 +1,31 @@
 import * as actionTypes from "../actionTypes/dashboard";
 
 const initialState = {
-  overview: {},
-  comments: {},
-  users: {},
-  tutorials: {},
-  views: {},
-  isFetching: false,
-  error: "",
+  overview: {
+    data: {},
+    isFetching: false,
+    error: "",
+  },
+  comments: {
+    data: {},
+    isFetching: false,
+    error: "",
+  },
+  users: {
+    data: {},
+    isFetching: false,
+    error: "",
+  },
+  tutorials: {
+    data: {},
+    isFetching: false,
+    error: "",
+  },
+  views: {
+    data: {},
+    isFetching: false,
+    error: "",
+  },
 };
 
 export default function reducer(state = initialState, action) {
@@ -15,97 +33,137 @@ export default function reducer(state = initialState, action) {
     case actionTypes.GET_OVERVIEW_REQUEST:
       return {
         ...state,
-        isFetching: true,
-        error: "",
+        overview: {
+          ...state.overview,
+          isFetching: true,
+          error: "",
+        },
       };
     case actionTypes.GET_OVERVIEW_SUCCESS:
       return {
         ...state,
-        overview: action.payload,
-        isFetching: false,
-        error: "",
+        overview: {
+          data: action.payload,
+          isFetching: false,
+          error: "",
+        },
       };
     case actionTypes.GET_OVERVIEW_ERROR:
       return {
         ...state,
-        isFetching: false,
-        error: action.payload,
+        overview: {
+          ...state.overview,
+          isFetching: false,
+          error: action.payload,
+        },
       };
     case actionTypes.GET_USER_OVERVIEW_REQUEST:
       return {
         ...state,
-        isFetching: true,
-        error: "",
+        users: {
+          ...state.users,
+          isFetching: true,
+          error: "",
+        },
       };
     case actionTypes.GET_USER_OVERVIEW_SUCCESS:
       return {
         ...state,
-        users: action.payload,
-        isFetching: false,
-        error: "",
+        users: {
+          data: action.payload,
+          isFetching: false,
+          error: "",
+        },
       };
     case actionTypes.GET_USER_OVERVIEW_ERROR:
       return {
         ...state,
-        isFetching: false,
-        error: action.payload,
+        users: {
+          ...state.overview,
+          isFetching: false,
+          error: action.payload,
+        },
       };
     case actionTypes.GET_TUTORIAL_OVERVIEW_REQUEST:
       return {
         ...state,
-        isFetching: true,
-        error: "",
+        tutorials: {
+          ...state.tutorials,
+          isFetching: true,
+          error: "",
+        },
       };
     case actionTypes.GET_TUTORIAL_OVERVIEW_SUCCESS:
       return {
         ...state,
-        tutorials: action.payload,
-        isFetching: false,
-        error: "",
+        tutorials: {
+          data: action.payload,
+          isFetching: false,
+          error: "",
+        },
       };
     case actionTypes.GET_TUTORIAL_OVERVIEW_ERROR:
       return {
         ...state,
-        isFetching: false,
-        error: action.payload,
+        tutorials: {
+          ...state.tutorials,
+          isFetching: false,
+          error: action.payload,
+        },
       };
     case actionTypes.GET_COMMENT_OVERVIEW_REQUEST:
       return {
         ...state,
-        isFetching: true,
-        error: "",
+        comments: {
+          ...state.comments,
+          isFetching: true,
+          error: "",
+        },
       };
     case actionTypes.GET_COMMENT_OVERVIEW_SUCCESS:
       return {
         ...state,
-        comments: action.payload,
-        isFetching: false,
-        error: "",
+        comments: {
+          data: action.payload,
+          isFetching: false,
+          error: "",
+        },
       };
     case actionTypes.GET_COMMENT_OVERVIEW_ERROR:
       return {
         ...state,
-        isFetching: false,
-        error: action.payload,
+        comments: {
+          ...state.comments,
+          isFetching: false,
+          error: action.payload,
+        },
       };
     case actionTypes.GET_VIEW_OVERVIEW_REQUEST:
       return {
         ...state,
-        isFetching: true,
-        error: "",
+        views: {
+          ...state.views,
+          isFetching: true,
+          error: "",
+        },
       };
     case actionTypes.GET_VIEW_OVERVIEW_SUCCESS:
       return {
         ...state,
-        overview: action.payload,
-        isFetching: false,
-        error: "",
+        views: {
+          data: action.payload,
+          isFetching: false,
+          error: "",
+        },
       };
     case actionTypes.GET_VIEW_OVERVIEW_ERROR:
       return {
         ...state,
-        isFetching: false,
-        error: action.payload,
+        views: {
+          ...state.views,
+          isFetching: false,
+          error: action.payload,
+        },
       };
     default:
       return state;

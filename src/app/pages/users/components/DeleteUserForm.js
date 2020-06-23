@@ -6,7 +6,7 @@ import userActions from '../../../store/ducks/actions/users';
 
 const DeleteUserForm = ({ open, handleClose, selected }) => {
   const dispatch = useDispatch();
-  const { id, is_active } = selected;
+  const { id } = selected;
 
   const onSubmit = (event) => {
     event.preventDefault();

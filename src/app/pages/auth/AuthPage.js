@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, Switch, Route, Redirect } from "react-router-dom";
+import { Link, Redirect, Route, Switch } from "react-router-dom";
 import { toAbsoluteUrl } from "../../../_metronic";
 import "../../../_metronic/_assets/sass/pages/login/login-1.scss";
 import Login from "./Login";
@@ -30,7 +30,7 @@ export default function AuthPage() {
               </div>
               <div className="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--ver">
                 <div className="kt-grid__item kt-grid__item--middle">
-                  <h3 className="kt-login__title">Welcome to Metronic!</h3>
+                  <h3 className="kt-login__title">Welcome to Tcenter Admin!</h3>
                   <h4 className="kt-login__subtitle">
                     The ultimate Bootstrap & Angular 6 admin theme framework for
                     next generation web apps.
@@ -40,7 +40,7 @@ export default function AuthPage() {
               <div className="kt-grid__item">
                 <div className="kt-login__info">
                   <div className="kt-login__copyright">
-                    &copy; 2018 Metronic
+                    &copy; 2018 Tcenter Admin
                   </div>
                   <div className="kt-login__menu">
                     <Link to="/terms" className="kt-link">

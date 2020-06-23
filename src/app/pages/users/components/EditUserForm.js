@@ -1,20 +1,17 @@
 import { Button, Toolbar } from "@material-ui/core";
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import CustomizedModal from "../../../partials/content/CustomizedModal";
 import {
   FormTextField,
   MultiSelectField,
-  validateForm,
+  validateForm
 } from "../../../partials/content/Form";
-import CustomizedModal from "../../../partials/content/CustomizedModal";
-import { roleOptions } from "../../../mockData/users";
-import { useDispatch, useSelector } from "react-redux";
 import userActions from '../../../store/ducks/actions/users';
-import CustomizedAlert from '../../../partials/content/CustomizedAlert';
 
 const EditUserForm = ({ open, handleClose, selected }) => {
   const dispatch = useDispatch();
   const { userList, roleList } =  useSelector(store => store) || {};
-  const { error, isFetching } = userList;
   const { roles: defaultRoles } = roleList;
 
   const [formState, setFormState] = React.useState(() => {

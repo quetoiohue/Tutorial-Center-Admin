@@ -95,8 +95,12 @@ $kt-header-topbar-user-avatar-size-mobile: 30px;
 					font-weight: 500;
 					font-size: 1rem;
 					color: #fff;
+					text-transform: capitalize;
 				}
-
+				.kt-header__topbar-user--avatar {
+					font-weight: 500;
+					font-size: "1rem";
+				}
 				img {
 					align-self: center;
 					max-height: $kt-header-topbar-user-avatar-size;
