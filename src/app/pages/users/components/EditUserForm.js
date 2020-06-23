@@ -11,7 +11,7 @@ import userActions from '../../../store/ducks/actions/users';
 
 const EditUserForm = ({ open, handleClose, selected }) => {
   const dispatch = useDispatch();
-  const { userList, roleList } =  useSelector(store => store) || {};
+  const { roleList } =  useSelector(store => store) || {};
   const { roles: defaultRoles } = roleList;
 
   const [formState, setFormState] = React.useState(() => {

@@ -45,8 +45,6 @@ const StepComponent = ({ title, data }) => {
     <>
       <ExpansionPanel
         className="tutorial-step"
-        // expanded={expanded}
-        // onChange={handleChange}
       >
         <ExpansionPanelSummary
           expandIcon={<ExpandMore />}
@@ -73,7 +71,6 @@ const StepComponent = ({ title, data }) => {
 const TutorialDetail = (props) => {
   const dispatch = useDispatch();
   const params = useParams();
-  const [expanded, setExpanded] = React.useState(false);
   const { getTutorialById, isFetching } = useSelector(
     (store) => store.tutorialList
   );
@@ -89,11 +86,7 @@ const TutorialDetail = (props) => {
 
   React.useEffect(() => {
     dispatch(tutorialActions.getTutorialById(params.tutorialId));
-  }, [params]);
-  const handleChange = (panel) => (event, isExpanded) => {
-    console.log(panel, isExpanded);
-    setExpanded(isExpanded ? panel : false);
-  };
+  }, [params, dispatch]);
 
   return isFetching ? (
     <LoadingProgress />

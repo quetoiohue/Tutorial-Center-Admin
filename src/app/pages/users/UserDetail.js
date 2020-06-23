@@ -17,8 +17,7 @@ const UserDetail = (props) => {
 
   React.useEffect(() => {
     dispatch(userActions.getUserById(userId));
-  }, [userId]);
-  console.log("userId", getUserById);
+  }, [userId, dispatch]);
 
   const handleChange = (panel) => (event, isExpanded) => {
     console.log(panel, isExpanded);

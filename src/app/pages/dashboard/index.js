@@ -33,12 +33,12 @@ const DashboardTicket = ({ label, value, icon, color }) => {
 const DashboardStatistical = () => {
   const dispatch = useDispatch();
   const { overview } = useSelector((store) => store.dashboard);
-  const { data, isFetching } = overview || {};
+  const { data } = overview || {};
   const { view, post, comment, user } = data || {};
 
   React.useEffect(() => {
     dispatch(dashboadActions.getOverview());
-  }, []);
+  }, [dispatch]);
   return (
     <>
       {data && (
@@ -57,7 +57,7 @@ const DashboardStatistical = () => {
           />
           <DashboardTicket
             label="Users"
-            value={view}
+            value={user}
             color={"second"}
             icon={<Person />}
           />
@@ -85,7 +85,7 @@ const UserStatistical = () => {
         period: period === "day" ? "date" : period,
       })
     );
-  }, [period]);
+  }, [period, dispatch]);
 
   if (data.length === 0) return null;
   const userStatistical = data.length && (
@@ -127,7 +127,7 @@ const TutorialStatistical = () => {
         period: period === "day" ? "date" : period,
       })
     );
-  }, [period]);
+  }, [period, dispatch]);
   if (data.length === 0) return null;
   const tutorialStatistical = data.length && (
     <Portlet className="kt-portlet--height-fluid kt-portlet--border-bottom-brand">
@@ -169,7 +169,7 @@ const CommentStatistical = () => {
         period: period === "day" ? "date" : period,
       })
     );
-  }, [period]);
+  }, [period, dispatch]);
 
   if (data.length === 0) return null;
   const commentStatistical = data.length && (
@@ -212,7 +212,7 @@ const ViewStatistical = () => {
         period: period === "day" ? "date" : period,
       })
     );
-  }, [period]);
+  }, [period, dispatch]);
 
   if (data.length === 0) return null;
   const viewStatistical = data.length && (

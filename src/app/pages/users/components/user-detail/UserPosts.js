@@ -9,13 +9,8 @@ import Rating from "../../../../partials/content/Socials/Rating";
 import MatTable from "../../../../partials/content/Table";
 
 const UserPosts = (props) => {
-  console.log("--------", props);
   const { getUserById, isFetching } = props;
   const { tutorials = [], avatar_url, name } = getUserById || {};
-  const [pagination, setPagination] = React.useState({
-    offset: 0,
-    limit: 10,
-  });
 
   const dataRows = React.useMemo(() => {
     return (
@@ -48,14 +43,13 @@ const UserPosts = (props) => {
         );
       })
     );
-  }, [getUserById]);
+  }, [tutorials, name, avatar_url]);
 
   return (
     <>
       <MatTable
         headRows={headRows}
         rows={dataRows}
-        count={(tutorials && tutorials.length) || 0}
         isFetching={isFetching}
       />
     </>

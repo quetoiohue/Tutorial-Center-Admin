@@ -30,7 +30,7 @@ const Tutorials = () => {
 
   React.useEffect(() => {
     dispatch(tutorialActions.getTutorials());
-  }, []);
+  }, [dispatch]);
 
   const dataRows = React.useMemo(() => {
     if (!tutorials) return [];

@@ -34,11 +34,8 @@ const Users = (props) => {
 
   React.useEffect(() => {
     dispatch(userActions.getUserList());
-  }, []);
-
-  React.useEffect(() => {
     dispatch(roleActions.getRoles());
-  }, []);
+  }, [dispatch]);
 
   const rows = React.useMemo(
     () =>

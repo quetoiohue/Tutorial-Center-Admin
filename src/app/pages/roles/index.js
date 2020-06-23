@@ -13,7 +13,7 @@ const Roles = () => {
 
   React.useEffect(() => {
     dispatch(roleActions.getRoles());
-  }, []);
+  }, [dispatch]);
 
   const dataRows = React.useMemo(() => {
     if (!roles || !roles.length) return [];

@@ -5,12 +5,6 @@ import CustomizedModal from "../../../partials/content/CustomizedModal";
 import { FormTextField, validateForm } from "../../../partials/content/Form";
 import userAction from "../../../store/ducks/actions/users";
 
-const roleOptions = [
-  { title: "post-tutorial" },
-  { title: "comment" },
-  { title: "like" },
-];
-
 const initialFormState = {
   name: "",
   password: "123123",
@@ -25,14 +19,7 @@ const AddUserForm = ({ open, handleClose }) => {
   const [isValidate, setIsValidate] = React.useState(true);
 
   const { name, password, password_confirmation, email } = formState;
-  console.log(formState);
 
-  const onChangeRole = (values) => {
-    setFormState((prevState) => ({
-      ...prevState,
-      role: [...values],
-    }));
-  };
   const handleChange = ({ name, value }) => {
     setFormState((prevState) => ({
       ...prevState,
@@ -84,14 +71,6 @@ const AddUserForm = ({ open, handleClose }) => {
         error={!isValidate && "Password Confirm is required"}
         type="password"
       />
-      {/* <MultiSelectField
-        label={"Role"}
-        name="role"
-        value={role}
-        onChange={onChangeRole}
-        options={roleOptions}
-        error={!isValidate && "Role is required"}
-      /> */}
       <Toolbar
         style={{
           display: "flex",
