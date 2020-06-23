@@ -32,7 +32,7 @@ class UserProfile extends React.Component {
               { name }
             </span>
             <div className="kt-header__topbar-user">
-              <Avatar className="kt-header__topbar-user--avatar">{ name.toString().charAt(0) }</Avatar>
+              <Avatar className="kt-header__topbar-user--avatar">{ name.toString().toUpperCase().charAt(0) }</Avatar>
             </div>
           </div>
         </Dropdown.Toggle>

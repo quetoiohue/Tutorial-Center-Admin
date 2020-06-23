@@ -156,7 +156,7 @@ const DrawingChart = ({ labels, values, ...props }) => {
     return () => {
       chart.destroy();
     };
-  }, []);
+  }, [labels, values]);
 
   return (
     <canvas ref={ref} width={683} height={312} id="kt_chart_order_statistics" />
