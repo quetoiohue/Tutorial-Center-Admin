@@ -8,7 +8,7 @@ import {
   TableBody,
   TableCell,
   TablePagination,
-  TableRow
+  TableRow,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import React from "react";
@@ -17,10 +17,21 @@ import EnhancedTableHead from "./EnhancedTableHead";
 import EnhancedTableToolbar from "./EnhancedTableToolbar";
 
 function desc(a, b, orderBy) {
-  if (b[orderBy] < a[orderBy]) {
+  let varA, varB;
+  varA = a[orderBy];
+  varB = b[orderBy];
+  if (typeof varA === "object" && varA.hasOwnProperty('subValue')){
+    varA = a[orderBy].subValue;
+    varB = b[orderBy].subValue;
+  }
+  if (typeof varA === "string"){
+    varA = varA.toLowerCase();
+    varB = varB.toLowerCase();
+  }
+  if (varB < varA) {
     return -1;
   }
-  if (b[orderBy] > a[orderBy]) {
+  if (varB > varA) {
     return 1;
   }
   return 0;
@@ -28,6 +39,8 @@ function desc(a, b, orderBy) {
 
 function stableSort(array, cmp) {
   const stabilizedThis = array.map((el, index) => [el, index]);
+  console.log("stabilizedThis", stabilizedThis);
+  
   stabilizedThis.sort((a, b) => {
     const order = cmp(a[0], b[0]);
     if (order !== 0) return order;
@@ -60,12 +73,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function EnhancedTable(props) {
-  const {
-    headRows: headRowsProps,
-    rows: rowsProps,
-    isFetching,
-  } = props;
-  console.log("Props", props);
+  const { headRows: headRowsProps, rows: rowsProps, isFetching } = props;
 
   const classes = useStyles();
   const [headRows, setHeadRows] = React.useState([]);
@@ -89,14 +97,23 @@ export default function EnhancedTable(props) {
     setSearchText(lowerValue);
     setPage(0);
     // if (!rows.length) return [];
-    const newRows = rowsProps.filter(_item => {
-      return Object.keys(_item).some((_el) =>
-        String(_item[_el])
+    const newRows = rowsProps.filter((_item) => {
+      return Object.keys(_item).some((_el) => {
+        if (
+          typeof _item[_el] === "object" &&
+          _item[_el].hasOwnProperty("subValue")
+        ) {
+          return String(_item[_el].subValue)
+            .toLowerCase()
+            .includes(lowerValue);
+        }
+
+        return String(_item[_el])
           .toLowerCase()
-          .includes(lowerValue)
-      );
-    });    
-    
+          .includes(lowerValue);
+      });
+    });
+
     return setRows(newRows);
   }
 
@@ -118,13 +135,10 @@ export default function EnhancedTable(props) {
   }
 
   function handleChangePage(event, page) {
-    console.log("newPage", page);
-
     setPage(page);
   }
 
   function handleChangeRowsPerPage(event) {
-    console.log("RowsPerPage", event.target.value);
     const { value } = event.target;
     setRowPerPage(value);
   }
@@ -132,14 +146,6 @@ export default function EnhancedTable(props) {
   function handleChangeDense(event) {
     setDense(event.target.checked);
   }
-
-  const handleClickRow = (item) => () => {
-    if (!props.onClickRow) {
-      return;
-    }
-
-    props.onClickRow(item);
-  };
 
   const emptyRows =
     rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
@@ -183,7 +189,6 @@ export default function EnhancedTable(props) {
                           role="checkbox"
                           tabIndex={-1}
                           key={row.id}
-                          onClick={handleClickRow(row)}
                           style={{
                             cursor: props.onClickRow ? "pointer" : "default",
                           }}
@@ -210,7 +215,10 @@ export default function EnhancedTable(props) {
                                       : "right"
                                   }
                                 >
-                                  {row[_el]}
+                                  {typeof row[_el] === "object" &&
+                                  row[_el].hasOwnProperty("subValue")
+                                    ? row[_el].value
+                                    : row[_el]}
                                 </TableCell>
                               )
                             ) : null

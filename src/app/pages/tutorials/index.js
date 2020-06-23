@@ -38,20 +38,31 @@ const Tutorials = () => {
       return createData(
         _item.id,
         _item.id,
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-          }}
-        >
-          <span style={{ marginRight: "8px" }}>
-            <Avatar src={_item.author.avatar_url} />
-          </span>
-          <span>{_item.author.name} </span>
-        </div>,
+        {
+          value: (
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+              }}
+            >
+              <span style={{ marginRight: "8px" }}>
+                <Avatar src={_item.author.avatar_url} />
+              </span>
+              <span>{_item.author.name} </span>
+            </div>
+          ),
+          subValue: _item.author.name,
+        },
         _item.title,
-        <Checkbox checked={Boolean(_item.is_active)} />,
-        <Rating number={_item.average_rate} fontSize="small" />,
+        {
+          value: <Checkbox checked={Boolean(_item.is_active)} />,
+          subValue: Boolean(_item.is_active),
+        },
+        {
+          value: <Rating number={_item.average_rate} fontSize="small" />,
+          subValue: _item.average_rate,
+        },
         moment(_item.updated_at).format("DD/MM/YYYY"),
         moment(_item.created_at).format("DD/MM/YYYY"),
         <>

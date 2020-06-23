@@ -70,7 +70,7 @@ export const headRows = [
   {
     id: "rates",
     numeric: false,
-    sortable: false,
+    sortable: true,
     disablePadding: false,
     label: "Rates",
   },
@@ -84,7 +84,7 @@ export const headRows = [
   {
     id: "last_created",
     numeric: false,
-    sortable: false,
+    sortable: true,
     disablePadding: false,
     label: "Last Created",
   },

@@ -54,7 +54,10 @@ const Users = (props) => {
           _item.id,
           _item.name,
           _item.email,
-          <Checkbox checked={Boolean(_item.is_active)} />,
+          {
+            value: <Checkbox checked={Boolean(_item.is_active)} />,
+            subValue: Boolean(_item.is_active),
+          },
           <>
             {permissions.map((_el) => (
               <Chip
