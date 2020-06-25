@@ -3,9 +3,9 @@ import React, { useEffect, useMemo, useRef } from "react";
 import { useSelector } from "react-redux";
 import { metronic } from "../../../_metronic";
 
-const DrawingChart = ({ labels, values, ...props }) => {
+const DrawingChart = ({ labels, values, unit, ...props }) => {
   const ref = useRef();
-  console.log("DrawingChart", labels, values);
+  console.log("DrawingChart");
 
   const { brandColor, shape2Color, shape3Color } = useSelector((state) => ({
     brandColor: metronic.builder.selectors.getConfig(
@@ -55,6 +55,7 @@ const DrawingChart = ({ labels, values, ...props }) => {
             .alpha(0.1)
             .rgbString(),
           data: values,
+          label: unit
         },
       ],
     }),
@@ -159,7 +160,7 @@ const DrawingChart = ({ labels, values, ...props }) => {
   }, [labels, values]);
 
   return (
-    <canvas ref={ref} width={683} height={312} id="kt_chart_order_statistics" />
+    <canvas ref={ref} width={683} height={312} />
   );
 };
 

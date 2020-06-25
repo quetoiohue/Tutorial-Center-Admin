@@ -69,7 +69,7 @@ const Users = (props) => {
             ))}
           </>,
           _item.updated_at && moment(_item.updated_at).format("DD/MM/YYYY"),
-          _item.updated_at && moment(_item.created_at).format("DD/MM/YYYY"),
+          _item.created_at && moment(_item.created_at).format("DD/MM/YYYY"),
           <>
             <CustomizedIconButton
               onClick={() => handleSelectModal("edit", selectedItem)}

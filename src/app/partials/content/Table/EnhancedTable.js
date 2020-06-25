@@ -20,7 +20,7 @@ function desc(a, b, orderBy) {
   let varA, varB;
   varA = a[orderBy];
   varB = b[orderBy];
-  if (typeof varA === "object" && varA.hasOwnProperty('subValue')){
+  if (varA && typeof varA === "object" && varA.hasOwnProperty('subValue')){
     varA = a[orderBy].subValue;
     varB = b[orderBy].subValue;
   }
@@ -90,6 +90,8 @@ export default function EnhancedTable(props) {
   React.useEffect(() => {
     setRows(rowsProps);
     setHeadRows(headRowsProps);
+    console.log("rowsProps", rowsProps);
+    
   }, [rowsProps, headRowsProps]);
 
   function handleChangeSearchText(value) {
@@ -100,7 +102,7 @@ export default function EnhancedTable(props) {
     const newRows = rowsProps.filter((_item) => {
       return Object.keys(_item).some((_el) => {
         if (
-          typeof _item[_el] === "object" &&
+          _item[_el] && typeof _item[_el] === "object" &&
           _item[_el].hasOwnProperty("subValue")
         ) {
           return String(_item[_el].subValue)
@@ -215,7 +217,7 @@ export default function EnhancedTable(props) {
                                       : "right"
                                   }
                                 >
-                                  {typeof row[_el] === "object" &&
+                                  {row[_el] && typeof row[_el] === "object" &&
                                   row[_el].hasOwnProperty("subValue")
                                     ? row[_el].value
                                     : row[_el]}

@@ -15,7 +15,7 @@ import Rating from "../../../../partials/content/Socials/Rating";
 
 const UserStatistical = (props) => {
   const { getUserById } = props;
-  const [period, handleChangePeriod] = usePeriod();
+  const { period, handleChangePeriod } = usePeriod();
 
   const userChartData = React.useMemo(() => {
     if (Object.keys(getUserById).length === 0) {
@@ -35,14 +35,10 @@ const UserStatistical = (props) => {
     const postHistory = tutorials.reduce((datesObj, _item) => {
       const createdDate = moment(_item.created_at).format(formattingDate);
       if (Object.keys(datesObj).includes(`${createdDate}`)) {
-        console.log("existing", createdDate, datesObj);
         datesObj[`${createdDate}`] = datesObj[`${createdDate}`] + 1;
       } else {
-        console.log("not existing", createdDate, datesObj);
         datesObj[`${createdDate}`] = 1;
       }
-      console.log("dates", datesObj[`${createdDate}`]);
-
       return datesObj;
     }, {});
 

@@ -15,6 +15,7 @@ import { SelectField } from "../../partials/content/Form";
 import { Portlet, PortletBody } from "../../partials/content/Portlet";
 import SocialTicket from "../../partials/content/Socials/SocialTicket";
 import dashboadActions from "../../store/ducks/actions/dashboard";
+import { handleFormatChartData } from "../../utils";
 
 const DashboardTicket = ({ label, value, icon, color }) => {
   return (
@@ -76,8 +77,9 @@ const DashboardStatistical = () => {
 const UserStatistical = () => {
   const dispatch = useDispatch();
   const { users } = useSelector((store) => store.dashboard);
-  const [period, handleChangePeriod] = usePeriod();
+  const { period, handleChangePeriod } = usePeriod();
   const { data, isFetching } = users;
+  console.log("UserStatistical period", period);
 
   React.useEffect(() => {
     dispatch(
@@ -87,40 +89,43 @@ const UserStatistical = () => {
     );
   }, [period, dispatch]);
 
-  if (data.length === 0) return null;
-  const userStatistical = data.length && (
-    <Portlet className="kt-portlet--height-fluid kt-portlet--border-bottom-brand">
-      <div className="kt-portlet__head kt-portlet__head--select">
-        <div className="kt-portlet__head-label">
-          <h3 className="kt-portlet__head-title">Latest Updates</h3>
-        </div>
-        <SelectField
-          value={period}
-          onChange={handleChangePeriod}
-          options={periodOptions}
-          label={"Period"}
-        />
-      </div>
-      <PortletBody fluid={true}>
-        <div className="kt-widget12">
-          <div className="kt-widget12__chart" style={{ height: "250px" }}>
-            <DrawingChart
-              labels={data.map((_user) => _user.date)}
-              values={data.map((_user) => _user.value)}
-            />
+  const { labels, values } = handleFormatChartData(data, period);
+  console.log("user statistical ", labels, values);
+
+  const userStatistical = React.useMemo(() => {
+    return (
+      <Portlet className="kt-portlet--height-fluid kt-portlet--border-bottom-brand">
+        <div className="kt-portlet__head kt-portlet__head--select">
+          <div className="kt-portlet__head-label">
+            <h3 className="kt-portlet__head-title"> User Overview </h3>
           </div>
+          <SelectField
+            value={period}
+            onChange={handleChangePeriod}
+            options={periodOptions}
+            label={"Period"}
+          />
         </div>
-      </PortletBody>
-    </Portlet>
-  );
+        <PortletBody fluid={true}>
+          <div className="kt-widget12">
+            <div className="kt-widget12__chart" style={{ height: "250px" }}>
+              <DrawingChart labels={labels} values={values} unit="user" />
+            </div>
+          </div>
+        </PortletBody>
+      </Portlet>
+    );
+  }, [labels, values]);
+
   return <>{isFetching ? <LoadingProgress /> : userStatistical}</>;
 };
 
 const TutorialStatistical = () => {
   const dispatch = useDispatch();
   const { tutorials } = useSelector((store) => store.dashboard);
-  const [period, handleChangePeriod] = usePeriod();
+  const { period, handleChangePeriod } = usePeriod();
   const { data, isFetching } = tutorials;
+
   React.useEffect(() => {
     dispatch(
       dashboadActions.getTutorialOverview({
@@ -128,39 +133,41 @@ const TutorialStatistical = () => {
       })
     );
   }, [period, dispatch]);
-  if (data.length === 0) return null;
-  const tutorialStatistical = data.length && (
-    <Portlet className="kt-portlet--height-fluid kt-portlet--border-bottom-brand">
-      <div className="kt-portlet__head kt-portlet__head--select">
-        <div className="kt-portlet__head-label">
-          <h3 className="kt-portlet__head-title">Latest Updates</h3>
-        </div>
-        <SelectField
-          value={period}
-          onChange={handleChangePeriod}
-          options={periodOptions}
-          label={"Period"}
-        />
-      </div>
-      <PortletBody fluid={true}>
-        <div className="kt-widget12">
-          <div className="kt-widget12__chart" style={{ height: "250px" }}>
-            <DrawingChart
-              labels={data.map((_tutorial) => _tutorial.date)}
-              values={data.map((_tutorial) => _tutorial.value)}
-            />
+
+  const { labels, values } = handleFormatChartData(data, period);
+
+  const tutorialStatistical = React.useMemo(() => {
+    if (!data.length) return null;
+    return (
+      <Portlet className="kt-portlet--height-fluid kt-portlet--border-bottom-brand">
+        <div className="kt-portlet__head kt-portlet__head--select">
+          <div className="kt-portlet__head-label">
+            <h3 className="kt-portlet__head-title">Tutorial Overview</h3>
           </div>
+          <SelectField
+            value={period}
+            onChange={handleChangePeriod}
+            options={periodOptions}
+            label={"Period"}
+          />
         </div>
-      </PortletBody>
-    </Portlet>
-  );
+        <PortletBody fluid={true}>
+          <div className="kt-widget12">
+            <div className="kt-widget12__chart" style={{ height: "250px" }}>
+              <DrawingChart labels={labels} values={values} unit="tutorial" />
+            </div>
+          </div>
+        </PortletBody>
+      </Portlet>
+    );
+  }, [labels, values]);
   return <>{isFetching ? <LoadingProgress /> : tutorialStatistical}</>;
 };
 
 const CommentStatistical = () => {
   const dispatch = useDispatch();
   const { comments } = useSelector((store) => store.dashboard);
-  const [period, handleChangePeriod] = usePeriod();
+  const [period, setPeriod] = React.useState("day");
   const { data, isFetching } = comments;
 
   React.useEffect(() => {
@@ -171,39 +178,50 @@ const CommentStatistical = () => {
     );
   }, [period, dispatch]);
 
-  if (data.length === 0) return null;
-  const commentStatistical = data.length && (
-    <Portlet className="kt-portlet--height-fluid kt-portlet--border-bottom-brand">
-      <div className="kt-portlet__head kt-portlet__head--select">
-        <div className="kt-portlet__head-label">
-          <h3 className="kt-portlet__head-title">Latest Updates</h3>
-        </div>
-        <SelectField
-          value={period}
-          onChange={handleChangePeriod}
-          options={periodOptions}
-          label={"Period"}
-        />
-      </div>
-      <PortletBody fluid={true}>
-        <div className="kt-widget12">
-          <div className="kt-widget12__chart" style={{ height: "250px" }}>
-            <DrawingChart
-              labels={data.map((_comment) => _comment.date)}
-              values={data.map((_comment) => _comment.value)}
-            />
+  const handleChangePeriod = (event) => {
+    console.log("event.target.value", event.target.value);
+    const { value } = event.target;
+    setPeriod(value);
+  };
+
+  const { labels, values } = handleFormatChartData(data, period);
+
+  const commentStatistical = React.useMemo(() => {
+    if (!data.length) return null;
+    return (
+      <Portlet className="kt-portlet--height-fluid kt-portlet--border-bottom-brand">
+        <div className="kt-portlet__head kt-portlet__head--select">
+          <div className="kt-portlet__head-label">
+            <h3 className="kt-portlet__head-title">Comment Overview</h3>
           </div>
+          <SelectField
+            value={period}
+            onChange={handleChangePeriod}
+            options={periodOptions}
+            label={"Period"}
+            unit="comment"
+          />
         </div>
-      </PortletBody>
-    </Portlet>
-  );
+        <PortletBody fluid={true}>
+          <div className="kt-widget12">
+            <div className="kt-widget12__chart" style={{ height: "250px" }}>
+              <DrawingChart
+                labels={labels}
+                values={values}
+              />
+            </div>
+          </div>
+        </PortletBody>
+      </Portlet>
+    );
+  }, [labels, values]);
   return <>{isFetching ? <LoadingProgress /> : commentStatistical}</>;
 };
 
 const ViewStatistical = () => {
   const dispatch = useDispatch();
   const { views } = useSelector((store) => store.dashboard);
-  const [period, handleChangePeriod] = usePeriod();
+  const { period, handleChangePeriod } = usePeriod();
   const { data, isFetching } = views;
 
   React.useEffect(() => {
@@ -214,38 +232,44 @@ const ViewStatistical = () => {
     );
   }, [period, dispatch]);
 
-  if (data.length === 0) return null;
-  const viewStatistical = data.length && (
-    <Portlet className="kt-portlet--height-fluid kt-portlet--border-bottom-brand">
-      <div className="kt-portlet__head kt-portlet__head--select">
-        <div className="kt-portlet__head-label">
-          <h3 className="kt-portlet__head-title">Latest Updates</h3>
-        </div>
-        <SelectField
-          value={period}
-          onChange={handleChangePeriod}
-          options={periodOptions}
-          label={"Period"}
-        />
-      </div>
-      <PortletBody fluid={true}>
-        <div className="kt-widget12">
-          <div className="kt-widget12__chart" style={{ height: "250px" }}>
-            <DrawingChart
-              labels={data.map((_view) => _view.date)}
-              values={data.map((_view) => _view.value)}
-            />
+  const { labels, values } = handleFormatChartData(data, period);
+
+  const viewStatistical = React.useMemo(() => {
+    if (!data.length) return null;
+    return (
+      <Portlet className="kt-portlet--height-fluid kt-portlet--border-bottom-brand">
+        <div className="kt-portlet__head kt-portlet__head--select">
+          <div className="kt-portlet__head-label">
+            <h3 className="kt-portlet__head-title">Views Overview</h3>
           </div>
+          <SelectField
+            value={period}
+            onChange={handleChangePeriod}
+            options={periodOptions}
+            label={"Period"}
+          />
         </div>
-      </PortletBody>
-    </Portlet>
-  );
+        <PortletBody fluid={true}>
+          <div className="kt-widget12">
+            <div className="kt-widget12__chart" style={{ height: "250px" }}>
+              <DrawingChart
+                labels={labels}
+                values={values}
+                unit="views"
+              />
+            </div>
+          </div>
+        </PortletBody>
+      </Portlet>
+    );
+  }, [labels, values]);
+
   return <>{isFetching ? <LoadingProgress /> : viewStatistical}</>;
 };
 
 const Dashboard = () => {
   console.log("rerender");
-
+  React.useEffect(() => {}, []);
   return (
     <>
       <div className="layout-header-toolbar">

@@ -51,6 +51,7 @@
     .card-content {
         &.ticket-box {
             .text-value, .text-label {
+                white-space: nowrap;
                 font-size: 2rem !important;
             }
             .text-value {

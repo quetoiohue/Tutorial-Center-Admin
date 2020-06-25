@@ -1,12 +1,16 @@
-import React from 'react';
+import React from "react";
 
-const usePeriod = (defaultPeriod = 'day') => {
-    const [period, setPeriod] = React.useState(defaultPeriod);
-    const handleChangePeriod = (event) => {
-        const { value } = event.target;
-        setPeriod(value);
-    }
-    return [period, handleChangePeriod];
+const usePeriod = (defaultValue = "day") => {
+  const [period, setPeriod] = React.useState(defaultValue);
+  console.log("use ALLAL", period);
+
+  return {
+    period,
+    handleChangePeriod: (event) => {
+      const { value } = event.target;
+      setPeriod(value);
+    },
+  };
 };
 
 export default usePeriod;
