@@ -8,7 +8,7 @@ export default {
         icon: "flaticon2-architecture-and-city",
         page: "dashboard",
         translate: "MENU.DASHBOARD",
-        bullet: "dot",
+        bullet: "dot"
       },
       {
         title: "Administration",
@@ -19,20 +19,20 @@ export default {
           {
             title: "Users Management",
             bullet: "dot",
-            page: "users",
+            page: "users"
           },
           {
             title: "Tutorials Management",
             bullet: "dot",
-            page: "tutorials",
+            page: "tutorials"
           },
           {
             title: "Roles Management",
             bullet: "dot",
-            page: "roles",
-          },
-        ],
-      },
-    ],
-  },
+            page: "roles"
+          }
+        ]
+      }
+    ]
+  }
 };

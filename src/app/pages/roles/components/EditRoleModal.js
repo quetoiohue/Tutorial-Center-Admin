@@ -4,7 +4,7 @@ import CustomizedModal from "../../../partials/content/CustomizedModal";
 import { FormTextField, validateForm } from "../../../partials/content/Form";
 
 const initialFormState = {
-  role: "",
+  role: ""
 };
 
 const EditRoleModal = ({ open, handleClose }) => {
@@ -15,13 +15,13 @@ const EditRoleModal = ({ open, handleClose }) => {
   console.log(formState);
 
   const handleChange = ({ name, value }) => {
-    setFormState((prevState) => ({
+    setFormState(prevState => ({
       ...prevState,
-      [name]: value,
+      [name]: value
     }));
   };
 
-  const onSubmit = (event) => {
+  const onSubmit = event => {
     event.preventDefault();
     const isValidateForm = validateForm(formState);
     setIsValidate(isValidateForm);
@@ -43,7 +43,7 @@ const EditRoleModal = ({ open, handleClose }) => {
         style={{
           display: "flex",
           alignItems: "center",
-          justifyContent: "center",
+          justifyContent: "center"
         }}
       >
         <Button type="submit" variant="contained" color="primary">

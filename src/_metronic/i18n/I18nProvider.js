@@ -30,8 +30,8 @@ export default function I18nProvider({ children }) {
   const messages = allMessages[locale];
 
   return (
-      <IntlProvider locale={locale} messages={messages}>
-        {children}
-      </IntlProvider>
+    <IntlProvider locale={locale} messages={messages}>
+      {children}
+    </IntlProvider>
   );
 }

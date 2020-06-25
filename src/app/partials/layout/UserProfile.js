@@ -29,10 +29,15 @@ class UserProfile extends React.Component {
               Hi,
             </span>
             <span className="kt-header__topbar-username kt-hidden-mobile">
-              { name }
+              {name}
             </span>
             <div className="kt-header__topbar-user">
-              <Avatar className="kt-header__topbar-user--avatar">{ name.toString().toUpperCase().charAt(0) }</Avatar>
+              <Avatar className="kt-header__topbar-user--avatar">
+                {name
+                  .toString()
+                  .toUpperCase()
+                  .charAt(0)}
+              </Avatar>
             </div>
           </div>
         </Dropdown.Toggle>
@@ -55,7 +60,7 @@ class UserProfile extends React.Component {
 }
 
 const mapStateToProps = ({ auth: { user } }) => ({
-  user,
+  user
 });
 
 export default connect(mapStateToProps)(UserProfile);

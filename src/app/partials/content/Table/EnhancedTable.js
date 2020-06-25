@@ -8,7 +8,7 @@ import {
   TableBody,
   TableCell,
   TablePagination,
-  TableRow,
+  TableRow
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import React from "react";
@@ -20,11 +20,11 @@ function desc(a, b, orderBy) {
   let varA, varB;
   varA = a[orderBy];
   varB = b[orderBy];
-  if (varA && typeof varA === "object" && varA.hasOwnProperty('subValue')){
+  if (varA && typeof varA === "object" && varA.hasOwnProperty("subValue")) {
     varA = a[orderBy].subValue;
     varB = b[orderBy].subValue;
   }
-  if (typeof varA === "string"){
+  if (typeof varA === "string") {
     varA = varA.toLowerCase();
     varB = varB.toLowerCase();
   }
@@ -40,13 +40,13 @@ function desc(a, b, orderBy) {
 function stableSort(array, cmp) {
   const stabilizedThis = array.map((el, index) => [el, index]);
   console.log("stabilizedThis", stabilizedThis);
-  
+
   stabilizedThis.sort((a, b) => {
     const order = cmp(a[0], b[0]);
     if (order !== 0) return order;
     return a[1] - b[1];
   });
-  return stabilizedThis.map((el) => el[0]);
+  return stabilizedThis.map(el => el[0]);
 }
 
 function getSorting(order, orderBy) {
@@ -55,21 +55,21 @@ function getSorting(order, orderBy) {
     : (a, b) => -desc(a, b, orderBy);
 }
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   root: {
     width: "100%",
-    marginTop: theme.spacing(3),
+    marginTop: theme.spacing(3)
   },
   paper: {
     width: "100%",
-    marginBottom: theme.spacing(2),
+    marginBottom: theme.spacing(2)
   },
   table: {
-    minWidth: 750,
+    minWidth: 750
   },
   tableWrapper: {
-    overflowX: "auto",
-  },
+    overflowX: "auto"
+  }
 }));
 
 export default function EnhancedTable(props) {
@@ -91,7 +91,6 @@ export default function EnhancedTable(props) {
     setRows(rowsProps);
     setHeadRows(headRowsProps);
     console.log("rowsProps", rowsProps);
-    
   }, [rowsProps, headRowsProps]);
 
   function handleChangeSearchText(value) {
@@ -99,10 +98,11 @@ export default function EnhancedTable(props) {
     setSearchText(lowerValue);
     setPage(0);
     // if (!rows.length) return [];
-    const newRows = rowsProps.filter((_item) => {
-      return Object.keys(_item).some((_el) => {
+    const newRows = rowsProps.filter(_item => {
+      return Object.keys(_item).some(_el => {
         if (
-          _item[_el] && typeof _item[_el] === "object" &&
+          _item[_el] &&
+          typeof _item[_el] === "object" &&
           _item[_el].hasOwnProperty("subValue")
         ) {
           return String(_item[_el].subValue)
@@ -121,10 +121,10 @@ export default function EnhancedTable(props) {
 
   function handleDeleteItems() {
     if (!selected.length) return;
-    selected.forEach((_el) => handleDeleteItem(_el));
+    selected.forEach(_el => handleDeleteItem(_el));
   }
   function handleDeleteItem(id) {
-    let deleteIndex = rows.findIndex((_el) => _el.id === id);
+    let deleteIndex = rows.findIndex(_el => _el.id === id);
     const newRows = rows;
     newRows.splice(deleteIndex, 1);
     setRows([...newRows]);
@@ -192,7 +192,7 @@ export default function EnhancedTable(props) {
                           tabIndex={-1}
                           key={row.id}
                           style={{
-                            cursor: props.onClickRow ? "pointer" : "default",
+                            cursor: props.onClickRow ? "pointer" : "default"
                           }}
                         >
                           {Object.keys(row).map((_el, _index) =>
@@ -217,7 +217,8 @@ export default function EnhancedTable(props) {
                                       : "right"
                                   }
                                 >
-                                  {row[_el] && typeof row[_el] === "object" &&
+                                  {row[_el] &&
+                                  typeof row[_el] === "object" &&
                                   row[_el].hasOwnProperty("subValue")
                                     ? row[_el].value
                                     : row[_el]}
@@ -245,10 +246,10 @@ export default function EnhancedTable(props) {
           rowsPerPage={rowsPerPage}
           page={page}
           backIconButtonProps={{
-            "aria-label": "Previous Page",
+            "aria-label": "Previous Page"
           }}
           nextIconButtonProps={{
-            "aria-label": "Next Page",
+            "aria-label": "Next Page"
           }}
           onChangePage={handleChangePage}
           onChangeRowsPerPage={handleChangeRowsPerPage}

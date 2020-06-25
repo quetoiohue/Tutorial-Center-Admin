@@ -3,7 +3,7 @@ const actionTypes = {
   Logout: "[Logout] Action",
   Register: "[Register] Action",
   UserRequested: "[Request User] Action",
-  UserLoaded: "[Load User] Auth API",
+  UserLoaded: "[Load User] Auth API"
 };
 
 export default actionTypes;

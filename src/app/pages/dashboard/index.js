@@ -3,7 +3,7 @@ import {
   Chat,
   Person,
   TrendingUp,
-  Visibility,
+  Visibility
 } from "@material-ui/icons";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -33,7 +33,7 @@ const DashboardTicket = ({ label, value, icon, color }) => {
 
 const DashboardStatistical = () => {
   const dispatch = useDispatch();
-  const { overview } = useSelector((store) => store.dashboard);
+  const { overview } = useSelector(store => store.dashboard);
   const { data } = overview || {};
   const { view, post, comment, user } = data || {};
 
@@ -76,7 +76,7 @@ const DashboardStatistical = () => {
 
 const UserStatistical = () => {
   const dispatch = useDispatch();
-  const { users } = useSelector((store) => store.dashboard);
+  const { users } = useSelector(store => store.dashboard);
   const { period, handleChangePeriod } = usePeriod();
   const { data, isFetching } = users;
   console.log("UserStatistical period", period);
@@ -84,7 +84,7 @@ const UserStatistical = () => {
   React.useEffect(() => {
     dispatch(
       dashboadActions.getUserOverview({
-        period: period === "day" ? "date" : period,
+        period: period === "day" ? "date" : period
       })
     );
   }, [period, dispatch]);
@@ -122,14 +122,14 @@ const UserStatistical = () => {
 
 const TutorialStatistical = () => {
   const dispatch = useDispatch();
-  const { tutorials } = useSelector((store) => store.dashboard);
+  const { tutorials } = useSelector(store => store.dashboard);
   const { period, handleChangePeriod } = usePeriod();
   const { data, isFetching } = tutorials;
 
   React.useEffect(() => {
     dispatch(
       dashboadActions.getTutorialOverview({
-        period: period === "day" ? "date" : period,
+        period: period === "day" ? "date" : period
       })
     );
   }, [period, dispatch]);
@@ -166,19 +166,19 @@ const TutorialStatistical = () => {
 
 const CommentStatistical = () => {
   const dispatch = useDispatch();
-  const { comments } = useSelector((store) => store.dashboard);
+  const { comments } = useSelector(store => store.dashboard);
   const [period, setPeriod] = React.useState("day");
   const { data, isFetching } = comments;
 
   React.useEffect(() => {
     dispatch(
       dashboadActions.getCommentOverview({
-        period: period === "day" ? "date" : period,
+        period: period === "day" ? "date" : period
       })
     );
   }, [period, dispatch]);
 
-  const handleChangePeriod = (event) => {
+  const handleChangePeriod = event => {
     console.log("event.target.value", event.target.value);
     const { value } = event.target;
     setPeriod(value);
@@ -205,10 +205,7 @@ const CommentStatistical = () => {
         <PortletBody fluid={true}>
           <div className="kt-widget12">
             <div className="kt-widget12__chart" style={{ height: "250px" }}>
-              <DrawingChart
-                labels={labels}
-                values={values}
-              />
+              <DrawingChart labels={labels} values={values} />
             </div>
           </div>
         </PortletBody>
@@ -220,14 +217,14 @@ const CommentStatistical = () => {
 
 const ViewStatistical = () => {
   const dispatch = useDispatch();
-  const { views } = useSelector((store) => store.dashboard);
+  const { views } = useSelector(store => store.dashboard);
   const { period, handleChangePeriod } = usePeriod();
   const { data, isFetching } = views;
 
   React.useEffect(() => {
     dispatch(
       dashboadActions.getViewOverview({
-        period: period === "day" ? "date" : period,
+        period: period === "day" ? "date" : period
       })
     );
   }, [period, dispatch]);
@@ -252,11 +249,7 @@ const ViewStatistical = () => {
         <PortletBody fluid={true}>
           <div className="kt-widget12">
             <div className="kt-widget12__chart" style={{ height: "250px" }}>
-              <DrawingChart
-                labels={labels}
-                values={values}
-                unit="views"
-              />
+              <DrawingChart labels={labels} values={values} unit="views" />
             </div>
           </div>
         </PortletBody>

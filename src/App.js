@@ -29,7 +29,11 @@ export default function App({ store, persistor, basename }) {
                 <I18nProvider>
                   {/* Render routes with provided `Layout`. */}
                   <Routes />
-                  <CustomizedAlert title="Success" message="Updated successfully" color="success"/>
+                  <CustomizedAlert
+                    title="Success"
+                    message="Updated successfully"
+                    color="success"
+                  />
                 </I18nProvider>
               </ThemeProvider>
             </LastLocationProvider>

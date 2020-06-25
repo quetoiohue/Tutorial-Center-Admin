@@ -57,8 +57,7 @@ export default class HMenuItem extends React.Component {
 
     if (item.submenu && item.submenu.columns) {
       for (const _column of item.submenu.columns) {
-        for (const _subItem of _column.items)
-        {
+        for (const _subItem of _column.items) {
           const isActive = this.isMenuItemIsActive(_subItem);
           if (isActive) {
             return true;
@@ -246,7 +245,7 @@ export default class HMenuItem extends React.Component {
             )}
 
             {item.submenu.type === "mega" &&
-              (item.submenu.columns && item.submenu.columns.length) && (
+              item.submenu.columns && item.submenu.columns.length && (
                 <div className="kt-menu__subnav">
                   <ul className="kt-menu__content">
                     {item.submenu.columns.map((child, index) => {

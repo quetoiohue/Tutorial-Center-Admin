@@ -7,7 +7,7 @@ const DrawingChart = ({ labels, values, unit, ...props }) => {
   const ref = useRef();
   console.log("DrawingChart");
 
-  const { brandColor, shape2Color, shape3Color } = useSelector((state) => ({
+  const { brandColor, shape2Color, shape3Color } = useSelector(state => ({
     brandColor: metronic.builder.selectors.getConfig(
       state,
       "colors.state.brand"
@@ -19,7 +19,7 @@ const DrawingChart = ({ labels, values, unit, ...props }) => {
     shape3Color: metronic.builder.selectors.getConfig(
       state,
       "colors.base.shape.3"
-    ),
+    )
   }));
 
   const data = useMemo(
@@ -56,8 +56,8 @@ const DrawingChart = ({ labels, values, unit, ...props }) => {
             .rgbString(),
           data: values,
           label: unit
-        },
-      ],
+        }
+      ]
     }),
     [brandColor, labels, values]
   );
@@ -81,7 +81,7 @@ const DrawingChart = ({ labels, values, unit, ...props }) => {
               display: true,
               scaleLabel: {
                 display: false,
-                labelString: "Month",
+                labelString: "Month"
               },
               gridLines: false,
               ticks: {
@@ -89,9 +89,9 @@ const DrawingChart = ({ labels, values, unit, ...props }) => {
                 beginAtZero: true,
                 fontColor: shape3Color,
                 fontSize: 13,
-                padding: 10,
-              },
-            },
+                padding: 10
+              }
+            }
           ],
           yAxes: [
             {
@@ -100,7 +100,7 @@ const DrawingChart = ({ labels, values, unit, ...props }) => {
               display: true,
               scaleLabel: {
                 display: false,
-                labelString: "Value",
+                labelString: "Value"
               },
               gridLines: {
                 color: shape2Color,
@@ -110,23 +110,23 @@ const DrawingChart = ({ labels, values, unit, ...props }) => {
                 borderDash: [3, 4],
                 zeroLineWidth: 1,
                 zeroLineColor: shape2Color,
-                zeroLineBorderDash: [3, 4],
+                zeroLineBorderDash: [3, 4]
               },
               ticks: {
                 display: true,
                 beginAtZero: true,
                 fontColor: shape3Color,
                 fontSize: 13,
-                padding: 10,
-              },
-            },
-          ],
+                padding: 10
+              }
+            }
+          ]
         },
         title: {
-          display: false,
+          display: false
         },
         hover: {
-          mode: "ErrorPage1.js",
+          mode: "ErrorPage1.js"
         },
         tooltips: {
           enabled: true,
@@ -141,17 +141,17 @@ const DrawingChart = ({ labels, values, unit, ...props }) => {
           titleFontColor: "#ffffff",
           cornerRadius: 4,
           footerSpacing: 0,
-          titleSpacing: 0,
+          titleSpacing: 0
         },
         layout: {
           padding: {
             left: 0,
             right: 0,
             top: 5,
-            bottom: 5,
-          },
-        },
-      },
+            bottom: 5
+          }
+        }
+      }
     });
 
     return () => {
@@ -159,9 +159,7 @@ const DrawingChart = ({ labels, values, unit, ...props }) => {
     };
   }, [labels, values]);
 
-  return (
-    <canvas ref={ref} width={683} height={312} />
-  );
+  return <canvas ref={ref} width={683} height={312} />;
 };
 
 export default React.memo(DrawingChart);

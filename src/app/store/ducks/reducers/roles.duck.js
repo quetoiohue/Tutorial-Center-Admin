@@ -3,7 +3,7 @@ import actionTypes from "../actionTypes/roles";
 const initialState = {
   roles: [],
   isFetching: false,
-  error: "",
+  error: ""
 };
 
 export default function reducer(state = initialState, action) {
@@ -11,20 +11,20 @@ export default function reducer(state = initialState, action) {
     case actionTypes.GET_ROLE_LIST_REQUEST:
       return {
         ...state,
-        isFetching: true,
+        isFetching: true
       };
     case actionTypes.GET_ROLE_LIST_SUCCESS:
       return {
         ...state,
         isFetching: false,
-        roles: action.payload,
+        roles: action.payload
       };
     case actionTypes.GET_ROLE_LIST_ERROR:
       return {
         ...state,
         isFetching: false,
-        error: action.payload,
-      }
+        error: action.payload
+      };
     default:
       return state;
   }

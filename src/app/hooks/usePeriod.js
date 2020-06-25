@@ -6,10 +6,10 @@ const usePeriod = (defaultValue = "day") => {
 
   return {
     period,
-    handleChangePeriod: (event) => {
+    handleChangePeriod: event => {
       const { value } = event.target;
       setPeriod(value);
-    },
+    }
   };
 };
 

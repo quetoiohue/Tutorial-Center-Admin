@@ -4,7 +4,7 @@ const initialState = {
   title: "",
   message: "",
   color: "",
-  visible: false,
+  visible: false
 };
 
 export default function reducer(state = initialState, action) {
@@ -14,18 +14,18 @@ export default function reducer(state = initialState, action) {
         ...action.payload,
         title: "Success",
         color: "success",
-        visible: true,
+        visible: true
       };
     case actionTypes.SHOW_ERROR_MESSAGE:
       return {
         ...action.payload,
         title: "Error",
         color: "error",
-        visible: true,
+        visible: true
       };
     case actionTypes.HIDDEN_MESSAGE:
       return {
-        ...initialState,
+        ...initialState
       };
     default:
       return state;

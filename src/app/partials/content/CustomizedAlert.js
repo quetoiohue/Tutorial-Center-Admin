@@ -2,11 +2,13 @@ import { Snackbar } from "@material-ui/core";
 import { Alert, AlertTitle } from "@material-ui/lab";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import messageActions from '../../store/ducks/actions/message';
+import messageActions from "../../store/ducks/actions/message";
 
 const CustomizedAlert = () => {
   const dispatch = useDispatch();
-  const { color, message, title, visible } = useSelector(store => store.notification);
+  const { color, message, title, visible } = useSelector(
+    store => store.notification
+  );
 
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
@@ -23,7 +25,7 @@ const CustomizedAlert = () => {
         onClose={handleClose}
         anchorOrigin={{
           vertical: "bottom",
-          horizontal: "left",
+          horizontal: "left"
         }}
       >
         <Alert onClose={handleClose} severity={color}>

@@ -1,5 +1,8 @@
 import {
-  Avatar, Button, Divider, ExpansionPanel,
+  Avatar,
+  Button,
+  Divider,
+  ExpansionPanel,
   ExpansionPanelDetails,
   ExpansionPanelSummary,
   Typography
@@ -43,9 +46,7 @@ const StepComponent = ({ title, data }) => {
   const { banner_image_url, content } = data;
   return (
     <>
-      <ExpansionPanel
-        className="tutorial-step"
-      >
+      <ExpansionPanel className="tutorial-step">
         <ExpansionPanelSummary
           expandIcon={<ExpandMore />}
           aria-controls="panel1bh-content"
@@ -68,11 +69,11 @@ const StepComponent = ({ title, data }) => {
   );
 };
 
-const TutorialDetail = (props) => {
+const TutorialDetail = props => {
   const dispatch = useDispatch();
   const params = useParams();
   const { getTutorialById, isFetching } = useSelector(
-    (store) => store.tutorialList
+    store => store.tutorialList
   );
   const {
     title,
@@ -81,7 +82,7 @@ const TutorialDetail = (props) => {
     steps,
     comment_count,
     average_rate,
-    last_views,
+    last_views
   } = getTutorialById || {};
 
   React.useEffect(() => {

@@ -4,28 +4,28 @@ const initialState = {
   overview: {
     data: {},
     isFetching: false,
-    error: "",
+    error: ""
   },
   comments: {
     data: {},
     isFetching: false,
-    error: "",
+    error: ""
   },
   users: {
     data: {},
     isFetching: false,
-    error: "",
+    error: ""
   },
   tutorials: {
     data: {},
     isFetching: false,
-    error: "",
+    error: ""
   },
   views: {
     data: {},
     isFetching: false,
-    error: "",
-  },
+    error: ""
+  }
 };
 
 export default function reducer(state = initialState, action) {
@@ -36,8 +36,8 @@ export default function reducer(state = initialState, action) {
         overview: {
           ...state.overview,
           isFetching: true,
-          error: "",
-        },
+          error: ""
+        }
       };
     case actionTypes.GET_OVERVIEW_SUCCESS:
       return {
@@ -45,8 +45,8 @@ export default function reducer(state = initialState, action) {
         overview: {
           data: action.payload,
           isFetching: false,
-          error: "",
-        },
+          error: ""
+        }
       };
     case actionTypes.GET_OVERVIEW_ERROR:
       return {
@@ -54,8 +54,8 @@ export default function reducer(state = initialState, action) {
         overview: {
           ...state.overview,
           isFetching: false,
-          error: action.payload,
-        },
+          error: action.payload
+        }
       };
     case actionTypes.GET_USER_OVERVIEW_REQUEST:
       return {
@@ -63,8 +63,8 @@ export default function reducer(state = initialState, action) {
         users: {
           ...state.users,
           isFetching: true,
-          error: "",
-        },
+          error: ""
+        }
       };
     case actionTypes.GET_USER_OVERVIEW_SUCCESS:
       return {
@@ -72,8 +72,8 @@ export default function reducer(state = initialState, action) {
         users: {
           data: action.payload,
           isFetching: false,
-          error: "",
-        },
+          error: ""
+        }
       };
     case actionTypes.GET_USER_OVERVIEW_ERROR:
       return {
@@ -81,8 +81,8 @@ export default function reducer(state = initialState, action) {
         users: {
           ...state.overview,
           isFetching: false,
-          error: action.payload,
-        },
+          error: action.payload
+        }
       };
     case actionTypes.GET_TUTORIAL_OVERVIEW_REQUEST:
       return {
@@ -90,8 +90,8 @@ export default function reducer(state = initialState, action) {
         tutorials: {
           ...state.tutorials,
           isFetching: true,
-          error: "",
-        },
+          error: ""
+        }
       };
     case actionTypes.GET_TUTORIAL_OVERVIEW_SUCCESS:
       return {
@@ -99,8 +99,8 @@ export default function reducer(state = initialState, action) {
         tutorials: {
           data: action.payload,
           isFetching: false,
-          error: "",
-        },
+          error: ""
+        }
       };
     case actionTypes.GET_TUTORIAL_OVERVIEW_ERROR:
       return {
@@ -108,8 +108,8 @@ export default function reducer(state = initialState, action) {
         tutorials: {
           ...state.tutorials,
           isFetching: false,
-          error: action.payload,
-        },
+          error: action.payload
+        }
       };
     case actionTypes.GET_COMMENT_OVERVIEW_REQUEST:
       return {
@@ -117,8 +117,8 @@ export default function reducer(state = initialState, action) {
         comments: {
           ...state.comments,
           isFetching: true,
-          error: "",
-        },
+          error: ""
+        }
       };
     case actionTypes.GET_COMMENT_OVERVIEW_SUCCESS:
       return {
@@ -126,8 +126,8 @@ export default function reducer(state = initialState, action) {
         comments: {
           data: action.payload,
           isFetching: false,
-          error: "",
-        },
+          error: ""
+        }
       };
     case actionTypes.GET_COMMENT_OVERVIEW_ERROR:
       return {
@@ -135,8 +135,8 @@ export default function reducer(state = initialState, action) {
         comments: {
           ...state.comments,
           isFetching: false,
-          error: action.payload,
-        },
+          error: action.payload
+        }
       };
     case actionTypes.GET_VIEW_OVERVIEW_REQUEST:
       return {
@@ -144,8 +144,8 @@ export default function reducer(state = initialState, action) {
         views: {
           ...state.views,
           isFetching: true,
-          error: "",
-        },
+          error: ""
+        }
       };
     case actionTypes.GET_VIEW_OVERVIEW_SUCCESS:
       return {
@@ -153,8 +153,8 @@ export default function reducer(state = initialState, action) {
         views: {
           data: action.payload,
           isFetching: false,
-          error: "",
-        },
+          error: ""
+        }
       };
     case actionTypes.GET_VIEW_OVERVIEW_ERROR:
       return {
@@ -162,8 +162,8 @@ export default function reducer(state = initialState, action) {
         views: {
           ...state.views,
           isFetching: false,
-          error: action.payload,
-        },
+          error: action.payload
+        }
       };
     default:
       return state;

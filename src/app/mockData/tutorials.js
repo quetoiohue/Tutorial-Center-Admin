@@ -1,4 +1,4 @@
-const getRandomInt = (max) => {
+const getRandomInt = max => {
   return Math.floor(Math.random() * Math.floor(max));
 };
 
@@ -35,7 +35,7 @@ export function createData(
     rates,
     last_modified,
     last_created,
-    actions,
+    actions
   };
 }
 export const headRows = [
@@ -44,57 +44,57 @@ export const headRows = [
     numeric: false,
     disablePadding: false,
     sortable: true,
-    label: "Id",
+    label: "Id"
   },
   {
     id: "author_name",
     numeric: false,
     sortable: true,
     disablePadding: false,
-    label: "Author",
+    label: "Author"
   },
   {
     id: "title",
     numeric: false,
     sortable: true,
     disablePadding: false,
-    label: "Title",
+    label: "Title"
   },
   {
     id: "is_active",
     numeric: false,
     sortable: true,
     disablePadding: false,
-    label: "Active",
+    label: "Active"
   },
   {
     id: "rates",
     numeric: false,
     sortable: true,
     disablePadding: false,
-    label: "Rates",
+    label: "Rates"
   },
   {
     id: "last_modified",
     numeric: false,
     sortable: true,
     disablePadding: false,
-    label: "Last modified",
+    label: "Last modified"
   },
   {
     id: "last_created",
     numeric: false,
     sortable: true,
     disablePadding: false,
-    label: "Last Created",
+    label: "Last Created"
   },
   {
     id: "actions",
     numeric: false,
     sortable: false,
     disablePadding: false,
-    label: "Actions",
-  },
+    label: "Actions"
+  }
 ];
 
 export const rowsData = [...Array(13).keys()].map((_item, index) => {

@@ -3,7 +3,7 @@ import React from "react";
 import {
   Portlet,
   PortletBody,
-  PortletHeader,
+  PortletHeader
 } from "../../../../partials/content/Portlet";
 import moment from "moment";
 import LoadingProgress from "../../../../components/LoadingProgress";
@@ -20,7 +20,7 @@ const UserInfoFormItem = ({ label, value }) => {
   );
 };
 
-const UserInformation = (props) => {
+const UserInformation = props => {
   const { getUserById, isFetching } = props;
   const {
     avatar_url,
@@ -32,7 +32,7 @@ const UserInformation = (props) => {
     email,
     gender,
     name,
-    updated_at,
+    updated_at
   } = getUserById || {};
   return isFetching ? (
     <LoadingProgress />

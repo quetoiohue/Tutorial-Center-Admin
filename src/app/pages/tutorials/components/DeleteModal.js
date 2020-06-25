@@ -2,13 +2,13 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import CustomizedModal from "../../../partials/content/CustomizedModal";
 import { Button, Typography, Toolbar } from "@material-ui/core";
-import tutorialActions from '../../../store/ducks/actions/tutorials';
+import tutorialActions from "../../../store/ducks/actions/tutorials";
 
 const DeleteModal = ({ open, handleClose, selected }) => {
   const dispatch = useDispatch();
   const { id } = selected;
 
-  const onSubmit = (event) => {
+  const onSubmit = event => {
     event.preventDefault();
     console.log("delete tutorial submit", id);
     dispatch(tutorialActions.deleteTutorialById(id));
@@ -24,7 +24,7 @@ const DeleteModal = ({ open, handleClose, selected }) => {
         style={{
           display: "flex",
           alignItems: "center",
-          justifyContent: "center",
+          justifyContent: "center"
         }}
       >
         <Button type="submit" variant="contained" color="primary">

@@ -6,7 +6,7 @@ import {
   ArrowRightAlt,
   Edit,
   RemoveCircle,
-  Delete,
+  Delete
 } from "@material-ui/icons";
 import moment from "moment";
 import React from "react";
@@ -24,11 +24,11 @@ import DeleteUserForm from "./components/DeleteUserForm";
 
 const initialModalState = {
   modal: "",
-  selected: {},
+  selected: {}
 };
-const Users = (props) => {
+const Users = props => {
   const dispatch = useDispatch();
-  const { users, isFetching, count } = useSelector((store) => store.userList);
+  const { users, isFetching, count } = useSelector(store => store.userList);
   const [Modal, setModal] = React.useState(initialModalState);
   const { modal, selected } = Modal;
 
@@ -43,9 +43,9 @@ const Users = (props) => {
       users.map((_item, index) => {
         const permissions =
           (_item.permissions &&
-            _item.permissions.map((_item) => ({
+            _item.permissions.map(_item => ({
               name: _item.name,
-              id: _item.pivot.permission_id,
+              id: _item.pivot.permission_id
             }))) ||
           [];
         const { id, email, name, is_active } = _item;
@@ -56,10 +56,10 @@ const Users = (props) => {
           _item.email,
           {
             value: <Checkbox checked={Boolean(_item.is_active)} />,
-            subValue: Boolean(_item.is_active),
+            subValue: Boolean(_item.is_active)
           },
           <>
-            {permissions.map((_el) => (
+            {permissions.map(_el => (
               <Chip
                 key={_el.id}
                 style={{ marginBottom: "2px" }}
@@ -107,7 +107,7 @@ const Users = (props) => {
   const handleSelectModal = (modal, selected = {}) => {
     setModal({
       modal,
-      selected,
+      selected
     });
   };
 

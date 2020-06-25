@@ -3,8 +3,6 @@
 // Pages SASS files are compiled into separate css files
 //
 
-
-
 // Global config
 @import "../../config";
 
@@ -13,11 +11,9 @@
 
 // Base
 .kt-sc-feedback {
-
-	.kt-sc__bg{
-
-		svg{
-			width: 650px;
-		}
-	}
+  .kt-sc__bg {
+    svg {
+      width: 650px;
+    }
+  }
 }

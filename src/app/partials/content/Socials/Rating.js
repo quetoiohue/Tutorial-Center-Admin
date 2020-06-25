@@ -9,7 +9,12 @@ const Rating = ({ number, fontSize = "large" }) => {
         <span key={`${index}-rate`}>
           <Grade
             fontSize={fontSize}
-            style={{ color: index <= Math.floor(Number.parseInt(number)) - 1 ? "yellow" : "black" }}
+            style={{
+              color:
+                index <= Math.floor(Number.parseInt(number)) - 1
+                  ? "yellow"
+                  : "black"
+            }}
           />
         </span>
       ))}
@@ -19,7 +24,7 @@ const Rating = ({ number, fontSize = "large" }) => {
 
 Rating.propTypes = {
   number: PropTypes.number,
-  fontSize: PropTypes.string,
+  fontSize: PropTypes.string
 };
 
 export default Rating;

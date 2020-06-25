@@ -4,7 +4,7 @@ import {
   Input,
   InputLabel,
   TextField,
-  Select,
+  Select
 } from "@material-ui/core";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import React from "react";
@@ -17,12 +17,12 @@ export const FormTextField = ({
   onChange,
   error,
   disabled = false,
-  required = true,
+  required = true
 }) => {
   const [isError, setIsError] = React.useState(false);
   // const isError = !Boolean(value || !error || value.length);
 
-  const handleChange = (event) => {
+  const handleChange = event => {
     const { name, value } = event.target;
     onChange({ name, value });
   };
@@ -47,8 +47,8 @@ export const FormTextField = ({
   );
 };
 export const MultiSelectField = ({ value, onChange, options, error }) => {
-  console.log("MultiSelectField props",  value, onChange, options);
-  
+  console.log("MultiSelectField props", value, onChange, options);
+
   const handleChange = (event, values) => {
     onChange(values);
   };
@@ -60,10 +60,10 @@ export const MultiSelectField = ({ value, onChange, options, error }) => {
         multiple
         filterSelectedOptions
         options={options}
-        getOptionLabel={(option) => option.name}
+        getOptionLabel={option => option.name}
         onChange={handleChange}
         value={[...value]}
-        renderInput={(params) => (
+        renderInput={params => (
           <TextField
             {...params}
             variant="standard"
@@ -77,7 +77,7 @@ export const MultiSelectField = ({ value, onChange, options, error }) => {
     </FormControl>
   );
 };
-export const SelectField  = ({ value, onChange, options, label }) => {
+export const SelectField = ({ value, onChange, options, label }) => {
   return (
     <FormControl variant="outlined">
       <InputLabel htmlFor="outlined-age-native-simple">{label}</InputLabel>
@@ -88,22 +88,24 @@ export const SelectField  = ({ value, onChange, options, label }) => {
         label={label}
         inputProps={{
           name: label,
-          id: 'outlined-age-native-simple',
+          id: "outlined-age-native-simple"
         }}
       >
         {options.map((_item, index) => {
           return (
-          <option key={`${_item.value}-${index}`} value={_item.value}>{_item.label}</option>
-          )
+            <option key={`${_item.value}-${index}`} value={_item.value}>
+              {_item.label}
+            </option>
+          );
         })}
       </Select>
     </FormControl>
-  )
-}
-export const validateForm = (state) => {
+  );
+};
+export const validateForm = state => {
   if (!Object.keys(state).length) return false;
   return !Object.keys(state).some(
-    (_key) =>
+    _key =>
       state[_key] === undefined || state[_key] === "" || state[_key] === null
   );
 };

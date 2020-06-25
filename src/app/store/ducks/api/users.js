@@ -7,26 +7,26 @@ const userApi = () => {
     getUsers: () => {
       return axiosApi.get(`/api/admin/users`);
     },
-    getUserById: (userId) => {
+    getUserById: userId => {
       return axiosApi.get(`/api/admin/users/view/${userId}`);
     },
-    addUser: (params) => {
-      return axiosApi.post('/api/admin/users', {
+    addUser: params => {
+      return axiosApi.post("/api/admin/users", {
         ...params
-      })
+      });
     },
-    setUserRoles: ({id, roles}) => {
+    setUserRoles: ({ id, roles }) => {
       return axiosApi.post(`/api/admin/users/roles/${id}`, {
         roles
-      })
+      });
     },
-    deleteUserById: (id) => {
-      return axiosApi.delete(`/api/admin/users/${id}`)
+    deleteUserById: id => {
+      return axiosApi.delete(`/api/admin/users/${id}`);
     },
-    setUserStatus: ({id, is_active}) => {
+    setUserStatus: ({ id, is_active }) => {
       return axiosApi.post(`/api/admin/users/status/${id}`, {
         is_active
-      })
+      });
     }
   };
 };

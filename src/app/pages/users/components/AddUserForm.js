@@ -9,7 +9,7 @@ const initialFormState = {
   name: "",
   password: "123123",
   password_confirmation: "123123",
-  email: "",
+  email: ""
   // role: [],
 };
 
@@ -21,13 +21,13 @@ const AddUserForm = ({ open, handleClose }) => {
   const { name, password, password_confirmation, email } = formState;
 
   const handleChange = ({ name, value }) => {
-    setFormState((prevState) => ({
+    setFormState(prevState => ({
       ...prevState,
-      [name]: value,
+      [name]: value
     }));
   };
 
-  const onSubmit = (event) => {
+  const onSubmit = event => {
     event.preventDefault();
     const isValidateForm = validateForm(formState);
     setIsValidate(isValidateForm);
@@ -75,7 +75,7 @@ const AddUserForm = ({ open, handleClose }) => {
         style={{
           display: "flex",
           alignItems: "center",
-          justifyContent: "center",
+          justifyContent: "center"
         }}
       >
         <Button type="submit" variant="contained" color="primary">

@@ -1,16 +1,14 @@
 import { CircularProgress } from "@material-ui/core";
-import React from 'react';
+import React from "react";
 
 const LoadingProgress = props => {
-    return (
-        <div className="my-progress-container">
-          <CircularProgress />
-        </div>
-    );
+  return (
+    <div className="my-progress-container">
+      <CircularProgress />
+    </div>
+  );
 };
 
-LoadingProgress.propTypes = {
-    
-};
+LoadingProgress.propTypes = {};
 
 export default LoadingProgress;

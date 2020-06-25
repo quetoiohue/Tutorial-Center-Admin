@@ -13,7 +13,7 @@ import {
 } from "../../../../partials/content/Portlet";
 import Rating from "../../../../partials/content/Socials/Rating";
 
-const UserStatistical = (props) => {
+const UserStatistical = props => {
   const { getUserById } = props;
   const { period, handleChangePeriod } = usePeriod();
 
@@ -21,7 +21,7 @@ const UserStatistical = (props) => {
     if (Object.keys(getUserById).length === 0) {
       return {
         labels: [],
-        values: 0,
+        values: 0
       };
     }
     const { tutorials } = getUserById;
@@ -50,7 +50,7 @@ const UserStatistical = (props) => {
 
     return {
       labels: [defaultDate, ...labels],
-      values: [0, ...values],
+      values: [0, ...values]
     };
   }, [getUserById, period]);
 
@@ -104,7 +104,7 @@ const UserStatistical = (props) => {
             style={{
               justifyContent: "space-between",
               alginItems: "center",
-              padding: "0px",
+              padding: "0px"
             }}
           >
             <p className="kt-widget12__chart-title">User History</p>

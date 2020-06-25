@@ -2,13 +2,13 @@ import { Button, Toolbar, Typography } from "@material-ui/core";
 import React from "react";
 import { useDispatch } from "react-redux";
 import CustomizedModal from "../../../partials/content/CustomizedModal";
-import userActions from '../../../store/ducks/actions/users';
+import userActions from "../../../store/ducks/actions/users";
 
 const BlockUserForm = ({ open, handleClose, selected }) => {
   const dispatch = useDispatch();
   const { id, is_active } = selected;
 
-  const onSubmit = (event) => {
+  const onSubmit = event => {
     event.preventDefault();
     dispatch(userActions.setUserStatus({ id, is_active }));
     handleClose();
@@ -23,7 +23,7 @@ const BlockUserForm = ({ open, handleClose, selected }) => {
         style={{
           display: "flex",
           alignItems: "center",
-          justifyContent: "center",
+          justifyContent: "center"
         }}
       >
         <Button type="submit" variant="contained" color="primary">

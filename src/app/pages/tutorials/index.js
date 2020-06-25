@@ -3,7 +3,7 @@ import {
   AddBox,
   ArrowRightAlt,
   Delete,
-  RemoveCircle,
+  RemoveCircle
 } from "@material-ui/icons";
 import moment from "moment";
 import { default as React } from "react";
@@ -21,10 +21,10 @@ const Tutorials = () => {
   const dispatch = useDispatch();
   const [modal, setModal] = React.useState({
     type: "",
-    selected: {},
+    selected: {}
   });
   const { tutorials, count, isFetching } = useSelector(
-    (store) => store.tutorialList
+    store => store.tutorialList
   );
   const { type, selected } = modal;
 
@@ -43,7 +43,7 @@ const Tutorials = () => {
             <div
               style={{
                 display: "flex",
-                alignItems: "center",
+                alignItems: "center"
               }}
             >
               <span style={{ marginRight: "8px" }}>
@@ -52,16 +52,16 @@ const Tutorials = () => {
               <span>{_item.author.name} </span>
             </div>
           ),
-          subValue: _item.author.name,
+          subValue: _item.author.name
         },
         _item.title,
         {
           value: <Checkbox checked={Boolean(_item.is_active)} />,
-          subValue: Boolean(_item.is_active),
+          subValue: Boolean(_item.is_active)
         },
         {
           value: <Rating number={_item.average_rate} fontSize="small" />,
-          subValue: _item.average_rate,
+          subValue: _item.average_rate
         },
         moment(_item.updated_at).format("DD/MM/YYYY"),
         moment(_item.created_at).format("DD/MM/YYYY"),
@@ -95,18 +95,18 @@ const Tutorials = () => {
   console.log(dataRows);
 
   const hasTutorialModalType = (type, selected) => {
-    setModal((prevState) => ({
+    setModal(prevState => ({
       ...prevState,
       type,
-      selected,
+      selected
     }));
   };
 
   const resetTutorialModalType = () => {
-    setModal((prevState) => ({
+    setModal(prevState => ({
       ...prevState,
       type: "",
-      selected: {},
+      selected: {}
     }));
   };
 

@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 
 const perfectScrollbarOptions = {
   wheelSpeed: 2,
-  wheelPropagation: false,
+  wheelPropagation: false
 };
 
 export default function RecentActivities({ getTutorialById }) {
@@ -32,7 +32,7 @@ export default function RecentActivities({ getTutorialById }) {
             >
               <div className="kt-timeline-v2 ps ps--active-y">
                 <div className="kt-timeline-v2__items kt-padding-top-25 kt-padding-bottom-30">
-                  {last_views.map((_view) => {
+                  {last_views.map(_view => {
                     return (
                       <div className="kt-timeline-v2__item">
                         <span className="kt-timeline-v2__item-time">

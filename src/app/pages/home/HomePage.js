@@ -2,10 +2,12 @@ import React, { lazy, Suspense } from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
 import { LayoutSplashScreen } from "../../../_metronic";
 const Dashboard = lazy(async () => await import("../dashboard"));
-const Users = lazy(async () =>await  import("../users"));
-const UserDetail = lazy(async () => await import( "../users/UserDetail"));
+const Users = lazy(async () => await import("../users"));
+const UserDetail = lazy(async () => await import("../users/UserDetail"));
 const Tutorials = lazy(async () => await import("../tutorials"));
-const TutorialDetail = lazy(async () =>await  import("../tutorials/TutorialDetail"));
+const TutorialDetail = lazy(
+  async () => await import("../tutorials/TutorialDetail")
+);
 const Roles = lazy(async () => await import("../roles"));
 
 export default function HomePage() {

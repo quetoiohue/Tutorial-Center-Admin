@@ -18,7 +18,7 @@ const dashboadApi = () => {
     },
     getViewOverview: ({ period }) => {
       return axiosApi.get(`/api/admin/statistics/${period}/views`);
-    },
+    }
   };
 };
 

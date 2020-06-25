@@ -21,7 +21,7 @@ function Layout({
   subheaderDisplay,
   selfLayout,
   layoutConfig,
-  contentContainerClasses,
+  contentContainerClasses
 }) {
   htmlClassService.setConfig(layoutConfig);
   // scroll to top after location changes
@@ -99,7 +99,7 @@ const mapStateToProps = ({ builder: { layoutConfig } }) => ({
     layoutConfig,
     "header.self.fixed.desktop"
   ),
-  contentContainerClasses: "",
+  contentContainerClasses: ""
   // contentContainerClasses: builder.selectors.getClasses(store, {
   //   path: "content_container",
   //   toString: true

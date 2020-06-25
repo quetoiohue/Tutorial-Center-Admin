@@ -3,7 +3,7 @@ import {
   ExpansionPanel,
   ExpansionPanelDetails,
   ExpansionPanelSummary,
-  Typography,
+  Typography
 } from "@material-ui/core";
 import React from "react";
 

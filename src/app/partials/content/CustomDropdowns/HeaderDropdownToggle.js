@@ -15,5 +15,5 @@ const HeaderDropdownToggle = React.forwardRef((props, ref) => {
   );
 });
 
-HeaderDropdownToggle.displayName = 'HeaderDropdownToggle';
+HeaderDropdownToggle.displayName = "HeaderDropdownToggle";
 export default HeaderDropdownToggle;

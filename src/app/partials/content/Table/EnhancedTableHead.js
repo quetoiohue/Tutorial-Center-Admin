@@ -8,20 +8,15 @@ import PropTypes from "prop-types";
 import React from "react";
 
 export default function EnhancedTableHead(props) {
-  const {
-    headRows,
-    order,
-    orderBy,
-    onRequestSort,
-  } = props;
-  const createSortHandler = (property) => (event) => {
+  const { headRows, order, orderBy, onRequestSort } = props;
+  const createSortHandler = property => event => {
     onRequestSort(event, property);
   };
 
   return (
     <TableHead>
       <TableRow>
-        {headRows.map((row) => (
+        {headRows.map(row => (
           <TableCell
             key={row.id}
             align={row.numeric ? "right" : "left"}
@@ -50,5 +45,5 @@ EnhancedTableHead.propTypes = {
   onRequestSort: PropTypes.func.isRequired,
   order: PropTypes.string.isRequired,
   orderBy: PropTypes.string.isRequired,
-  rowCount: PropTypes.number.isRequired,
+  rowCount: PropTypes.number.isRequired
 };

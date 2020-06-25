@@ -3,7 +3,7 @@ import React, {
   useContext,
   useEffect,
   useMemo,
-  useReducer,
+  useReducer
 } from "react";
 
 /**
@@ -22,7 +22,7 @@ const LayoutContext = {
   /**
    * Stores `dispatch` function to update layout state, intended to be internal.
    */
-  Dispatch: createContext(null),
+  Dispatch: createContext(null)
 };
 
 /**
@@ -44,7 +44,7 @@ const actionTypes = {
    * Controls splash screen visibility.
    */
   SHOW_SPLASH_SCREEN: "SHOW_SPLASH_SCREEN",
-  HIDE_SPLASH_SCREEN: "HIDE_SPLASH_SCREEN",
+  HIDE_SPLASH_SCREEN: "HIDE_SPLASH_SCREEN"
 };
 
 /**
@@ -89,7 +89,7 @@ function init({ pathname, menuConfig }) {
   breadcrumbs.reverse();
   const state = {
     subheader: { title: "", breadcrumb: [], description: "" },
-    splashScreen: { refs: {} },
+    splashScreen: { refs: {} }
   };
   if (pageConfig) {
     breadcrumbs.push(pageConfig);
@@ -117,8 +117,8 @@ function reducer(state, { type, payload }) {
       ...state,
       splashScreen: {
         ...state.splashScreen,
-        refs: { ...state.splashScreen.refs, [payload.id]: true },
-      },
+        refs: { ...state.splashScreen.refs, [payload.id]: true }
+      }
     };
   }
 
@@ -127,7 +127,7 @@ function reducer(state, { type, payload }) {
 
     return {
       ...state,
-      splashScreen: { ...state.splashScreen, refs: nextRefs },
+      splashScreen: { ...state.splashScreen, refs: nextRefs }
     };
   }
 
@@ -151,7 +151,7 @@ export function LayoutContextProvider({ history, children, menuConfig }) {
       history.listen(({ pathname }) => {
         dispatch({
           type: actionTypes.INIT,
-          payload: { pathname, menuConfig },
+          payload: { pathname, menuConfig }
         });
       }),
 
@@ -246,7 +246,7 @@ export function LayoutSubheader({ title, breadcrumb, description }) {
   useEffect(() => {
     dispatch({
       type: actionTypes.SET_SUBHEADER,
-      payload: { title, breadcrumb, description },
+      payload: { title, breadcrumb, description }
     });
   }, [dispatch, title, breadcrumb, description]);
 

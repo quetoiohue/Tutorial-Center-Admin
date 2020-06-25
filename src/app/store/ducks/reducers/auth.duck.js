@@ -5,7 +5,7 @@ import actionTypes from "../actionTypes/auth";
 
 const initialAuthState = {
   user: undefined,
-  authToken: undefined,
+  authToken: undefined
 };
 
 const reducer = persistReducer(

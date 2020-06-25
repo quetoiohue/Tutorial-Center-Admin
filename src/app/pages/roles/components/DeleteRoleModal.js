@@ -2,7 +2,7 @@ import React from "react";
 import CustomizedModal from "../../../partials/content/CustomizedModal";
 import { Button } from "@material-ui/core";
 
-const DeleteModal = (props) => {
+const DeleteModal = props => {
   const { open, handleClose, handleSubmit } = props;
 
   const DeleteContent = (

@@ -9,9 +9,7 @@ export default function ErrorPage1() {
         <div
           className="kt-grid__item kt-grid__item--fluid kt-grid kt-error-v1"
           style={{
-            backgroundImage: `url(${toAbsoluteUrl(
-              "/media/error/bg1.jpg"
-            )})`
+            backgroundImage: `url(${toAbsoluteUrl("/media/error/bg1.jpg")})`
           }}
         >
           <div className="kt-error-v1__container">

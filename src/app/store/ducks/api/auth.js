@@ -1,8 +1,8 @@
 import axiosApi from "../../../utils/request";
 export const LOGIN_URL = "api/auth/login";
 
-const getURLSearchParams = (data) => {
-  const paramArr = Object.keys(data).map((key) => {
+const getURLSearchParams = data => {
+  const paramArr = Object.keys(data).map(key => {
     return key + "=" + data[key];
   });
   return paramArr.join("&");

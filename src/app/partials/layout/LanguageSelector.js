@@ -45,7 +45,8 @@ class LanguageSelector extends React.Component {
     return (
       <Dropdown
         className="kt-header__topbar-item kt-header__topbar-item--langs"
-        drop="down" alignRight
+        drop="down"
+        alignRight
       >
         <Dropdown.Toggle as={HeaderDropdownToggle} id="dropdown-toggle-my-cart">
           <span
@@ -69,7 +70,7 @@ class LanguageSelector extends React.Component {
                   onClick={() => {
                     setLanguage(language.lang);
                     this.setState({ open: false });
-                    setTimeout(()=> window.location.reload(), 400);
+                    setTimeout(() => window.location.reload(), 400);
                   }}
                   className={clsx("kt-nav__link", {
                     "kt-nav__link--active":

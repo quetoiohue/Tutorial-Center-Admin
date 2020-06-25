@@ -35,15 +35,13 @@ const EnhancedTableToolbar = props => {
   const classes = useToolbarStyles();
 
   return (
-    <Toolbar
-      className={classes.root}
-    >
-      <div className={classes.title}> 
-          <SearchBar
-            onChange={props.onChangeSearch}
-            value={props.searchText}
-            placeholder={"Search name"}
-          />
+    <Toolbar className={classes.root}>
+      <div className={classes.title}>
+        <SearchBar
+          onChange={props.onChangeSearch}
+          value={props.searchText}
+          placeholder={"Search name"}
+        />
       </div>
       <div className={classes.spacer} />
     </Toolbar>

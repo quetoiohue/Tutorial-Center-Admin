@@ -8,7 +8,6 @@ import * as builder from "../../ducks/builder";
 import { ReactComponent as AngleDoubleLeftIcon } from "../assets/layout-svg-icons/Angle-double-left.svg";
 import { ReactComponent as AngleDoubleRightIcon } from "../assets/layout-svg-icons/Angle-double-right.svg";
 
-
 class Brand extends React.Component {
   ktToggleRef = React.createRef();
 

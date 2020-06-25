@@ -24,7 +24,7 @@ export const Routes = withRouter(({ history }) => {
     ({ auth, urls, builder: { menuConfig } }) => ({
       menuConfig,
       isAuthorized: Boolean(auth.authToken),
-      userLastLocation: routerHelpers.getLastLocation(),
+      userLastLocation: routerHelpers.getLastLocation()
     }),
     shallowEqual
   );

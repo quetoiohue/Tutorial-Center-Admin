@@ -4,12 +4,11 @@ import { createData, headRows } from "../../mockData/roles";
 import MatTable from "../../partials/content/Table";
 import roleActions from "../../store/ducks/actions/roles";
 
-
 const Roles = () => {
   const dispatch = useDispatch();
   const [pagination, setPagination] = React.useState({ offset: 0, limit: 5 });
 
-  const { roles, isFetching } = useSelector((store) => store.roleList);
+  const { roles, isFetching } = useSelector(store => store.roleList);
 
   React.useEffect(() => {
     dispatch(roleActions.getRoles());

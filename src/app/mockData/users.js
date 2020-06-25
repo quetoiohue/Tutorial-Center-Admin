@@ -1,15 +1,15 @@
 // ================== Hard code ================
 export const periodOptions = [
-  {value: 'day', label: 'Daily'},
-  {value: 'month', label: 'Monthly'},
-  {value: 'year', label: 'Yearly'}
-]
+  { value: "day", label: "Daily" },
+  { value: "month", label: "Monthly" },
+  { value: "year", label: "Yearly" }
+];
 export const roleOptions = [
   { title: "post-tutorial" },
   { title: "comment" },
   { title: "like" },
-  { title: "admin"},
-  { title: "create-tutorial"},
+  { title: "admin" },
+  { title: "create-tutorial" }
 ];
 
 export function createData(
@@ -30,7 +30,7 @@ export function createData(
     role,
     last_modified,
     last_created,
-    actions,
+    actions
   };
 }
 export const headRows = [
@@ -39,50 +39,50 @@ export const headRows = [
     numeric: false,
     disablePadding: false,
     sortable: true,
-    label: "Username",
+    label: "Username"
   },
   {
     id: "email",
     numeric: false,
     sortable: true,
     disablePadding: false,
-    label: "Email",
+    label: "Email"
   },
   {
     id: "isActive",
     numeric: false,
     sortable: true,
     disablePadding: false,
-    label: "isActive",
+    label: "isActive"
   },
   {
     id: "role",
     numeric: false,
     sortable: false,
     disablePadding: false,
-    label: "Roles",
+    label: "Roles"
   },
   {
     id: "last_modified",
     numeric: false,
     sortable: true,
     disablePadding: false,
-    label: "Last modified",
+    label: "Last modified"
   },
   {
     id: "last_created",
     numeric: false,
     sortable: true,
     disablePadding: false,
-    label: "Last Created",
+    label: "Last Created"
   },
   {
     id: "actions",
     numeric: false,
     sortable: false,
     disablePadding: false,
-    label: "Actions",
-  },
+    label: "Actions"
+  }
 ];
 
 export const rowsData = [...Array(13).keys()].map((_item, index) => {

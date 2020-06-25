@@ -7,7 +7,7 @@ import clsx from "clsx";
 
 export default class MenuItem extends React.Component {
   asideLeftLIRef = React.createRef();
-  isDropdown =  document.body.classList.contains("kt-aside-menu--dropdown");
+  isDropdown = document.body.classList.contains("kt-aside-menu--dropdown");
 
   submenuToggle =
     this.props.item.toggle === "click"

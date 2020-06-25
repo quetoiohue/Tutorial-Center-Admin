@@ -17,9 +17,6 @@ import "./_metronic/_assets/plugins/flaticon2/flaticon.css";
 import "./_metronic/_assets/plugins/line-awesome/css/line-awesome.css";
 
 ReactDOM.render(
-  <App
-    store={store}
-    persistor={persistor}
-  />,
+  <App store={store} persistor={persistor} />,
   document.getElementById("root")
 );

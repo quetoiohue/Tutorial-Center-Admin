@@ -7,16 +7,19 @@ import {
   MultiSelectField,
   validateForm
 } from "../../../partials/content/Form";
-import userActions from '../../../store/ducks/actions/users';
+import userActions from "../../../store/ducks/actions/users";
 
 const EditUserForm = ({ open, handleClose, selected }) => {
   const dispatch = useDispatch();
-  const { roleList } =  useSelector(store => store) || {};
+  const { roleList } = useSelector(store => store) || {};
   const { roles: defaultRoles } = roleList;
 
   const [formState, setFormState] = React.useState(() => {
     const { name: username, email, permissions } = selected;
-    const roles = defaultRoles.filter((role) => (permissions.findIndex(_permission => _permission.id === role.id) !== -1));
+    const roles = defaultRoles.filter(
+      role =>
+        permissions.findIndex(_permission => _permission.id === role.id) !== -1
+    );
     console.log("selected", selected, roles);
 
     return { username, email, roles };
@@ -26,26 +29,31 @@ const EditUserForm = ({ open, handleClose, selected }) => {
   const { username, email, roles } = formState;
   console.log(formState);
 
-  const onChangeRole = (values) => {
-    setFormState((prevState) => ({
+  const onChangeRole = values => {
+    setFormState(prevState => ({
       ...prevState,
-      roles: [...values],
+      roles: [...values]
     }));
   };
   const handleChange = ({ value, name }) => {
-    setFormState((prevState) => ({
+    setFormState(prevState => ({
       ...prevState,
-      [name]: value,
+      [name]: value
     }));
   };
 
-  const onSubmit = (event) => {
+  const onSubmit = event => {
     event.preventDefault();
     const isValidateForm = validateForm(formState);
     setIsValidate(isValidateForm);
 
     if (!validateForm(formState)) return;
-    dispatch(userActions.setUserRoles({id: selected.id, roles: roles.map(_role => _role.id)}));
+    dispatch(
+      userActions.setUserRoles({
+        id: selected.id,
+        roles: roles.map(_role => _role.id)
+      })
+    );
     handleClose();
   };
 
@@ -79,7 +87,7 @@ const EditUserForm = ({ open, handleClose, selected }) => {
         style={{
           display: "flex",
           alignItems: "center",
-          justifyContent: "center",
+          justifyContent: "center"
         }}
       >
         <Button type="submit" variant="contained" color="primary">

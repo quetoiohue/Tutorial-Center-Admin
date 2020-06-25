@@ -6,18 +6,18 @@ import messageTypes from "../actionTypes/message";
 
 const actions = {
   getTutorials: () => ({ type: tutorialActions.GET_TUTORIAL_LIST_REQUEST }),
-  getTutorialById: (id) => ({
+  getTutorialById: id => ({
     type: tutorialActions.GET_TUTORIAL_BY_ID_REQUEST,
-    payload: id,
+    payload: id
   }),
-  deleteTutorialById: (params) => ({
+  deleteTutorialById: params => ({
     type: tutorialActions.DELETE_TUTORIAL_REQUEST,
-    payload: params,
+    payload: params
   }),
-  setActiveTutorialById: (params) => ({
+  setActiveTutorialById: params => ({
     type: tutorialActions.UPDATE_TUTORIAL_REQUEST,
-    payload: params,
-  }),
+    payload: params
+  })
 };
 
 export function* tutorialSaga() {
@@ -44,13 +44,13 @@ function* fetchTutorials() {
 
     yield put({
       type: tutorialActions.GET_TUTORIAL_LIST_SUCCESS,
-      payload: data,
+      payload: data
     });
   } catch (error) {
     console.log(error);
     yield put({
       type: tutorialActions.GET_TUTORIAL_LIST_ERROR,
-      payload: error,
+      payload: error
     });
   }
 }
@@ -61,13 +61,13 @@ function* fetchTutorialById(action) {
     const { data } = response;
     yield put({
       type: tutorialActions.GET_TUTORIAL_BY_ID_SUCCESS,
-      payload: data,
+      payload: data
     });
   } catch (error) {
     console.log(error);
     yield put({
       type: tutorialActions.GET_TUTORIAL_BY_ID_ERROR,
-      payload: error,
+      payload: error
     });
   }
 }
@@ -81,18 +81,18 @@ function* handleDeleteTutorialById(action) {
     const { data } = response;
     yield put({
       type: tutorialActions.DELETE_TUTORIAL_SUCCESS,
-      payload: data.id,
+      payload: data.id
     });
     yield put({
       type: messageTypes.SHOW_SUCCESS_MESSAGE,
-      payload: { message: "Tutorial has been deleted successfully!" },
+      payload: { message: "Tutorial has been deleted successfully!" }
     });
   } catch (error) {
     console.log(error);
     yield put({ type: tutorialActions.DELETE_TUTORIAL_ERROR, payload: error });
     yield put({
       type: messageTypes.SHOW_ERROR_MESSAGE,
-      payload: { message: "There's something wrong!" },
+      payload: { message: "There's something wrong!" }
     });
   }
 }
@@ -110,15 +110,15 @@ function* handleSetActiveTutorialById(action) {
       payload: {
         message: `User has been ${
           data.is_active ? "unblocked" : "blocked"
-        } successfully!`,
-      },
+        } successfully!`
+      }
     });
   } catch (error) {
     console.log(error);
     yield put({ type: tutorialActions.UPDATE_TUTORIAL_ERROR, payload: error });
     yield put({
       type: messageTypes.SHOW_ERROR_MESSAGE,
-      payload: { message: "There's something wrong!" },
+      payload: { message: "There's something wrong!" }
     });
   }
 }
