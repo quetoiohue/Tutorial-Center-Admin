@@ -15,9 +15,6 @@ function* fetchRoles() {
   try {
     const response = yield call(roleApi().getRoles);
     const { data } = response;
-
-    console.log("fetchRoles", data);
-
     yield put({ type: roleActions.GET_ROLE_LIST_SUCCESS, payload: data });
   } catch (error) {
     console.log(error);

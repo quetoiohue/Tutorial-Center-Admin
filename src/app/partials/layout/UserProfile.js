@@ -11,7 +11,6 @@ class UserProfile extends React.Component {
   //   super(props);
   // }
   render() {
-    console.log("User", this.props.user);
     const { name } = this.props.user || "";
 
     return (

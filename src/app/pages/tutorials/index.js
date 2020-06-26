@@ -92,8 +92,6 @@ const Tutorials = () => {
     });
   }, [tutorials]);
 
-  console.log(dataRows);
-
   const hasTutorialModalType = (type, selected) => {
     setModal(prevState => ({
       ...prevState,

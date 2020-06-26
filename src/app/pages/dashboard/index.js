@@ -79,7 +79,6 @@ const UserStatistical = () => {
   const { users } = useSelector(store => store.dashboard);
   const { period, handleChangePeriod } = usePeriod();
   const { data, isFetching } = users;
-  console.log("UserStatistical period", period);
 
   React.useEffect(() => {
     dispatch(
@@ -179,7 +178,6 @@ const CommentStatistical = () => {
   }, [period, dispatch]);
 
   const handleChangePeriod = event => {
-    console.log("event.target.value", event.target.value);
     const { value } = event.target;
     setPeriod(value);
   };
@@ -269,7 +267,7 @@ const Dashboard = () => {
         <TrendingUp className="header-toolbar-icon" />
         <h1>Dashboard</h1>
       </div>
-      <div className="row my-3">
+      <div>
         <DashboardStatistical />
       </div>
       <div className="row my-3">

@@ -20,14 +20,12 @@ const EditUserForm = ({ open, handleClose, selected }) => {
       role =>
         permissions.findIndex(_permission => _permission.id === role.id) !== -1
     );
-    console.log("selected", selected, roles);
 
     return { username, email, roles };
   });
   const [isValidate, setIsValidate] = React.useState(true);
 
   const { username, email, roles } = formState;
-  console.log(formState);
 
   const onChangeRole = values => {
     setFormState(prevState => ({

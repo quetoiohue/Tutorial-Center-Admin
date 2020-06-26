@@ -11,7 +11,6 @@ const perfectScrollbarOptions = {
 };
 
 export default function RecentActivities({ getTutorialById }) {
-  console.log("RecentActivities", getTutorialById);
 
   const { last_views } = getTutorialById;
   if (!last_views) return null;

@@ -10,7 +10,6 @@ const BlockTutorialForm = ({ open, handleClose, selected }) => {
 
   const onSubmit = event => {
     event.preventDefault();
-    console.log("set active submit", id, is_active);
     dispatch(tutorialActions.setActiveTutorialById({ id, is_active }));
     handleClose();
   };

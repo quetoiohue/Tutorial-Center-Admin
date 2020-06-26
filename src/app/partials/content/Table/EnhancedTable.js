@@ -39,7 +39,6 @@ function desc(a, b, orderBy) {
 
 function stableSort(array, cmp) {
   const stabilizedThis = array.map((el, index) => [el, index]);
-  console.log("stabilizedThis", stabilizedThis);
 
   stabilizedThis.sort((a, b) => {
     const order = cmp(a[0], b[0]);
@@ -90,7 +89,6 @@ export default function EnhancedTable(props) {
   React.useEffect(() => {
     setRows(rowsProps);
     setHeadRows(headRowsProps);
-    console.log("rowsProps", rowsProps);
   }, [rowsProps, headRowsProps]);
 
   function handleChangeSearchText(value) {

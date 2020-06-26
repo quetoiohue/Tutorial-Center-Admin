@@ -12,7 +12,6 @@ const AddUserForm = ({ open, handleClose }) => {
   const [isValidate, setIsValidate] = React.useState(true);
 
   const { role } = formState;
-  console.log(formState);
 
   const handleChange = ({ name, value }) => {
     setFormState(prevState => ({

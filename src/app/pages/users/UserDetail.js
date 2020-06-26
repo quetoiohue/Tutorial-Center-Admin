@@ -20,7 +20,6 @@ const UserDetail = props => {
   }, [userId, dispatch]);
 
   const handleChange = panel => (event, isExpanded) => {
-    console.log(panel, isExpanded);
     setExpanded(!expanded);
   };
 
