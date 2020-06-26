@@ -12,7 +12,7 @@
         res.sendFile(path.join(__dirname, 'build', 'index.html'));
         });
         app.listen(9000);`
-    + `pm2 start ./index.js`
+    + `pm2 start ./index.js` || `pm2 start my-app/node_modules/react-scripts/scripts/start.js --name "my-app"`
 # Prerequisites deploy:
 
 - nano /etc/apache2/ports.conf: 
