@@ -32,8 +32,8 @@ export default function AuthPage() {
                 <div className="kt-grid__item kt-grid__item--middle">
                   <h3 className="kt-login__title">Welcome to Tcenter Admin!</h3>
                   <h4 className="kt-login__subtitle">
-                    The ultimate Bootstrap & Angular 6 admin theme framework for
-                    next generation web apps.
+                    The Tcenter Admin will help you managing all objects from 
+                    Tcenter App.
                   </h4>
                 </div>
               </div>

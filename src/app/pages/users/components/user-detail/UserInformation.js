@@ -6,7 +6,7 @@ import {
   PortletHeader
 } from "../../../../partials/content/Portlet";
 import moment from "moment";
-import LoadingProgress from "../../../../components/LoadingProgress";
+import LoadingProgress from "../../../../partials/content/LoadingProgress";
 
 const UserInfoFormItem = ({ label, value }) => {
   return (

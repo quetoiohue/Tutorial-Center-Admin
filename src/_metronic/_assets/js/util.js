@@ -285,7 +285,7 @@ var KTUtil = (function() {
       } else if (
         mode == "tablet" &&
         breakpoint >= this.getBreakpoint("md") + 1 &&
-          breakpoint < this.getBreakpoint("lg")
+        breakpoint < this.getBreakpoint("lg")
       ) {
         return true;
       } else if (mode == "mobile" && breakpoint <= this.getBreakpoint("md")) {

@@ -5,7 +5,6 @@ import { metronic } from "../../../_metronic";
 
 const DrawingChart = ({ labels, values, unit, ...props }) => {
   const ref = useRef();
-  console.log("DrawingChart");
 
   const { brandColor, shape2Color, shape3Color } = useSelector(state => ({
     brandColor: metronic.builder.selectors.getConfig(

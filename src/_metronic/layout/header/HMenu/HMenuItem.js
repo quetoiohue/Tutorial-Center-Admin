@@ -245,7 +245,8 @@ export default class HMenuItem extends React.Component {
             )}
 
             {item.submenu.type === "mega" &&
-              item.submenu.columns && item.submenu.columns.length && (
+              item.submenu.columns &&
+              item.submenu.columns.length && (
                 <div className="kt-menu__subnav">
                   <ul className="kt-menu__content">
                     {item.submenu.columns.map((child, index) => {

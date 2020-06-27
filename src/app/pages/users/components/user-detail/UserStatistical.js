@@ -121,6 +121,7 @@ const UserStatistical = props => {
             <DrawingChart
               labels={userChartData.labels}
               values={userChartData.values}
+              unit="tutorial"
             />
           </div>
         </div>

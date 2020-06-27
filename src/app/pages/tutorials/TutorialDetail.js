@@ -11,7 +11,7 @@ import { Chat, ExpandMore, Grade, Visibility } from "@material-ui/icons";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
-import LoadingProgress from "../../components/LoadingProgress";
+import LoadingProgress from "../../partials/content/LoadingProgress";
 import SocialTicket from "../../partials/content/Socials/SocialTicket";
 import tutorialActions from "../../store/ducks/actions/tutorials";
 import RecentActivities from "./components/tutorial-detail/RecentActivities";

@@ -7,7 +7,7 @@ import UserPosts from "./components/user-detail/UserPosts";
 import UserStatistical from "./components/user-detail/UserStatistical";
 import userActions from "../../store/ducks/actions/users";
 import { useDispatch, useSelector } from "react-redux";
-import LoadingProgress from "../../components/LoadingProgress";
+import LoadingProgress from "../../partials/content/LoadingProgress";
 
 const UserDetail = props => {
   const dispatch = useDispatch();

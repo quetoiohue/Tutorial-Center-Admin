@@ -7,11 +7,11 @@ import {
 } from "@material-ui/icons";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import LoadingProgress from "../../components/LoadingProgress";
 import usePeriod from "../../hooks/usePeriod";
 import { periodOptions } from "../../mockData/users";
 import DrawingChart from "../../partials/content/DrawingChart";
 import { SelectField } from "../../partials/content/Form";
+import LoadingProgress from "../../partials/content/LoadingProgress";
 import { Portlet, PortletBody } from "../../partials/content/Portlet";
 import SocialTicket from "../../partials/content/Socials/SocialTicket";
 import dashboadActions from "../../store/ducks/actions/dashboard";
@@ -33,7 +33,7 @@ const DashboardTicket = ({ label, value, icon, color }) => {
 
 const DashboardStatistical = () => {
   const dispatch = useDispatch();
-  const { overview } = useSelector(store => store.dashboard);
+  const { overview } = useSelector((store) => store.dashboard);
   const { data } = overview || {};
   const { view, post, comment, user } = data || {};
 
@@ -76,20 +76,35 @@ const DashboardStatistical = () => {
 
 const UserStatistical = () => {
   const dispatch = useDispatch();
-  const { users } = useSelector(store => store.dashboard);
+  const { users } = useSelector((store) => store.dashboard);
   const { period, handleChangePeriod } = usePeriod();
   const { data, isFetching } = users;
+  const [chartData, setChartData] = React.useState({
+    labels: [],
+    values: [],
+  });
+  const { labels, values } = chartData;
 
   React.useEffect(() => {
     dispatch(
       dashboadActions.getUserOverview({
-        period: period === "day" ? "date" : period
+        period: period === "day" ? "date" : period,
       })
     );
   }, [period, dispatch]);
 
-  const { labels, values } = handleFormatChartData(data, period);
-  console.log("user statistical ", labels, values);
+  React.useEffect(() => {
+    getFormatChartData();
+  }, [getFormatChartData, data]);
+
+  const getFormatChartData = React.useCallback(() => {
+    const { labels, values } = handleFormatChartData(data, period);
+    setChartData((chartData) => ({
+      ...chartData,
+      labels,
+      values,
+    }));
+  }, [data]);
 
   const userStatistical = React.useMemo(() => {
     return (
@@ -114,29 +129,44 @@ const UserStatistical = () => {
         </PortletBody>
       </Portlet>
     );
-  }, [labels, values]);
+  }, [chartData]);
 
   return <>{isFetching ? <LoadingProgress /> : userStatistical}</>;
 };
 
 const TutorialStatistical = () => {
   const dispatch = useDispatch();
-  const { tutorials } = useSelector(store => store.dashboard);
+  const { tutorials } = useSelector((store) => store.dashboard);
   const { period, handleChangePeriod } = usePeriod();
   const { data, isFetching } = tutorials;
+  const [chartData, setChartData] = React.useState({
+    labels: [],
+    values: [],
+  });
+  const { labels, values } = chartData;
 
   React.useEffect(() => {
     dispatch(
       dashboadActions.getTutorialOverview({
-        period: period === "day" ? "date" : period
+        period: period === "day" ? "date" : period,
       })
     );
   }, [period, dispatch]);
 
-  const { labels, values } = handleFormatChartData(data, period);
+  React.useEffect(() => {
+    getFormatChartData();
+  }, [getFormatChartData, data]);
+
+  const getFormatChartData = React.useCallback(() => {
+    const { labels, values } = handleFormatChartData(data, period);
+    setChartData((chartData) => ({
+      ...chartData,
+      labels,
+      values,
+    }));
+  }, [data]);
 
   const tutorialStatistical = React.useMemo(() => {
-    if (!data.length) return null;
     return (
       <Portlet className="kt-portlet--height-fluid kt-portlet--border-bottom-brand">
         <div className="kt-portlet__head kt-portlet__head--select">
@@ -159,33 +189,43 @@ const TutorialStatistical = () => {
         </PortletBody>
       </Portlet>
     );
-  }, [labels, values]);
+  }, [chartData]);
   return <>{isFetching ? <LoadingProgress /> : tutorialStatistical}</>;
 };
 
 const CommentStatistical = () => {
   const dispatch = useDispatch();
-  const { comments } = useSelector(store => store.dashboard);
-  const [period, setPeriod] = React.useState("day");
+  const { comments } = useSelector((store) => store.dashboard);
+  const { period, handleChangePeriod } = usePeriod();
   const { data, isFetching } = comments;
+  const [chartData, setChartData] = React.useState({
+    labels: [],
+    values: [],
+  });
+  const { labels, values } = chartData;
 
   React.useEffect(() => {
     dispatch(
       dashboadActions.getCommentOverview({
-        period: period === "day" ? "date" : period
+        period: period === "day" ? "date" : period,
       })
     );
   }, [period, dispatch]);
 
-  const handleChangePeriod = event => {
-    const { value } = event.target;
-    setPeriod(value);
-  };
+  React.useEffect(() => {
+    getFormatChartData();
+  }, [getFormatChartData, data]);
 
-  const { labels, values } = handleFormatChartData(data, period);
+  const getFormatChartData = React.useCallback(() => {
+    const { labels, values } = handleFormatChartData(data, period);
+    setChartData((chartData) => ({
+      ...chartData,
+      labels,
+      values,
+    }));
+  }, [data]);
 
   const commentStatistical = React.useMemo(() => {
-    if (!data.length) return null;
     return (
       <Portlet className="kt-portlet--height-fluid kt-portlet--border-bottom-brand">
         <div className="kt-portlet__head kt-portlet__head--select">
@@ -209,28 +249,43 @@ const CommentStatistical = () => {
         </PortletBody>
       </Portlet>
     );
-  }, [labels, values]);
+  }, [chartData]);
   return <>{isFetching ? <LoadingProgress /> : commentStatistical}</>;
 };
 
 const ViewStatistical = () => {
   const dispatch = useDispatch();
-  const { views } = useSelector(store => store.dashboard);
+  const { views } = useSelector((store) => store.dashboard);
   const { period, handleChangePeriod } = usePeriod();
   const { data, isFetching } = views;
+  const [chartData, setChartData] = React.useState({
+    labels: [],
+    values: [],
+  });
+  const { labels, values } = chartData;
 
   React.useEffect(() => {
     dispatch(
       dashboadActions.getViewOverview({
-        period: period === "day" ? "date" : period
+        period: period === "day" ? "date" : period,
       })
     );
   }, [period, dispatch]);
 
-  const { labels, values } = handleFormatChartData(data, period);
+  React.useEffect(() => {
+    getFormatChartData();
+  }, [getFormatChartData, data]);
+
+  const getFormatChartData = React.useCallback(() => {
+    const { labels, values } = handleFormatChartData(data, period);
+    setChartData((chartData) => ({
+      ...chartData,
+      labels,
+      values,
+    }));
+  }, [data]);
 
   const viewStatistical = React.useMemo(() => {
-    if (!data.length) return null;
     return (
       <Portlet className="kt-portlet--height-fluid kt-portlet--border-bottom-brand">
         <div className="kt-portlet__head kt-portlet__head--select">
@@ -247,19 +302,18 @@ const ViewStatistical = () => {
         <PortletBody fluid={true}>
           <div className="kt-widget12">
             <div className="kt-widget12__chart" style={{ height: "250px" }}>
-              <DrawingChart labels={labels} values={values} unit="views" />
+              <DrawingChart labels={labels} values={values} unit="view" />
             </div>
           </div>
         </PortletBody>
       </Portlet>
     );
-  }, [labels, values]);
+  }, [chartData]);
 
   return <>{isFetching ? <LoadingProgress /> : viewStatistical}</>;
 };
 
 const Dashboard = () => {
-  console.log("rerender");
   React.useEffect(() => {}, []);
   return (
     <>
@@ -272,16 +326,16 @@ const Dashboard = () => {
       </div>
       <div className="row my-3">
         <div className="col-6">
-          <UserStatistical />
+          <UserStatistical key="UserStatistical" />
         </div>
         <div className="col-6">
-          <TutorialStatistical />
+          <TutorialStatistical key="TutorialStatistical" />
         </div>
         <div className="col-6">
-          <ViewStatistical />
+          <ViewStatistical key="ViewStatistical" />
         </div>
         <div className="col-6">
-          <CommentStatistical />
+          <CommentStatistical key="UserStatistical" />
         </div>
       </div>
     </>

@@ -14,18 +14,19 @@ export function handleFormatChartData(data, period) {
       values = [0, ...values];
     }
   } else if (period === "month") {
-    const defaultMonth = data[0].date
-      ? moment(data[0].date, period)
+    const firstMonth = Date(`20-${data[0].month}-${data[0].year}`);
+    const defaultMonth = firstMonth
+      ? moment(firstMonth)
           .subtract(1, "month")
-          .format('"MMM-YYYY"')
+          .format("MMM-YYYY")
       : 0;
 
-    labels = data.map(_data =>
-      _data.year
-        ? moment(Date(`20-${_data.month}-${_data.year}`)).format("MMM-YYYY")
-        : 0
-    );
-    values = data.map(_data => _data.value);
+      labels = data.map(_data =>
+        _data.year
+          ? moment(Date(`20-${_data.month}-${_data.year}`)).format("MMM-YYYY")
+          : 0
+      );      
+      values = data.map(_data => _data.value);
     if (data.length < 2) {
       labels = [defaultMonth, ...labels];
       values = [0, ...values];
